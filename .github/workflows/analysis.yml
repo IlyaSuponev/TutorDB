@@ -1,0 +1,76 @@
+name: Build and testing
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup gradle
+        run: chmod +x ./gradlew
+
+      - name: Run build
+        run: ./gradlew packageDistributionForCurrentOS
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup gradle
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew allTest
+
+      - name: Run jacoco coverage verification
+        run: ./gradlew jacocoCoverageVerification
+  jacoco-report:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup gradle
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew allTest
+
+      - name: Run jacoco test report generation
+        run: ./gradlew jacocoTestReport
+
+      - name: Add coverage report to PR
+        if: always()
+        uses: madrapps/jacoco-report@v1.7.2
+        with:
+          paths: ${{ github.workspace }}/composeApp/build/reports/jacoco/xml/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup gradle
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew detekt
+
+      - name: Add detekt report to PR
+        if: github.event_name == 'pull_request' && always()
+        uses: IlyaSuponev/detekt-pr-reporter-action@v1.0.5
+        with:
+          report_path: composeApp/build/reports/detekt/detekt.html
+          token: ${{ secrets.GITHUB_TOKEN }}
