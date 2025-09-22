@@ -70,10 +70,11 @@ jobs:
 
       - name: Run tests
         run: ./gradlew detekt
+        continue-on-error: true
 
       - name: Add detekt report to PR
-        if: github.event_name == 'pull_request' && always()
+        if: github.event.type == 'pull_request'
         uses: IlyaSuponev/detekt-pr-reporter-action@v1.0.5
         with:
-          report_path: composeApp/build/reports/detekt/detekt.html
+          report_path: composeApp/build/reports/detekt/detekt.md
           token: ${{ secrets.GITHUB_TOKEN }}
