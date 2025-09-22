@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew jacocoCoverageVerification
   jacoco-report:
     runs-on: ubuntu-latest
-    if: github.event.type == 'pull_request'
+    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -73,7 +73,7 @@ jobs:
         continue-on-error: true
 
       - name: Add detekt report to PR
-        if: github.event.type == 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: IlyaSuponev/detekt-pr-reporter-action@v1.0.5
         with:
           report_path: composeApp/build/reports/detekt/detekt.md
