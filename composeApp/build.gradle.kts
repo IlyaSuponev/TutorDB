@@ -24,9 +24,15 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.jetbrains.exposed.core)
+            implementation(libs.jetbrains.exposed.jdbc)
+            implementation(libs.jetbrains.exposed.kotlin.datetime)
+            implementation(libs.jetbrains.exposed.money)
+            implementation(libs.database.h2)
         }
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
+            implementation(libs.tests.junit.api)
+            implementation(libs.tests.junit.params)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -96,6 +102,7 @@ tasks.withType<Detekt>().configureEach {
 }
 
 tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
     finalizedBy(tasks.named("jacocoTestReport"))
 }
 
@@ -157,6 +164,3 @@ tasks.register<JacocoCoverageVerification>("jacocoCoverageVerification") {
         }
     }
 }
-
-
-
