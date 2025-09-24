@@ -29,6 +29,7 @@ kotlin {
             implementation(libs.jetbrains.exposed.kotlin.datetime)
             implementation(libs.jetbrains.exposed.money)
             implementation(libs.database.h2)
+            implementation(libs.google.libs.phonenumber)
         }
         commonTest.dependencies {
             implementation(libs.tests.jetbrains.kotlin.test)
