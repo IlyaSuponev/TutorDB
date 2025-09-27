@@ -3,7 +3,6 @@ package com.isuponev.tutordb.core.models
 import com.isuponev.tutordb.core.models.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
 import javax.money.MonetaryAmount
-import javax.security.auth.Subject
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 

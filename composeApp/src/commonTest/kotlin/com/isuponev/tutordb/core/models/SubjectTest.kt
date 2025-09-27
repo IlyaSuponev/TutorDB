@@ -38,29 +38,24 @@ class SubjectTest {
         val subject1 = Subject(id, Name.of("Physics"), "Physics description")
         val subject2 = Subject(id, Name.of("Physics"), "Physics description")
 
-        // Then
         assertEquals(subject1, subject2)
         assertEquals(subject1.hashCode(), subject2.hashCode())
     }
 
     @Test
     fun `subjects with different ids should not be equal`() {
-        // Given
         val subject1 = Subject(Uuid.random(), Name.of("Chemistry"), "Chem desc")
         val subject2 = Subject(Uuid.random(), Name.of("Chemistry"), "Chem desc")
 
-        // Then
         assertNotEquals(subject1, subject2)
     }
 
     @Test
     fun `subjects with different names should not be equal`() {
-        // Given
         val id = Uuid.random()
         val subject1 = Subject(id, Name.of("Biology"), "Description")
         val subject2 = Subject(id, Name.of("Geography"), "Description")
 
-        // Then
         assertNotEquals(subject1, subject2)
     }
 
