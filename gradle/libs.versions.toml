@@ -10,6 +10,7 @@ exposed = "1.0.0-rc-1"
 h2 = "2.3.232"
 junit5 = "5.13.4"
 phonenumber = "9.0.14"
+javamoney = "1.4.5"
 
 [libraries]
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
@@ -19,6 +20,7 @@ jetbrains-exposed-core = { module = "org.jetbrains.exposed:exposed-core", versio
 jetbrains-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 jetbrains-exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
 jetbrains-exposed-money = { module = "org.jetbrains.exposed:exposed-money", version.ref = "exposed" }
+java-money = { module = "org.javamoney:moneta", version.ref = "javamoney" }
 database-h2 = { module = "com.h2database:h2", version.ref = "h2" }
 google-libs-phonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "phonenumber" }
 tests-jetbrains-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
