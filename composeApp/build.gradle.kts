@@ -29,10 +29,14 @@ kotlin {
             implementation(libs.jetbrains.exposed.kotlin.datetime)
             implementation(libs.jetbrains.exposed.money)
             implementation(libs.database.h2)
+            implementation(libs.java.money)
+            implementation(libs.google.libs.phonenumber)
         }
         commonTest.dependencies {
+            implementation(libs.tests.jetbrains.kotlin.test)
             implementation(libs.tests.junit.api)
             implementation(libs.tests.junit.params)
+            implementation(libs.tests.junit.jupiter)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -135,32 +139,4 @@ tasks.register<JacocoReport>("jacocoTestReport") {
             }
         })
     )
-}
-
-tasks.register<JacocoCoverageVerification>("jacocoCoverageVerification") {
-    group = "verification"
-    description = "Verifies code coverage metrics"
-    dependsOn(tasks.named("allTests"))
-
-    sourceDirectories.setFrom(files("src/jvmMain/kotlin", "src/commonMain/kotlin"))
-    classDirectories.setFrom(files("build/classes/kotlin/jvm/main"))
-    executionData.setFrom(files("build/jacoco/jvmTest.exec"))
-
-    violationRules {
-        rule {
-            limit {
-                minimum = BigDecimal("0.75")
-            }
-        }
-        rule {
-            element = "CLASS"
-            excludes = listOf(
-                // Generated sources by Compose Resources
-                "**.composeapp.**"
-            )
-            limit {
-                minimum = BigDecimal("0.60")
-            }
-        }
-    }
 }

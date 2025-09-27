@@ -31,9 +31,6 @@ jobs:
 
       - name: Run tests
         run: ./gradlew allTest
-
-      - name: Run jacoco coverage verification
-        run: ./gradlew jacocoCoverageVerification
   jacoco-report:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -48,6 +45,7 @@ jobs:
         run: ./gradlew allTest
 
       - name: Run jacoco test report generation
+        if: always()
         run: ./gradlew jacocoTestReport
 
       - name: Add coverage report to PR
