@@ -13,7 +13,7 @@ plugins {
 
 kotlin {
     jvm()
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -49,16 +49,24 @@ compose {
     resources {
         publicResClass = true
     }
-}
-
-compose.desktop {
-    application {
-        mainClass = "com.isuponev.tutordb.desktop.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.isuponev.tutordb"
-            packageVersion = "1.0.0"
+    desktop {
+        application {
+            mainClass = "com.isuponev.tutordb.desktop.MainKt"
+            nativeDistributions {
+                targetFormats(
+                    TargetFormat.Exe,
+                    TargetFormat.Msi,
+                    TargetFormat.Deb,
+                    TargetFormat.AppImage,
+                    TargetFormat.Dmg,
+                )
+                packageName = "com.isuponev.tutordb"
+                packageVersion = "1.0.0"
+                linux {
+                    println(layout.projectDirectory.file("src/commonMain/composeResources/drawable/logo.jpg"))
+                    iconFile.set(layout.projectDirectory.file("src/commonMain/composeResources/drawable/logo.jpg"))
+                }
+            }
         }
     }
 }
