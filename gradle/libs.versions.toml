@@ -10,10 +10,13 @@ h2 = "2.3.232"
 junit5 = "5.13.4"
 phonenumber = "9.0.14"
 javamoney = "1.4.5"
+icerock-resources = "0.25.0"
 
 [libraries]
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+icerock-resources = { module = "dev.icerock.moko:resources", version.ref = "icerock-resources" }
+icerock-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "icerock-resources" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 jetbrains-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
 jetbrains-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
@@ -26,8 +29,10 @@ tests-jetbrains-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", ver
 tests-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5"}
 tests-junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5"}
 tests-junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5"}
+tests-icerock-resources = { module = "dev.icerock.moko:resources-test", version.ref = "icerock-resources" }
 
 [plugins]
+icerock-resources-multiplatform = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "icerock-resources" }
 jetbrains-compose-hotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
 jetbrains-compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 jetbrains-kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

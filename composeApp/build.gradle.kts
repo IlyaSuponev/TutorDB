@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose.multiplatform)
     alias(libs.plugins.jetbrains.kotlin.compose.compiler)
     alias(libs.plugins.jetbrains.compose.hotReload)
+    alias(libs.plugins.icerock.resources.multiplatform)
     alias(libs.plugins.arturbosch.detekt)
     jacoco
 }
@@ -19,9 +20,12 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
-            implementation(compose.components.resources)
+            implementation(compose.material)
+            implementation(compose.material3AdaptiveNavigationSuite)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.icerock.resources)
+            implementation(libs.icerock.resources.compose)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.jetbrains.exposed.core)
@@ -37,6 +41,7 @@ kotlin {
             implementation(libs.tests.junit.api)
             implementation(libs.tests.junit.params)
             implementation(libs.tests.junit.jupiter)
+            implementation(libs.tests.icerock.resources)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -46,9 +51,6 @@ kotlin {
 }
 
 compose {
-    resources {
-        publicResClass = true
-    }
     desktop {
         application {
             mainClass = "com.isuponev.tutordb.desktop.MainKt"
@@ -63,12 +65,16 @@ compose {
                 packageName = "com.isuponev.tutordb"
                 packageVersion = "1.0.0"
                 linux {
-                    println(layout.projectDirectory.file("src/commonMain/composeResources/drawable/logo.jpg"))
                     iconFile.set(layout.projectDirectory.file("src/commonMain/composeResources/drawable/logo.jpg"))
                 }
             }
         }
     }
+}
+
+multiplatformResources {
+    resourcesPackage.set("com.isuponev.tutordb.core.resources")
+    resourcesClassName.set("SharedResources")
 }
 
 detekt {
