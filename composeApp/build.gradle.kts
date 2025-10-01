@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.jetbrains.compose.multiplatform)
     alias(libs.plugins.jetbrains.kotlin.compose.compiler)
     alias(libs.plugins.jetbrains.compose.hotReload)
-    alias(libs.plugins.jetbrains.dokka)
     alias(libs.plugins.arturbosch.detekt)
     jacoco
 }
@@ -21,6 +20,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation(compose.materialIconsExtended)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
@@ -68,25 +68,6 @@ compose {
                 }
             }
         }
-    }
-}
-
-dokka {
-    moduleName.set(rootProject.name)
-    moduleVersion.set(rootProject.version.toString())
-    dokkaPublications.html {
-        outputDirectory.set(rootDir.resolve("docs/html"))
-    }
-    dokkaSourceSets.named("commonMain") {
-        displayName.set("${rootProject.name} Core")
-        includes.from("src/commonMain/README.md")
-    }
-    dokkaSourceSets.named("jvmMain") {
-        displayName.set("${rootProject.name} Desktop")
-        includes.from("src/jvmMain/README.md")
-    }
-    pluginsConfiguration.html {
-        footerMessage.set("(c) Ilya Suponev")
     }
 }
 
