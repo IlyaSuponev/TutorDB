@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- App strings -->
+    <string name="appName">TutorDB</string>
+    <string name="appVersion">1.0.0</string>
+
+    <!-- Menus name strings in EN localization -->
+    <string name="menuStudents">Students</string>
+    <string name="menuLessons">Lessons</string>
+    <string name="menuSubjects">Subjects</string>
+    <string name="menuIncomes">Incomes</string>
+</resources>

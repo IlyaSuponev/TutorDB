@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- Menus name strings -->
+    <string name="menuStudents">Студенты</string>
+    <string name="menuLessons">Занятия</string>
+    <string name="menuSubjects">Предметы</string>
+    <string name="menuIncomes">Доходы</string>
+</resources>
