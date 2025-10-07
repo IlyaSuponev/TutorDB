@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose.multiplatform)
     alias(libs.plugins.jetbrains.kotlin.compose.compiler)
     alias(libs.plugins.jetbrains.compose.hotReload)
+    alias(libs.plugins.jetbrains.kotlinx.serialization)
     alias(libs.plugins.icerock.resources.multiplatform)
     alias(libs.plugins.arturbosch.detekt)
     jacoco
@@ -20,14 +21,16 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.uiUtil)
             implementation(compose.material)
             implementation(compose.material3AdaptiveNavigationSuite)
             implementation(compose.materialIconsExtended)
-            implementation(compose.components.uiToolingPreview)
             implementation(libs.icerock.resources)
             implementation(libs.icerock.resources.compose)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.jetbrains.androidx.navigation.compose)
+            implementation(libs.jetbrains.kotlinx.serialization.json)
             implementation(libs.jetbrains.exposed.core)
             implementation(libs.jetbrains.exposed.jdbc)
             implementation(libs.jetbrains.exposed.kotlin.datetime)
@@ -42,10 +45,13 @@ kotlin {
             implementation(libs.tests.junit.params)
             implementation(libs.tests.junit.jupiter)
             implementation(libs.tests.icerock.resources)
+            implementation(libs.tests.androidx.navigation)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
+        }
+        all {
+            languageSettings.enableLanguageFeature("NestedTypeAliases")
         }
     }
 }
