@@ -13,6 +13,7 @@ phonenumber = "9.0.14"
 javamoney = "1.4.5"
 icerock-resources = "0.25.0"
 navigation = "2.9.0"
+kermit = "2.0.8"
 
 [libraries]
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
@@ -27,6 +28,7 @@ jetbrains-exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-ko
 jetbrains-exposed-money = { module = "org.jetbrains.exposed:exposed-money", version.ref = "exposed" }
 java-money = { module = "org.javamoney:moneta", version.ref = "javamoney" }
 database-h2 = { module = "com.h2database:h2", version.ref = "h2" }
+touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit"}
 google-libs-phonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "phonenumber" }
 tests-androidx-navigation = { module = "androidx.navigation:navigation-testing", version.ref = "navigation" }
 tests-jetbrains-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

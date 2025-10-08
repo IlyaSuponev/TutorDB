@@ -38,6 +38,7 @@ kotlin {
             implementation(libs.database.h2)
             implementation(libs.java.money)
             implementation(libs.google.libs.phonenumber)
+            implementation(libs.touchlab.kermit)
         }
         commonTest.dependencies {
             implementation(libs.tests.jetbrains.kotlin.test)
