@@ -28,6 +28,28 @@ import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 
+/**
+ * The main screen of the application displaying the primary navigation menu.
+ *
+ * This screen presents a grid-like layout of interactive cards that serve as
+ * the main navigation menu for accessing different features of the application.
+ * Each card represents a major functional area and provides visual feedback
+ * through hover effects and consistent styling.
+ *
+ * #### Screen Layout:
+ * - Two rows of menu cards
+ * - Each row contains two cards arranged horizontally
+ * - Cards feature icons and labels for clear identification
+ * - Responsive layout that adapts to different screen sizes
+ *
+ * #### Menu Categories:
+ * - Students management
+ * - Subjects management
+ * - Lessons scheduling
+ * - Income tracking
+ *
+ * @see Screen for the base screen class implementation
+ */
 object MainScreen : Screen(
     SharedResources.strings.routeOfMainMenu.localized()
 ) {

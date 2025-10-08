@@ -1,29 +1,6 @@
 package com.isuponev.tutordb.core.views
 
 import androidx.compose.ui.unit.dp
-import com.isuponev.tutordb.core.views.AppDefaults.Arrangements.BIG
-import com.isuponev.tutordb.core.views.AppDefaults.Arrangements.MEDIUM
-import com.isuponev.tutordb.core.views.AppDefaults.Arrangements.SMALL
-import com.isuponev.tutordb.core.views.AppDefaults.Arrangements.ZERO
-import com.isuponev.tutordb.core.views.AppDefaults.Paddings.BIG
-import com.isuponev.tutordb.core.views.AppDefaults.Paddings.MEDIUM
-import com.isuponev.tutordb.core.views.AppDefaults.Paddings.SMALL
-import com.isuponev.tutordb.core.views.AppDefaults.Paddings.ZERO
-import com.isuponev.tutordb.core.views.AppDefaults.Scales.BIG
-import com.isuponev.tutordb.core.views.AppDefaults.Scales.INITIAL
-import com.isuponev.tutordb.core.views.AppDefaults.Scales.MEDIUM
-import com.isuponev.tutordb.core.views.AppDefaults.Scales.SMALL
-import com.isuponev.tutordb.core.views.AppDefaults.Scales.ZERO
-import com.isuponev.tutordb.core.views.AppDefaults.Sizes.LOGO_ICON_SIZE
-import com.isuponev.tutordb.core.views.AppDefaults.Sizes.TOOL_ICON_SIZE
-import com.isuponev.tutordb.core.views.AppDefaults.Sizes.ZERO
-import com.isuponev.tutordb.core.views.AppDefaults.Weights.ONE
-import com.isuponev.tutordb.core.views.AppDefaults.Weights.THREE
-import com.isuponev.tutordb.core.views.AppDefaults.Weights.TWO
-import com.isuponev.tutordb.core.views.AppDefaults.Widths.Borders.FAT
-import com.isuponev.tutordb.core.views.AppDefaults.Widths.Borders.INITIAL
-import com.isuponev.tutordb.core.views.AppDefaults.Widths.Borders.THIN
-import com.isuponev.tutordb.core.views.AppDefaults.Widths.TOOLS_MENU
 
 /**
  * A centralized configuration object for application-wide design constants.
