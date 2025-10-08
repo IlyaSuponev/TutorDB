@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.unit.dp
-import com.isuponev.tutordb.core.NON_SCALED_MULTIPLIER
+import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.defaults.CardWidgetElevationDefaults
 import com.isuponev.tutordb.core.views.widgets.values.Elevation
 
@@ -51,7 +51,7 @@ import com.isuponev.tutordb.core.views.widgets.values.Elevation
  *   Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param content The content to be displayed inside the card.
  */
@@ -64,7 +64,7 @@ fun CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
     content: @Composable () -> Unit
 ) {
@@ -78,7 +78,7 @@ fun CardWidget(
         animationSpec = elevationAnimationSpec
     )
     val scale by animateFloatAsState(
-        if (isHovered) scaleOnHover else NON_SCALED_MULTIPLIER,
+        if (isHovered) scaleOnHover else AppDefaults.Scales.INITIAL,
         animationSpec = scaleAnimationSpec
     )
 
@@ -88,7 +88,7 @@ fun CardWidget(
                 shape = cardShape
                 clip = true
                 shadowElevation = elevation
-                if (scaleOnHover != NON_SCALED_MULTIPLIER) {
+                if (scaleOnHover != AppDefaults.Scales.INITIAL) {
                     scaleX = scale
                     scaleY = scale
                 }
@@ -123,7 +123,7 @@ fun CardWidget(
  *   Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param contentPadding The padding to be applied to the content inside the card.
  *   Defaults to [PaddingValues()] (no padding).
@@ -138,9 +138,9 @@ fun <S : BoxScope> CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
-    contentPadding: PaddingValues = PaddingValues(),
+    contentPadding: PaddingValues = PaddingValues(AppDefaults.Paddings.ZERO),
     alignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit
 ) = CardWidget(
@@ -180,7 +180,7 @@ fun <S : BoxScope> CardWidget(
  *   Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param contentPadding The padding to be applied to the content inside the card.
  *   Defaults to [PaddingValues()] (no padding).
@@ -195,9 +195,9 @@ fun <S : RowScope> CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
-    contentPadding: PaddingValues = PaddingValues(),
+    contentPadding: PaddingValues = PaddingValues(AppDefaults.Paddings.ZERO),
     alignment: Alignment.Vertical = Alignment.Top,
     content: @Composable RowScope.() -> Unit
 ) = CardWidget(
@@ -237,7 +237,7 @@ fun <S : RowScope> CardWidget(
  *   Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param contentPadding The padding to be applied to the content inside the card.
  *   Defaults to [PaddingValues()] (no padding).
@@ -252,9 +252,9 @@ fun <S : ColumnScope> CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
-    contentPadding: PaddingValues = PaddingValues(),
+    contentPadding: PaddingValues = PaddingValues(AppDefaults.Paddings.ZERO),
     alignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit
 ) = CardWidget(
@@ -294,7 +294,7 @@ fun <S : ColumnScope> CardWidget(
  *   (default, hovered, pressed, disabled, tonal). Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param content The content to be displayed inside the card.
  */
@@ -308,7 +308,7 @@ fun CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
     content: @Composable () -> Unit
 ) {
@@ -324,7 +324,7 @@ fun CardWidget(
         animationSpec = elevationAnimationSpec
     )
     val scale by animateFloatAsState(
-        if (isHovered) scaleOnHover else NON_SCALED_MULTIPLIER,
+        if (isHovered) scaleOnHover else AppDefaults.Scales.INITIAL,
         animationSpec = scaleAnimationSpec
     )
 
@@ -334,7 +334,7 @@ fun CardWidget(
                 shape = cardShape
                 clip = true
                 shadowElevation = elevation
-                if (scaleOnHover != NON_SCALED_MULTIPLIER) {
+                if (scaleOnHover != AppDefaults.Scales.INITIAL) {
                     scaleX = scale
                     scaleY = scale
                 }
@@ -376,7 +376,7 @@ fun CardWidget(
  *   Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param contentPadding The padding to be applied to the content inside the card.
  *   Defaults to [PaddingValues()] (no padding).
@@ -392,9 +392,9 @@ fun <S : BoxScope> CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
-    contentPadding: PaddingValues = PaddingValues(),
+    contentPadding: PaddingValues = PaddingValues(AppDefaults.Paddings.ZERO),
     alignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit
 ) = CardWidget(
@@ -438,7 +438,7 @@ fun <S : BoxScope> CardWidget(
  *   Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param contentPadding The padding to be applied to the content inside the card.
  *   Defaults to [PaddingValues()] (no padding).
@@ -454,9 +454,9 @@ fun <S : RowScope> CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
-    contentPadding: PaddingValues = PaddingValues(),
+    contentPadding: PaddingValues = PaddingValues(AppDefaults.Paddings.ZERO),
     alignment: Alignment.Vertical = Alignment.Top,
     content: @Composable RowScope.() -> Unit
 ) = CardWidget(
@@ -500,7 +500,7 @@ fun <S : RowScope> CardWidget(
  *   Defaults to [CardWidgetElevationDefaults.toElevation()].
  * @param elevationAnimationSpec The animation spec for elevation changes. Defaults to [tween()].
  * @param scaleOnHover The scale factor to apply when the card is hovered. A value of 1f means no scaling.
- *   Defaults to [NON_SCALED_MULTIPLIER].
+ *   Defaults to [AppDefaults.Scales.INITIAL].
  * @param scaleAnimationSpec The animation spec for scale changes. Defaults to the same as [elevationAnimationSpec].
  * @param contentPadding The padding to be applied to the content inside the card.
  *   Defaults to [PaddingValues()] (no padding).
@@ -516,9 +516,9 @@ fun <S : ColumnScope> CardWidget(
     isEnabled: Boolean = true,
     cardElevation: Elevation = CardWidgetElevationDefaults.toElevation(),
     elevationAnimationSpec: AnimationSpec<Float> = tween(),
-    scaleOnHover: Float = NON_SCALED_MULTIPLIER,
+    scaleOnHover: Float = AppDefaults.Scales.INITIAL,
     scaleAnimationSpec: AnimationSpec<Float> = elevationAnimationSpec,
-    contentPadding: PaddingValues = PaddingValues(),
+    contentPadding: PaddingValues = PaddingValues(AppDefaults.Paddings.ZERO),
     alignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit
 ) = CardWidget(

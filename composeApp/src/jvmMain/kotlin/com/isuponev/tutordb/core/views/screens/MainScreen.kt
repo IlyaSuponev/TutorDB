@@ -4,11 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.Money
@@ -23,19 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.resources.SharedResources
+import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 
-object MainScreen : Screen("/") {
+object MainScreen : Screen(
+    SharedResources.strings.routeOfMainMenu.localized()
+) {
     private typealias CardContent = Triple<() -> Unit, ImageVector, String>
-
-    private const val MAIN_MENU_CARD_SCALE_ON_HOVER = 1.05f
-    private const val MAIN_MENU_CARD_WEIGHT = 1f
-    private const val MAIN_MENU_CARD_ROW_WEIGHT = 1f
-    private val MAIN_MENU_CARD_ARRANGEMENT_SPACE = 24.dp
-    private val MAIN_MENU_CONTENT_PADDING = 16.dp
 
     @Composable
     private fun MainScreenMenuCard(
@@ -49,13 +45,16 @@ object MainScreen : Screen("/") {
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         ),
-        scaleOnHover = MAIN_MENU_CARD_SCALE_ON_HOVER,
+        scaleOnHover = AppDefaults.Scales.SMALL,
         alignment = Alignment.CenterHorizontally,
+        contentPadding = PaddingValues(AppDefaults.Paddings.BIG)
     ) {
         Image(
             content.second,
             contentDescription = content.third,
-            modifier = Modifier.size(128.dp).weight(1f),
+            modifier = Modifier
+                .weight(AppDefaults.Weights.ONE)
+                .fillMaxSize(),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimaryContainer)
         )
         Text(
@@ -71,12 +70,12 @@ object MainScreen : Screen("/") {
         modifier: Modifier = Modifier,
     ) = Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(MAIN_MENU_CARD_ARRANGEMENT_SPACE),
+        horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG),
     ) {
         contentElements.forEach { content ->
             MainScreenMenuCard(
                 modifier = Modifier
-                    .weight(MAIN_MENU_CARD_WEIGHT)
+                    .weight(AppDefaults.Weights.ONE)
                     .fillMaxSize(),
                 content = content
             )
@@ -89,12 +88,14 @@ object MainScreen : Screen("/") {
         modifier: Modifier
     ) = Column(
         modifier
-            .padding(MAIN_MENU_CONTENT_PADDING)
+            .padding(AppDefaults.Paddings.BIG)
             .fillMaxSize(),
-        Arrangement.spacedBy(MAIN_MENU_CARD_ARRANGEMENT_SPACE)
+        Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
     ) {
         MainScreenMenuCardRow(
-            modifier = Modifier.weight(MAIN_MENU_CARD_ROW_WEIGHT).fillMaxWidth(),
+            modifier = Modifier
+                .weight(AppDefaults.Weights.ONE)
+                .fillMaxWidth(),
             contentElements = listOf(
                 CardContent(
                     {
@@ -113,7 +114,9 @@ object MainScreen : Screen("/") {
             )
         )
         MainScreenMenuCardRow(
-            modifier = Modifier.weight(MAIN_MENU_CARD_ROW_WEIGHT).fillMaxWidth(),
+            modifier = Modifier
+                .weight(AppDefaults.Weights.ONE)
+                .fillMaxWidth(),
             contentElements = listOf(
                 CardContent(
                     {

@@ -1,7 +1,5 @@
 package com.isuponev.tutordb.core
 
-import androidx.compose.ui.unit.dp
-
 /**
  * A constant value used for hash code calculation in hash-based algorithms.
  *
@@ -59,40 +57,3 @@ import androidx.compose.ui.unit.dp
  * @see kotlin.comparisons for hash code comparison utilities
  */
 const val HASH_CODE_NUMBER_GENERATOR = 31
-
-/**
- * A constant used as a multiplier for values that don't require scaling.
- *
- * This constant simplifies the process of applying no scaling factor in calculations where a
- * multiplier is needed, improving code readability and maintainability.  It is particularly
- * useful when dealing with visual properties, sizes, or quantities that should be displayed
- * without any adjustment.
- *
- * ## Best Practices
- * - Use this constant consistently when you need to represent unscaled values.
- * - Makes code clearer when you explicitly specify that no scaling is intended.
- */
-const val NON_SCALED_MULTIPLIER = 1f
-
-/**
- * Constant representing the size of the logo image.
- *
- * This constant defines a standard size for the logo image within the application's UI. Using a
- * constant ensures consistency across the application and facilitates easy adjustments if the
- * logo size needs to be changed. It is defined using the `dp` (density-independent pixels)
- * unit, making it compatible with Compose UI.
- *
- * ###### Usage Example:
- * ```kotlin
- *  val logoImage = Image(
- *      painter = painterResource(Res.drawable.logo),
- *      contentDescription = "App Logo",
- *      modifier = Modifier.size(LOGO_IMAGE_SIZE)
- *  )
- * ```
- *
- * ###### Best Practices
- * - Use this constant when referencing the size of the logo image throughout the application.
- * - Update the constant value here to change the logo size globally.
- */
-val LOGO_IMAGE_SIZE = 64.dp

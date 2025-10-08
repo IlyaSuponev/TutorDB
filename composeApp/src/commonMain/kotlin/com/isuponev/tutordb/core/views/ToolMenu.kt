@@ -69,7 +69,7 @@ typealias ToolMenuElement = Triple<String, ImageVector, () -> Unit>
  * @see ToolMenuElement for the structure of individual menu items
  */
 @Composable
-expect fun ToolMenu(
+internal expect fun ToolMenu(
     modifier: Modifier = Modifier,
     toolMenuElements: List<ToolMenuElement> = emptyList()
 )
