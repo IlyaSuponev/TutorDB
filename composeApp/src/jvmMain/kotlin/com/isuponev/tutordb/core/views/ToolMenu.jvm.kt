@@ -20,47 +20,46 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
 import com.isuponev.tutordb.core.resources.SharedResources
 import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
-actual fun ToolMenu(
+internal actual fun ToolMenu(
     modifier: Modifier,
     toolMenuElements: List<ToolMenuElement>
 ) = Column(
     modifier
-        .padding(all = 4.dp)
+        .padding(AppDefaults.Paddings.SMALL)
         .background(
             MaterialTheme.colorScheme.primaryContainer,
             MaterialTheme.shapes.medium
         ),
-    verticalArrangement = Arrangement.spacedBy(8.dp),
+    verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.SMALL),
     horizontalAlignment = Alignment.CenterHorizontally,
 ) {
     Image(
         painter = painterResource(SharedResources.images.logo),
         contentDescription = "app-logo",
         modifier = Modifier
-            .size(64.dp)
+            .size(AppDefaults.Sizes.LOGO_ICON_SIZE)
             .clip(CircleShape)
             .border(
-                1.dp,
+                AppDefaults.Widths.Borders.THIN,
                 MaterialTheme.colorScheme.onPrimaryContainer,
                 CircleShape
             )
     )
     LazyColumn(
-        Modifier.weight(1f),
+        Modifier.weight(AppDefaults.Weights.ONE),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.SMALL)
     ) {
         items(toolMenuElements) { element: ToolMenuElement ->
             Icon(
                 imageVector = element.second,
                 contentDescription = element.first,
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(AppDefaults.Sizes.TOOL_ICON_SIZE)
                     .clip(CircleShape)
                     .clickable(onClick = element.third),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
@@ -71,15 +70,13 @@ actual fun ToolMenu(
     IconButton(
         onClick = {
             println("Settings")
-        },
-        modifier = Modifier
-
+        }
     ) {
         Icon(
             Icons.Default.Settings,
             "Settings",
             modifier = Modifier
-                .size(64.dp)
+                .size(AppDefaults.Sizes.TOOL_ICON_SIZE)
                 .clip(CircleShape),
             tint = MaterialTheme.colorScheme.onPrimaryContainer
         )

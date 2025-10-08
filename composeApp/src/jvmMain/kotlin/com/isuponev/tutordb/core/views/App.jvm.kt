@@ -16,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,15 +29,15 @@ internal actual fun AppMainContainerGeneration(
     startDestination: Screen,
     modifier: Modifier,
 ) = Row(
-    modifier = modifier.fillMaxSize().padding(16.dp),
-    horizontalArrangement = Arrangement.spacedBy(16.dp),
+    modifier = modifier.fillMaxSize().padding(AppDefaults.Paddings.BIG),
+    horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM),
     verticalAlignment = Alignment.CenterVertically,
 ) {
     var tools by remember { mutableStateOf(emptyList<ToolMenuElement>()) }
     ToolMenu(
         Modifier
             .fillMaxHeight()
-            .width(72.dp),
+            .width(AppDefaults.Widths.TOOLS_MENU),
         tools
     )
     Box(

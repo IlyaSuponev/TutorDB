@@ -3,8 +3,12 @@
     <!-- App strings -->
     <string name="appName">TutorDB</string>
     <string name="appVersion">1.0.0</string>
+    <string name="fullAppName">TutorDB 1.0.0</string>
 
-    <!-- Menus name strings in EN localization -->
+    <!-- Screens routes -->
+    <string name="routeOfMainMenu">/</string>
+
+    <!-- Menus name strings in EN localization as default -->
     <string name="menuStudents">Students</string>
     <string name="menuLessons">Lessons</string>
     <string name="menuSubjects">Subjects</string>
