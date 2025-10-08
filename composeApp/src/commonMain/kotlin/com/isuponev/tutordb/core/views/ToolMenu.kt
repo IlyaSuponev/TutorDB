@@ -3,6 +3,7 @@ package com.isuponev.tutordb.core.views
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavHostController
 
 /**
  * Represents a single element in the toolbar menu.
@@ -10,7 +11,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * A toolbar menu element is defined as a triple containing:
  * - First: `String` - The label/text to display for the menu item
  * - Second: `ImageVector` - The icon to display for the menu item
- * - Third: `() -> Unit` - The click handler callback function
+ * - Third: `(NavHostController) -> Unit` - The click handler callback function
  *
  * This type alias provides a convenient way to define toolbar menu items
  * with their essential properties in a structured format.
@@ -32,7 +33,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  *
  * @see ToolMenu for the composable that uses these elements
  */
-typealias ToolMenuElement = Triple<String, ImageVector, () -> Unit>
+typealias ToolMenuElement = Triple<String, ImageVector, (NavHostController) -> Unit>
 
 /**
  * A platform-specific toolbar menu composable.
@@ -71,5 +72,6 @@ typealias ToolMenuElement = Triple<String, ImageVector, () -> Unit>
 @Composable
 internal expect fun ToolMenu(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
     toolMenuElements: List<ToolMenuElement> = emptyList()
 )

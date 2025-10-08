@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -20,12 +21,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.resources.SharedResources
+import com.isuponev.tutordb.core.views.screens.MainScreen
+import com.isuponev.tutordb.core.views.screens.SettingsScreen
+import com.isuponev.tutordb.core.views.screens.navigate
 import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 internal actual fun ToolMenu(
     modifier: Modifier,
+    navController: NavHostController,
     toolMenuElements: List<ToolMenuElement>
 ) = Column(
     modifier
@@ -33,7 +39,7 @@ internal actual fun ToolMenu(
         .background(
             MaterialTheme.colorScheme.primaryContainer,
             MaterialTheme.shapes.medium
-        ),
+        ).width(AppDefaults.Widths.TOOLS_MENU),
     verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.SMALL),
     horizontalAlignment = Alignment.CenterHorizontally,
 ) {
@@ -47,7 +53,9 @@ internal actual fun ToolMenu(
                 AppDefaults.Widths.Borders.THIN,
                 MaterialTheme.colorScheme.onPrimaryContainer,
                 CircleShape
-            )
+            ).clickable {
+                navController.navigate(target = MainScreen)
+            }
     )
     LazyColumn(
         Modifier.weight(AppDefaults.Weights.ONE),
@@ -61,7 +69,7 @@ internal actual fun ToolMenu(
                 modifier = Modifier
                     .size(AppDefaults.Sizes.TOOL_ICON_SIZE)
                     .clip(CircleShape)
-                    .clickable(onClick = element.third),
+                    .clickable(onClick = { element.third(navController) }),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
 
             )
@@ -69,12 +77,12 @@ internal actual fun ToolMenu(
     }
     IconButton(
         onClick = {
-            println("Settings")
+            navController.navigate(target = SettingsScreen)
         }
     ) {
         Icon(
             Icons.Default.Settings,
-            "Settings",
+            SharedResources.strings.screenSettings.localized(),
             modifier = Modifier
                 .size(AppDefaults.Sizes.TOOL_ICON_SIZE)
                 .clip(CircleShape),

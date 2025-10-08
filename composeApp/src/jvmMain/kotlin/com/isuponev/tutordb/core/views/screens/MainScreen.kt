@@ -51,7 +51,7 @@ import com.isuponev.tutordb.core.views.widgets.CardWidget
  * @see Screen for the base screen class implementation
  */
 object MainScreen : Screen(
-    SharedResources.strings.routeOfMainMenu.localized()
+    SharedResources.strings.routeOfMainScreen.localized()
 ) {
     private typealias CardContent = Triple<() -> Unit, ImageVector, String>
 
@@ -121,17 +121,17 @@ object MainScreen : Screen(
             contentElements = listOf(
                 CardContent(
                     {
-                        println(SharedResources.strings.menuStudents.localized())
+                        navHostController.navigate(target = StudentsScreen)
                     },
                     Icons.Default.Person,
-                    SharedResources.strings.menuStudents.localized()
+                    SharedResources.strings.screenStudents.localized()
                 ),
                 CardContent(
                     {
-                        println(SharedResources.strings.menuSubjects.localized())
+                        navHostController.navigate(target = SubjectsScreen)
                     },
                     Icons.Default.Bookmarks,
-                    SharedResources.strings.menuSubjects.localized()
+                    SharedResources.strings.screenSubjects.localized()
                 )
             )
         )
@@ -142,17 +142,17 @@ object MainScreen : Screen(
             contentElements = listOf(
                 CardContent(
                     {
-                        println(SharedResources.strings.menuLessons.localized())
+                        navHostController.navigate(target = LessonsScreen)
                     },
                     Icons.Default.PlayLesson,
-                    SharedResources.strings.menuLessons.localized()
+                    SharedResources.strings.screenLessons.localized()
                 ),
                 CardContent(
                     {
-                        println(SharedResources.strings.menuIncomes.localized())
+                        navHostController.navigate(target = IncomesScreen)
                     },
                     Icons.Default.Money,
-                    SharedResources.strings.menuIncomes.localized()
+                    SharedResources.strings.screenIncomes.localized()
                 )
             )
         )

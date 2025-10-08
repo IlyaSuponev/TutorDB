@@ -19,8 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.isuponev.tutordb.core.views.screens.IncomesScreen
+import com.isuponev.tutordb.core.views.screens.LessonsScreen
 import com.isuponev.tutordb.core.views.screens.MainScreen
 import com.isuponev.tutordb.core.views.screens.Screen
+import com.isuponev.tutordb.core.views.screens.SettingsScreen
+import com.isuponev.tutordb.core.views.screens.StudentsScreen
+import com.isuponev.tutordb.core.views.screens.SubjectsScreen
 
 @Composable
 internal actual fun AppMainContainerGeneration(
@@ -35,17 +40,22 @@ internal actual fun AppMainContainerGeneration(
 ) {
     var tools by remember { mutableStateOf(emptyList<ToolMenuElement>()) }
     ToolMenu(
-        Modifier
-            .fillMaxHeight()
-            .width(AppDefaults.Widths.TOOLS_MENU),
+        Modifier.fillMaxHeight(),
+        navController,
         tools
     )
     Box(
         modifier = Modifier
+            .weight(AppDefaults.Weights.ONE)
+            .fillMaxHeight()
             .background(MaterialTheme.colorScheme.secondaryContainer, MaterialTheme.shapes.medium),
         contentAlignment = Alignment.Center
     ) {
-        NavHost(navController = navController, startDestination = startDestination.route) {
+        NavHost(
+            navController = navController,
+            startDestination = startDestination.route,
+
+        ) {
             screens.forEach { screen ->
                 composable(screen.route) {
                     tools = screen.toolsMenuElements
@@ -60,4 +70,9 @@ internal actual fun AppMainContainerGeneration(
 
 internal actual fun appScreens(): List<Screen> = listOf(
     MainScreen,
+    SettingsScreen,
+    StudentsScreen,
+    SubjectsScreen,
+    LessonsScreen,
+    IncomesScreen
 )
