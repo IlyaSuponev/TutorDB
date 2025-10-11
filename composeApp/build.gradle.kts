@@ -39,6 +39,7 @@ kotlin {
             implementation(libs.java.money)
             implementation(libs.google.libs.phonenumber)
             implementation(libs.touchlab.kermit)
+            implementation(libs.gosyer.appdirs)
         }
         commonTest.dependencies {
             implementation(libs.tests.jetbrains.kotlin.test)

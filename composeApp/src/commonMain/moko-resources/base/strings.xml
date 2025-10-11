@@ -4,6 +4,7 @@
     <string name="appName">TutorDB</string>
     <string name="appVersion">1.0.0</string>
     <string name="fullAppName">TutorDB 1.0.0</string>
+    <string name="appAuthor">isuponev</string>
 
     <!-- Screens routes -->
     <string name="routeOfMainScreen">/</string>
