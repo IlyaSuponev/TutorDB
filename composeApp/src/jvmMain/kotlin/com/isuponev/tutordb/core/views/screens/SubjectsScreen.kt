@@ -4,6 +4,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.isuponev.tutordb.core.logging.appLogger
 import com.isuponev.tutordb.core.resources.SharedResources
 
 object SubjectsScreen : Screen(
@@ -14,6 +15,7 @@ object SubjectsScreen : Screen(
         navHostController: NavHostController,
         modifier: Modifier
     ) {
+        appLogger.i(tag = SubjectsScreen::class.java.simpleName) { "Load subjects screen" }
         Text(SharedResources.strings.screenSubjects.localized())
     }
 }

@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
+import com.isuponev.tutordb.core.logging.appLogger
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
@@ -114,6 +115,7 @@ object MainScreen : Screen(
             .fillMaxSize(),
         Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
     ) {
+        appLogger.i(tag = MainScreen::class.java.simpleName) { "Load main screen" }
         MainScreenMenuCardRow(
             modifier = Modifier
                 .weight(AppDefaults.Weights.ONE)
