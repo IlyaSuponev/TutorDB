@@ -2,7 +2,7 @@ package com.isuponev.tutordb.core.logging
 
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
-import com.isuponev.tutordb.core.utils.and
+import com.isuponev.tutordb.core.utils.all
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -59,9 +59,9 @@ class AppLogWriter(val logDir: File, val minSeverity: Severity) : LogWriter() {
         }
     }
 
-    override fun isLoggable(tag: String, severity: Severity): Boolean = Boolean.and(
-        tag.isNotBlank(),
-        severity.ordinal >= minSeverity.ordinal
+    override fun isLoggable(tag: String, severity: Severity): Boolean = all(
+        { tag.isNotBlank() },
+        { severity.ordinal >= minSeverity.ordinal }
     )
 
     private fun startLogProcessor() {
@@ -120,10 +120,10 @@ class AppLogWriter(val logDir: File, val minSeverity: Severity) : LogWriter() {
         }
     }
 
-    private fun shouldDeleteFile(file: File, cutoffTime: Long): Boolean = Boolean.and(
-        file.isFile,
-        file.name.endsWith(".log"),
-        file.lastModified() < cutoffTime
+    private fun shouldDeleteFile(file: File, cutoffTime: Long): Boolean = all(
+        { file.isFile },
+        { file.name.endsWith(".log") },
+        { file.lastModified() < cutoffTime }
     )
 
     fun dispose() {
