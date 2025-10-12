@@ -1,13 +1,17 @@
 package com.isuponev.tutordb.core.config
 
 import ca.gosyer.appdirs.AppDirs
+import co.touchlab.kermit.CommonWriter
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.Severity
+import co.touchlab.kermit.loggerConfigInit
 import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.config.general.GeneralConfigData
 import com.isuponev.tutordb.core.config.ui.ThemeMode
 import com.isuponev.tutordb.core.config.ui.UIConfigData
+import com.isuponev.tutordb.core.logging.AppLogWriter
 import com.isuponev.tutordb.core.resources.SharedResources
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -16,8 +20,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -33,24 +39,43 @@ object AppConfig : Closeable {
         appName = SharedResources.strings.appName.localized()
         appAuthor = SharedResources.strings.appAuthor.localized()
     }
-    private val manager = ConfigManager(appDirs)
     private val _state = MutableStateFlow<AppConfigState>(AppConfigState.Updated)
     val state: StateFlow<AppConfigState>
         get() = _state
 
-    object UI : Applicable<UIConfigData>, Convertable<UIConfigData> {
-        var themeMode: ThemeMode by Delegates.observable(ThemeMode.SYSTEM) { _, _, _ ->
+    private val appLogWriter = AppLogWriter(
+        File(appDirs.getUserLogDir()),
+        Severity.Info
+    )
+    val logger = Logger(
+        loggerConfigInit(
+            appLogWriter,
+            CommonWriter(),
+            minSeverity = Severity.Debug,
+        ),
+        tag = SharedResources.strings.appName.localized()
+    )
+
+    private val manager = ConfigManager(appDirs, logger = logger)
+
+    object UI : Applicable<UIConfigData>, ConvertableTo<UIConfigData> {
+        private val _themeMode = MutableStateFlow(ThemeMode.SYSTEM)
+        val themeMode: StateFlow<ThemeMode> = _themeMode
+
+        fun setThemeMode(mode: ThemeMode) {
+            logger.d { "Switch theme mode from ${themeMode.value} to $mode" }
+            _themeMode.value = mode
             save()
         }
 
         override fun apply(value: UIConfigData) {
-            themeMode = value.themeMode
+            _themeMode.value = value.themeMode
         }
 
-        override fun convert(): UIConfigData = UIConfigData(themeMode)
+        override fun convert(): UIConfigData = UIConfigData(themeMode.value)
     }
 
-    object General : Applicable<GeneralConfigData>, Convertable<GeneralConfigData> {
+    object General : Applicable<GeneralConfigData>, ConvertableTo<GeneralConfigData> {
         var locale: AppLocale by Delegates.observable(AppLocale.getSystem()) { _, _, _ ->
             save()
         }
@@ -62,6 +87,10 @@ object AppConfig : Closeable {
         override fun convert(): GeneralConfigData = GeneralConfigData(locale)
     }
 
+    init {
+        load()
+    }
+
     fun load() {
         if (_state.value == AppConfigState.Saving) return
         _state.value = AppConfigState.Loading
@@ -70,11 +99,9 @@ object AppConfig : Closeable {
                 General.apply(data.general)
                 UI.apply(data.ui)
                 _state.value = AppConfigState.Updated
-                print(_state.value)
             },
             onFailure = { error ->
                 _state.value = AppConfigState.Error(error)
-                print(_state.value)
             }
         )
     }
@@ -84,8 +111,8 @@ object AppConfig : Closeable {
         _state.value = AppConfigState.Saving
         manager.save(
             data = ConfigData(
-                GeneralConfigData(General.locale),
-                UIConfigData(UI.themeMode)
+                General.convert(),
+                UI.convert()
             ),
             onSuccess = {
                 _state.value = AppConfigState.Updated
@@ -98,10 +125,7 @@ object AppConfig : Closeable {
 
     override fun close() {
         manager.dispose()
-    }
-
-    init {
-        load()
+        appLogWriter.dispose()
     }
 
     @Serializable
@@ -117,7 +141,10 @@ object AppConfig : Closeable {
         data class Error<T: Throwable>(val cause: T) : AppConfigState()
     }
 
-    private class ConfigManager(appDirs: AppDirs, private val delay: Duration = 1500.milliseconds) {
+    private class ConfigManager(
+        appDirs: AppDirs,
+        val logger: Logger? = null
+    ) {
         private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         private val configFile = File(appDirs.getUserConfigDir(), "config.json")
         private val fileMutex = Mutex()
@@ -127,6 +154,8 @@ object AppConfig : Closeable {
             ignoreUnknownKeys = true
             encodeDefaults = true
         }
+        val delay: Duration = 400.milliseconds
+        val delayOnClose: Duration = 200.milliseconds
 
         init {
             configFile.parentFile?.mkdirs()
@@ -139,7 +168,7 @@ object AppConfig : Closeable {
             currentJob?.cancel()
             currentJob = scope.launch {
                 fileMutex.withLock {
-                    println("Loading start")
+                    logger?.i { "Start loading config" }
                     delay(delay)
                     try {
                         if (configFile.exists()) {
@@ -156,7 +185,7 @@ object AppConfig : Closeable {
                     } catch (e: IOException) {
                         onFailure(e)
                     }
-                    println("Loading end")
+                    logger?.i { "Finish loading config" }
                 }
             }
         }
@@ -169,7 +198,7 @@ object AppConfig : Closeable {
             currentJob?.cancel()
             currentJob = scope.launch {
                 fileMutex.withLock {
-                    println("Saving start")
+                    logger?.i { "Start saving config" }
                     delay(delay)
                     try {
                         val data = json.encodeToString(data)
@@ -180,11 +209,20 @@ object AppConfig : Closeable {
                     } catch (e: IOException) {
                         onFailure(e)
                     }
-                    println("Saving end")
+                    logger?.i { "Finish saving config" }
                 }
             }
         }
 
-        fun dispose() = scope.cancel()
+        fun dispose() {
+            runBlocking {
+                val job = currentJob
+                job?.cancel()
+                withTimeoutOrNull(delayOnClose) {
+                    job?.join()
+                }
+                scope.cancel()
+            }
+        }
     }
 }

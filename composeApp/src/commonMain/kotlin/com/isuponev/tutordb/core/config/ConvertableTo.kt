@@ -1,6 +1,6 @@
 package com.isuponev.tutordb.core.config
 
 @FunctionalInterface
-interface Convertable<T> {
+interface ConvertableTo<T> {
     fun convert(): T
 }
