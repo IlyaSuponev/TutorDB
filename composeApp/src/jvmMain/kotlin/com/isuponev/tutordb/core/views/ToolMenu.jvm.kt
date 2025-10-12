@@ -39,7 +39,8 @@ internal actual fun ToolMenu(
         .background(
             MaterialTheme.colorScheme.primaryContainer,
             MaterialTheme.shapes.medium
-        ).width(AppDefaults.Widths.TOOLS_MENU),
+        )
+        .width(AppDefaults.Widths.TOOLS_MENU),
     verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.SMALL),
     horizontalAlignment = Alignment.CenterHorizontally,
 ) {
@@ -48,12 +49,14 @@ internal actual fun ToolMenu(
         contentDescription = "app-logo",
         modifier = Modifier
             .size(AppDefaults.Sizes.LOGO_ICON_SIZE)
+            .padding(AppDefaults.Paddings.SMALL)
             .clip(CircleShape)
             .border(
                 AppDefaults.Widths.Borders.THIN,
                 MaterialTheme.colorScheme.onPrimaryContainer,
                 CircleShape
-            ).clickable {
+            )
+            .clickable {
                 navController.navigate(target = MainScreen)
             }
     )

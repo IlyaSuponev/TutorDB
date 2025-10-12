@@ -63,6 +63,7 @@ typealias ToolMenuElement = Triple<String, ImageVector, (NavHostController) -> U
  *
  * @param modifier The modifier to be applied to the toolbar menu layout.
  *                 Use this for styling, sizing, and positioning the menu.
+ * @param navController Navigation controller for tools elements
  * @param toolMenuElements List of menu elements to display in the toolbar.
  *                         Each element should contain a label, icon, and click handler.
  *                         If empty, the menu may not be visible or show placeholder content.
