@@ -5,6 +5,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.isuponev.tutordb.core.config.AppConfig
+import com.isuponev.tutordb.core.config.ui.ThemeMode
 
 /**
  * Custom application theme that automatically responds to system dark/light mode.
@@ -46,8 +50,13 @@ import androidx.compose.runtime.Composable
 fun AppTheme(
     content: @Composable () -> Unit
 ) {
+    val mode: ThemeMode by AppConfig.UI.themeMode.collectAsState()
     MaterialTheme(
-        colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme(),
+        colorScheme = when(mode) {
+            ThemeMode.SYSTEM -> if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
+            ThemeMode.DARK -> darkColorScheme()
+            ThemeMode.LIGHT -> lightColorScheme()
+        },
         content = content
     )
 }
