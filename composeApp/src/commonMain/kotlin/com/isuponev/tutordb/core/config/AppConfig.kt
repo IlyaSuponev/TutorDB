@@ -2,6 +2,7 @@ package com.isuponev.tutordb.core.config
 
 import ca.gosyer.appdirs.AppDirs
 import co.touchlab.kermit.Logger
+import com.isuponev.tutordb.core.config.AppConfig.UI.themeMode
 import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.config.general.GeneralConfigData
 import com.isuponev.tutordb.core.config.ui.ThemeMode
@@ -145,23 +146,31 @@ object AppConfig : Closeable {
      * @see ConvertableTo
      */
     object General : Applicable<GeneralConfigData>, ConvertableTo<GeneralConfigData> {
+        private val _locale = MutableStateFlow(AppLocale.getSystem())
         /**
-         * Current application locale with automatic persistence.
+         * Public state flow for observing application locale.
          *
          * Changes to this property are automatically persisted to disk through
          * the observable delegate. The default value is the system-detected locale.
          *
+         * To change this property use [setLocale].
+         *
          * @see AppLocale.getSystem
          */
-        var locale: AppLocale by Delegates.observable(AppLocale.getSystem()) { _, _, _ ->
+        val locale: StateFlow<AppLocale>
+            get() = _locale
+
+        fun setLocale(locale: AppLocale) {
+            logger.d { "Switch app locale from ${_locale.value} to $locale" }
+            _locale.value = locale
             save()
         }
 
         override fun apply(value: GeneralConfigData) {
-            locale = value.locale
+            _locale.value = value.locale
         }
 
-        override fun convert(): GeneralConfigData = GeneralConfigData(locale)
+        override fun convert(): GeneralConfigData = GeneralConfigData(locale.value)
     }
 
     init {
