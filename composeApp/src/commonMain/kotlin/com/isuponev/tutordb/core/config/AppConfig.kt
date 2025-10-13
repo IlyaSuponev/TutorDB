@@ -2,7 +2,8 @@ package com.isuponev.tutordb.core.config
 
 import ca.gosyer.appdirs.AppDirs
 import co.touchlab.kermit.Logger
-import com.isuponev.tutordb.core.config.AppConfig.UI.themeMode
+import com.isuponev.tutordb.core.config.AppConfig.General.setLocale
+import com.isuponev.tutordb.core.config.AppConfig.state
 import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.config.general.GeneralConfigData
 import com.isuponev.tutordb.core.config.ui.ThemeMode
@@ -31,7 +32,6 @@ import kotlinx.serialization.json.Json
 import java.io.Closeable
 import java.io.File
 import java.io.IOException
-import kotlin.properties.Delegates
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 

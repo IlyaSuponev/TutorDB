@@ -1,5 +1,6 @@
 package com.isuponev.tutordb.core.config.general
 
+import dev.icerock.moko.resources.StringResource
 import kotlinx.serialization.Serializable
 import java.util.Locale
 
@@ -16,13 +17,13 @@ import java.util.Locale
  * - [ENGLISH] - English language (Locale.ENGLISH)
  * - [RUSSIAN] - Russian language (Locale("ru"))
  *
- * @property locale The Java [Locale] instance associated with this application locale.
+ * @property type The Java [Locale] instance associated with this application locale.
  *
  * @see Locale
  * @see Serializable
  */
 @Serializable
-enum class AppLocale(val locale: Locale) {
+enum class AppLocale(val type: Locale) {
     /**
      * English language locale.
      *
@@ -38,6 +39,16 @@ enum class AppLocale(val locale: Locale) {
      * Used for Russian-speaking users.
      */
     RUSSIAN(Locale.of("ru"));
+
+    /**
+     * Method for localization Moko [StringResource]s
+     *
+     * @param resource value to localize
+     *
+     * @see Locale
+     * @see StringResource
+     */
+    fun localize(resource: StringResource): String = resource.localized(type)
 
     /**
      * Companion object providing utility methods for locale management.
@@ -70,7 +81,7 @@ enum class AppLocale(val locale: Locale) {
             var locale = ENGLISH
             val default = Locale.getDefault()
             entries.forEach { entry ->
-                if (entry.locale.equals(default)) locale = entry
+                if (entry.type.equals(default)) locale = entry
             }
             return locale
         }
