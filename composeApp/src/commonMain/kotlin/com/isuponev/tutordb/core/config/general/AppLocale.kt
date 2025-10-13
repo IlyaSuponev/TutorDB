@@ -41,7 +41,7 @@ enum class AppLocale(val type: Locale) {
     RUSSIAN(Locale.of("ru"));
 
     /**
-     * Method for localization Moko [StringResource]s
+     * Method for localization Moko [StringResource]s.
      *
      * @param resource value to localize
      *
@@ -66,15 +66,6 @@ enum class AppLocale(val type: Locale) {
          *
          * @return The [AppLocale] that matches the system locale, or [ENGLISH] if no match found.
          *
-         * Example behavior:
-         * ```
-         * // System locale: en_US → returns ENGLISH
-         * // System locale: ru_RU → returns RUSSIAN
-         * // System locale: fr_FR → returns ENGLISH (fallback)
-         * // System locale: en_GB → returns ENGLISH
-         * ```
-         *
-         * @see Locale.getDefault
          * @see Locale.equals
          */
         fun getSystem(): AppLocale {

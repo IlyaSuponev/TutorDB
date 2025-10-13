@@ -118,8 +118,6 @@ object AppConfig : Closeable {
          * Changes the application theme mode and triggers automatic persistence.
          *
          * @param mode The new theme mode to apply.
-         *
-         * @sample com.isuponev.tutordb.core.config.AppConfigTest.themeModeChange
          */
         fun setThemeMode(mode: ThemeMode) {
             logger.d { "Switch theme mode from ${themeMode.value} to $mode" }
@@ -160,6 +158,11 @@ object AppConfig : Closeable {
         val locale: StateFlow<AppLocale>
             get() = _locale
 
+        /**
+         * Changes the application locale and triggers automatic persistence.
+         *
+         * @param locale The new locale to apply.
+         */
         fun setLocale(locale: AppLocale) {
             logger.d { "Switch app locale from ${_locale.value} to $locale" }
             _locale.value = locale

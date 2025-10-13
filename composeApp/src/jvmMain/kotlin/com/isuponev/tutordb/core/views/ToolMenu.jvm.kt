@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
+import com.isuponev.tutordb.core.config.AppConfig
+import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.desktop.views.screens.MainScreen
 import com.isuponev.tutordb.desktop.views.screens.SettingsScreen
@@ -58,6 +60,12 @@ internal actual fun ToolMenu(
             )
             .clickable {
                 navController.navigate(target = MainScreen)
+                AppConfig.General.setLocale(
+                    when(AppConfig.General.locale.value) {
+                        AppLocale.ENGLISH -> AppLocale.RUSSIAN
+                        AppLocale.RUSSIAN -> AppLocale.ENGLISH
+                    }
+                )
             }
     )
     LazyColumn(

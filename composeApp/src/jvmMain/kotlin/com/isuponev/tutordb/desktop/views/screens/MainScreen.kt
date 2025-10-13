@@ -18,12 +18,16 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
+import com.isuponev.tutordb.core.config.AppConfig
+import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.logging.appLogger
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.views.AppDefaults
@@ -54,7 +58,7 @@ import com.isuponev.tutordb.core.views.widgets.CardWidget
  * @see com.isuponev.tutordb.core.views.screens.Screen for the base screen class implementation
  */
 object MainScreen : Screen(
-    SharedResources.strings.routeOfMainScreen.localized()
+    AppLocale.ENGLISH.localize(SharedResources.strings.routeOfMainScreen)
 ) {
     private typealias CardContent = Triple<() -> Unit, ImageVector, String>
 
@@ -117,6 +121,7 @@ object MainScreen : Screen(
             .fillMaxSize(),
         Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
     ) {
+        val locale by AppConfig.General.locale.collectAsState()
         appLogger.i(tag = MainScreen::class.java.simpleName) { "Load main screen" }
         MainScreenMenuCardRow(
             modifier = Modifier
@@ -128,14 +133,14 @@ object MainScreen : Screen(
                         navHostController.navigate(target = StudentsScreen)
                     },
                     Icons.Default.Person,
-                    SharedResources.strings.screenStudents.localized()
+                    locale.localize(SharedResources.strings.screenStudents)
                 ),
                 CardContent(
                     {
                         navHostController.navigate(target = SubjectsScreen)
                     },
                     Icons.Default.Bookmarks,
-                    SharedResources.strings.screenSubjects.localized()
+                    locale.localize(SharedResources.strings.screenSubjects)
                 )
             )
         )
@@ -149,14 +154,14 @@ object MainScreen : Screen(
                         navHostController.navigate(target = LessonsScreen)
                     },
                     Icons.Default.PlayLesson,
-                    SharedResources.strings.screenLessons.localized()
+                    locale.localize(SharedResources.strings.screenLessons)
                 ),
                 CardContent(
                     {
                         navHostController.navigate(target = IncomesScreen)
                     },
                     Icons.Default.Money,
-                    SharedResources.strings.screenIncomes.localized()
+                    locale.localize(SharedResources.strings.screenIncomes)
                 )
             )
         )
