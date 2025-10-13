@@ -29,7 +29,7 @@ import kotlin.time.ExperimentalTime
 /**
  * A file-based log writer implementation for Compose Multiplatform applications with configurable log management.
  *
- * This class provides asynchronous file logging with automatic log rotation, retention policies, and size-based cleanup.
+ * This class provides asynchronous file logging with automatic log rotation, retention policies, and size-based cleanup
  * Logs are written to daily files and managed according to configurable limits in the companion object.
  *
  * Key features:
@@ -48,8 +48,8 @@ import kotlin.time.ExperimentalTime
  *     at com.example.Database.connect(Database.kt:45)
  * ```
  *
- * @param logDir The directory where log files will be stored. Created automatically if it doesn't exist.
- * @param minSeverity The minimum severity level for logs to be written. Logs with lower severity are ignored.
+ * @property logDir The directory where log files will be stored. Created automatically if it doesn't exist.
+ * @property minSeverity The minimum severity level for logs to be written. Logs with lower severity are ignored.
  *
  * @see LogWriter
  * @see Severity
@@ -228,7 +228,8 @@ class AppLogWriter(val logDir: File, val minSeverity: Severity) : LogWriter() {
 
         /**
          * Date formatter for log entry timestamps.
-         * Format: "dd-MM-yyyy HH:mm:ss.SSS" (day-month-year hour:minute:second.millisecond)
+         * Format: "dd-MM-yyyy HH:mm:ss.SSS"
+         * (day-month-year hour:minute:second.millisecond)
          *
          * Example: "31-12-2024 14:30:25.123"
          */
