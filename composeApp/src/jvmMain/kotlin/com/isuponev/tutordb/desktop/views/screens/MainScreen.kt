@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.core.views.screens
+package com.isuponev.tutordb.desktop.views.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +27,8 @@ import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.logging.appLogger
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.views.AppDefaults
+import com.isuponev.tutordb.core.views.screens.Screen
+import com.isuponev.tutordb.core.views.screens.navigate
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 
 /**
@@ -49,7 +51,7 @@ import com.isuponev.tutordb.core.views.widgets.CardWidget
  * - Lessons scheduling
  * - Income tracking
  *
- * @see Screen for the base screen class implementation
+ * @see com.isuponev.tutordb.core.views.screens.Screen for the base screen class implementation
  */
 object MainScreen : Screen(
     SharedResources.strings.routeOfMainScreen.localized()

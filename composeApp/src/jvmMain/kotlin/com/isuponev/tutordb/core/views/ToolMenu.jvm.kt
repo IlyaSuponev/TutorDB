@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.resources.SharedResources
-import com.isuponev.tutordb.core.views.screens.MainScreen
-import com.isuponev.tutordb.core.views.screens.SettingsScreen
+import com.isuponev.tutordb.desktop.views.screens.MainScreen
+import com.isuponev.tutordb.desktop.views.screens.SettingsScreen
 import com.isuponev.tutordb.core.views.screens.navigate
 import dev.icerock.moko.resources.compose.painterResource
 

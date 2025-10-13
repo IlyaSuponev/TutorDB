@@ -18,13 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.isuponev.tutordb.core.views.screens.IncomesScreen
-import com.isuponev.tutordb.core.views.screens.LessonsScreen
-import com.isuponev.tutordb.core.views.screens.MainScreen
+import com.isuponev.tutordb.desktop.views.screens.IncomesScreen
+import com.isuponev.tutordb.desktop.views.screens.LessonsScreen
+import com.isuponev.tutordb.desktop.views.screens.MainScreen
 import com.isuponev.tutordb.core.views.screens.Screen
-import com.isuponev.tutordb.core.views.screens.SettingsScreen
-import com.isuponev.tutordb.core.views.screens.StudentsScreen
-import com.isuponev.tutordb.core.views.screens.SubjectsScreen
+import com.isuponev.tutordb.desktop.views.screens.SettingsScreen
+import com.isuponev.tutordb.desktop.views.screens.StudentsScreen
+import com.isuponev.tutordb.desktop.views.screens.SubjectsScreen
 
 @Composable
 internal actual fun AppMainContainerGeneration(
