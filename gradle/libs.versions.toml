@@ -15,6 +15,7 @@ icerock-resources = "0.25.0"
 navigation = "2.9.0"
 kermit = "2.0.8"
 appdirs = "2.0.0"
+kotlinx-coroutines = "1.10.2"
 
 [libraries]
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
@@ -34,6 +35,7 @@ gosyer-appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.re
 google-libs-phonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "phonenumber" }
 tests-androidx-navigation = { module = "androidx.navigation:navigation-testing", version.ref = "navigation" }
 tests-jetbrains-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+tests-jetbrains-kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 tests-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5"}
 tests-junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5"}
 tests-junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5"}

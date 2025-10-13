@@ -43,6 +43,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.tests.jetbrains.kotlin.test)
+            implementation(libs.tests.jetbrains.kotlinx.coroutines)
             implementation(libs.tests.junit.api)
             implementation(libs.tests.junit.params)
             implementation(libs.tests.junit.jupiter)
