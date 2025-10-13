@@ -3,12 +3,69 @@ package com.isuponev.tutordb.core.config.general
 import kotlinx.serialization.Serializable
 import java.util.Locale
 
+/**
+ * Enumeration representing supported application locales with their corresponding Java [Locale] objects.
+ *
+ * This enum provides a type-safe way to manage application localization settings
+ * and ensures consistency between Kotlin serialization and Java locale handling.
+ *
+ * Each enum value wraps a Java [Locale] instance, allowing seamless integration
+ * with platform localization APIs while maintaining serialization capabilities.
+ *
+ * Supported locales:
+ * - [ENGLISH] - English language (Locale.ENGLISH)
+ * - [RUSSIAN] - Russian language (Locale("ru"))
+ *
+ * @property locale The Java [Locale] instance associated with this application locale.
+ *
+ * @see Locale
+ * @see Serializable
+ */
 @Serializable
 enum class AppLocale(val locale: Locale) {
+    /**
+     * English language locale.
+     *
+     * Corresponds to [Locale.ENGLISH] (language: "en", country: "").
+     * Used for English-speaking users and default application language.
+     */
     ENGLISH(Locale.ENGLISH),
+
+    /**
+     * Russian language locale.
+     *
+     * Corresponds to [Locale] with language code "ru".
+     * Used for Russian-speaking users.
+     */
     RUSSIAN(Locale.of("ru"));
 
+    /**
+     * Companion object providing utility methods for locale management.
+     */
     companion object {
+        /**
+         * Detects and returns the best matching [AppLocale] for the system's default locale.
+         *
+         * This method compares the system's default locale with supported application locales
+         * and returns the first matching enum value. If no exact match is found, returns
+         * [ENGLISH] as the fallback default.
+         *
+         * The comparison uses [Locale.equals] which considers language, country, and variant
+         * for equality comparison.
+         *
+         * @return The [AppLocale] that matches the system locale, or [ENGLISH] if no match found.
+         *
+         * Example behavior:
+         * ```
+         * // System locale: en_US → returns ENGLISH
+         * // System locale: ru_RU → returns RUSSIAN
+         * // System locale: fr_FR → returns ENGLISH (fallback)
+         * // System locale: en_GB → returns ENGLISH
+         * ```
+         *
+         * @see Locale.getDefault
+         * @see Locale.equals
+         */
         fun getSystem(): AppLocale {
             var locale = ENGLISH
             val default = Locale.getDefault()
