@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.core.resources
+package com.isuponev.tutordb.core.utils
 
 import androidx.compose.ui.graphics.Color
 import dev.icerock.moko.graphics.Color as MokoColor

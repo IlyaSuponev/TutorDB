@@ -43,6 +43,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.tests.jetbrains.kotlin.test)
+            implementation(libs.tests.jetbrains.kotlinx.coroutines)
             implementation(libs.tests.junit.api)
             implementation(libs.tests.junit.params)
             implementation(libs.tests.junit.jupiter)
@@ -111,6 +112,7 @@ tasks.withType<Detekt>().configureEach {
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
     finalizedBy(tasks.named("jacocoTestReport"))
+    outputs.cacheIf { false }
 }
 
 tasks.register<JacocoReport>("jacocoTestReport") {
@@ -137,9 +139,13 @@ tasks.register<JacocoReport>("jacocoTestReport") {
                 exclude(
                     // Generated sources by Compose Resources
                     "**/META-INF/**",
-                    "**/composeapp/**"
+                    "**/composeapp/**",
+                    "**/widgets/**",
+                    "**/resources/**" // moko-resources generation
                 )
             }
         })
     )
+
+    outputs.cacheIf { false }
 }
