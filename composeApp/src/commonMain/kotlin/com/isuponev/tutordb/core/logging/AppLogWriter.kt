@@ -16,6 +16,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
+import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.toLocalDateTime
 import java.io.File
 import java.io.IOException
@@ -32,11 +33,11 @@ class AppLogWriter(val logDir: File, val minSeverity: Severity) : LogWriter() {
     private val logFile = File(
         logDir,
         "${nowDateTime.date.format(LocalDate.Formats.ISO)}.log")
-    private val maxFileSize: Long = 10 * 1024 * 1024L
-    private val maxLogAge: Duration = 20.days
+    val maxFileSize: Long = 10 * 1024 * 1024L
+    val maxLogAge: Duration = 20.days
 
     private val fileLinesLimit: Int = 1000
-    private val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS")
+    val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS")
 
     private val logScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val logChannel = Channel<LogEntry>(BUFFERED)
@@ -53,6 +54,7 @@ class AppLogWriter(val logDir: File, val minSeverity: Severity) : LogWriter() {
         tag: String,
         throwable: Throwable?
     ) {
+        if (!isLoggable(tag, severity)) return
         logScope.launch {
             val entry = LogEntry(severity, message, tag, throwable)
             logChannel.send(entry)
@@ -61,7 +63,7 @@ class AppLogWriter(val logDir: File, val minSeverity: Severity) : LogWriter() {
 
     override fun isLoggable(tag: String, severity: Severity): Boolean = all(
         { tag.isNotBlank() },
-        { severity.ordinal >= minSeverity.ordinal }
+        { severity >= minSeverity }
     )
 
     private fun startLogProcessor() {
