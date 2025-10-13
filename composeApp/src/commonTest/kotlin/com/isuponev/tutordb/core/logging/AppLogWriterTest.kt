@@ -19,9 +19,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import kotlin.time.Duration.Companion.days
 import kotlin.time.DurationUnit
-import kotlin.time.Instant
 
 class AppLogWriterTest {
     private val testLogTag = "AppLogWriterTest"
@@ -58,7 +56,7 @@ class AppLogWriterTest {
         assertNotNull(entry)
         val logTime = LocalDateTime.parse(
             entry.timestamp,
-            DateTimeFormatter.ofPattern(appLogWriter.dateFormat.toPattern())
+            DateTimeFormatter.ofPattern(AppLogWriter.LOG_DATE_FORMAT.toPattern())
         )
         assertTrue {
             today < logTime && logTime < todayAfterLog
@@ -84,7 +82,7 @@ class AppLogWriterTest {
         assertNotNull(entry)
         val logTime = LocalDateTime.parse(
             entry.timestamp,
-            DateTimeFormatter.ofPattern(appLogWriter.dateFormat.toPattern())
+            DateTimeFormatter.ofPattern(AppLogWriter.LOG_DATE_FORMAT.toPattern())
         )
         assertTrue {
             today < logTime && logTime < todayAfterLog
@@ -124,7 +122,7 @@ class AppLogWriterTest {
             assertNotNull(entry)
             val logTime = LocalDateTime.parse(
                 entry.timestamp,
-                DateTimeFormatter.ofPattern(appLogWriter.dateFormat.toPattern())
+                DateTimeFormatter.ofPattern(AppLogWriter.LOG_DATE_FORMAT.toPattern())
             )
             assertTrue {
                 today < logTime && logTime < expectedEntry.third
@@ -149,12 +147,12 @@ class AppLogWriterTest {
             )
             Thread.sleep(100)
             val currentFileSize = logFile.length()
-            assertTrue(currentFileSize <= appLogWriter.maxFileSize)
+            assertTrue(currentFileSize <= AppLogWriter.MAX_LOG_FILE_SIZE)
             if (currentFileSize > lastFileSize) lastFileSize = currentFileSize
             else if (currentFileSize == lastFileSize) throw RuntimeException("Not add new log to log file")
             else break // cleanup is running
         }
-        assertTrue(logFile.readLines().size <= 1000)
+        assertTrue(logFile.readLines().size <= AppLogWriter.FILE_LINES_LIMIT)
     }
 
     @Test
@@ -183,7 +181,7 @@ class AppLogWriterTest {
                 testDir,
                 "${fileDate.toKotlinLocalDateTime().date.format(LocalDate.Formats.ISO)}.log"
             )
-            if (i in 0L..<appLogWriter.maxLogAge.toLong(DurationUnit.DAYS)) {
+            if (i in 0L..<AppLogWriter.MAX_LOG_FILE_AGE.toLong(DurationUnit.DAYS)) {
                 assertTrue(file.exists())
             } else {
                 assertFalse(file.exists())

@@ -1,15 +1,13 @@
 package com.isuponev.tutordb.core.config
 
 import ca.gosyer.appdirs.AppDirs
-import co.touchlab.kermit.CommonWriter
 import co.touchlab.kermit.Logger
-import co.touchlab.kermit.Severity
-import co.touchlab.kermit.loggerConfigInit
 import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.config.general.GeneralConfigData
 import com.isuponev.tutordb.core.config.ui.ThemeMode
 import com.isuponev.tutordb.core.config.ui.UIConfigData
-import com.isuponev.tutordb.core.logging.AppLogWriter
+import com.isuponev.tutordb.core.logging.appLoggerClose
+import com.isuponev.tutordb.core.logging.appLoggerConfig
 import com.isuponev.tutordb.core.resources.SharedResources
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,16 +41,8 @@ object AppConfig : Closeable {
     val state: StateFlow<AppConfigState>
         get() = _state
 
-    private val appLogWriter = AppLogWriter(
-        File(appDirs.getUserLogDir()),
-        Severity.Info
-    )
     val logger = Logger(
-        loggerConfigInit(
-            appLogWriter,
-            CommonWriter(),
-            minSeverity = Severity.Debug,
-        ),
+        appLoggerConfig(appDirs),
         tag = SharedResources.strings.appName.localized()
     )
 
@@ -125,7 +115,7 @@ object AppConfig : Closeable {
 
     override fun close() {
         manager.dispose()
-        appLogWriter.dispose()
+        appLoggerClose()
     }
 
     @Serializable
