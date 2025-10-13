@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.core.config
+package com.isuponev.tutordb.core.interfaces
 
 @FunctionalInterface
 interface Applicable<T> {

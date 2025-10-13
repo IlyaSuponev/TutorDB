@@ -6,6 +6,8 @@ import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.config.general.GeneralConfigData
 import com.isuponev.tutordb.core.config.ui.ThemeMode
 import com.isuponev.tutordb.core.config.ui.UIConfigData
+import com.isuponev.tutordb.core.interfaces.Applicable
+import com.isuponev.tutordb.core.interfaces.ConvertableTo
 import com.isuponev.tutordb.core.logging.appLoggerClose
 import com.isuponev.tutordb.core.logging.appLoggerConfig
 import com.isuponev.tutordb.core.resources.SharedResources
