@@ -151,4 +151,13 @@ object AppDefaults {
             val FAT = 4.dp
         }
     }
+
+    /**
+     * Constants and configurations for platform-specific UI adaptations.
+     *
+     * This object contains constants that may vary across different platforms
+     * (Desktop, Android, Web) to ensure optimal user experience on each platform.
+     * Use these constants when platform-specific behavior or styling is required.
+     */
+    object Platform
 }
