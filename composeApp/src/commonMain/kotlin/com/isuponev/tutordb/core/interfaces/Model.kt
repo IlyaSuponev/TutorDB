@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.core.models.interfaces
+package com.isuponev.tutordb.core.interfaces
 
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -13,10 +13,9 @@ interface Model {
     /**
      * The unique identifier for the model instance using UUID.
      *
-     * @see Uuid
-     * @see ExperimentalUuidApi
+     * @see kotlin.uuid.Uuid
+     * @see kotlin.uuid.ExperimentalUuidApi
      */
     @ExperimentalUuidApi
     val id: Uuid
 }
-

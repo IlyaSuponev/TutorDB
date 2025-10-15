@@ -1,6 +1,6 @@
 package com.isuponev.tutordb.core.models
 
-import com.isuponev.tutordb.core.models.interfaces.Model
+import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
