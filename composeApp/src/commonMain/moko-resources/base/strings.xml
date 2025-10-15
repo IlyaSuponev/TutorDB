@@ -20,4 +20,10 @@
     <string name="screenSubjects">Subjects</string>
     <string name="screenIncomes">Incomes</string>
     <string name="screenSettings">Settings</string>
+
+    <!-- Settings labels name -->
+    <string name="lbl_settings_general">General</string>
+    <string name="lbl_settings_general_locale">Language</string>
+    <string name="lbl_settings_ui">User Interface</string>
+    <string name="lbl_settings_ui_theme">Theme mode</string>
 </resources>
