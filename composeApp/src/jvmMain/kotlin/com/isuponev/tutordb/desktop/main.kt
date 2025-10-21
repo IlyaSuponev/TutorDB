@@ -9,7 +9,6 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.isuponev.tutordb.core.config.AppConfig
-import com.isuponev.tutordb.core.logging.appLogger
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.views.App
 import com.isuponev.tutordb.core.views.AppDefaults
@@ -21,11 +20,11 @@ import java.awt.Dimension
  * Point of program start.
  */
 fun main() {
-    appLogger.i { "App has been started" }
+    AppConfig.logger.i { "App has been started" }
     application {
         Window(
             onCloseRequest = {
-                appLogger.i { "App has been closed" }
+                AppConfig.logger.i { "App has been closed" }
                 AppConfig.close()
                 exitApplication()
             },

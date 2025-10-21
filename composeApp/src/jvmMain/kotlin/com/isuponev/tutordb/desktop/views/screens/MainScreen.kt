@@ -27,143 +27,128 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.config.AppConfig
-import com.isuponev.tutordb.core.config.general.AppLocale
-import com.isuponev.tutordb.core.logging.appLogger
 import com.isuponev.tutordb.core.resources.SharedResources
+import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
+import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
 import com.isuponev.tutordb.core.views.screens.Screen
-import com.isuponev.tutordb.core.views.screens.navigate
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 
-/**
- * The main screen of the application displaying the primary navigation menu.
- *
- * This screen presents a grid-like layout of interactive cards that serve as
- * the main navigation menu for accessing different features of the application.
- * Each card represents a major functional area and provides visual feedback
- * through hover effects and consistent styling.
- *
- * #### Screen Layout:
- * - Two rows of menu cards
- * - Each row contains two cards arranged horizontally
- * - Cards feature icons and labels for clear identification
- * - Responsive layout that adapts to different screen sizes
- *
- * #### Menu Categories:
- * - Students management
- * - Subjects management
- * - Lessons scheduling
- * - Income tracking
- *
- * @see com.isuponev.tutordb.core.views.screens.Screen for the base screen class implementation
- */
-object MainScreen : Screen(
-    AppLocale.ENGLISH.localize(SharedResources.strings.routeOfMainScreen)
-) {
-    private typealias CardContent = Triple<() -> Unit, ImageVector, String>
+class HomeViewModel(
+    private val navHostController: NavHostController
+) : AppScreenViewModel<Screen.HomeScreen>(Screen.HomeScreen) {
+    fun onStudentsCardClicked() {
 
-    @Composable
-    private fun MainScreenMenuCard(
-        content: CardContent,
-        modifier: Modifier = Modifier,
-    ) = CardWidget<ColumnScope>(
-        onClick = content.first,
-        modifier = modifier,
-        cardShape = MaterialTheme.shapes.medium,
-        cardColors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        ),
-        scaleOnHover = AppDefaults.Scales.SMALL,
-        alignment = Alignment.CenterHorizontally,
-        contentPadding = PaddingValues(AppDefaults.Paddings.BIG)
-    ) {
-        Image(
-            content.second,
-            contentDescription = content.third,
+    }
+
+    fun onLessonsCardClicked() {
+
+    }
+
+    fun onSubjectsCardClicked() {
+
+    }
+
+    fun onIncomesCardClicked() {
+
+    }
+}
+
+private typealias CardContent = Triple<() -> Unit, ImageVector, String>
+
+@Composable
+private fun MainScreenMenuCard(
+    content: CardContent,
+    modifier: Modifier = Modifier,
+) = CardWidget<ColumnScope>(
+    onClick = content.first,
+    modifier = modifier,
+    cardShape = MaterialTheme.shapes.medium,
+    cardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+    ),
+    scaleOnHover = AppDefaults.Scales.SMALL,
+    alignment = Alignment.CenterHorizontally,
+    contentPadding = PaddingValues(AppDefaults.Paddings.BIG)
+) {
+    Image(
+        content.second,
+        contentDescription = content.third,
+        modifier = Modifier
+            .weight(AppDefaults.Weights.ONE)
+            .fillMaxSize(),
+        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimaryContainer)
+    )
+    Text(
+        content.third,
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.displaySmall,
+    )
+}
+
+@Composable
+private fun MainScreenMenuCardRow(
+    contentElements: List<CardContent>,
+    modifier: Modifier = Modifier,
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG),
+) {
+    contentElements.forEach { content ->
+        MainScreenMenuCard(
             modifier = Modifier
                 .weight(AppDefaults.Weights.ONE)
                 .fillMaxSize(),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimaryContainer)
-        )
-        Text(
-            content.third,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.displaySmall,
+            content = content
         )
     }
+}
 
-    @Composable
-    private fun MainScreenMenuCardRow(
-        contentElements: List<CardContent>,
-        modifier: Modifier = Modifier,
-    ) = Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG),
-    ) {
-        contentElements.forEach { content ->
-            MainScreenMenuCard(
-                modifier = Modifier
-                    .weight(AppDefaults.Weights.ONE)
-                    .fillMaxSize(),
-                content = content
-            )
-        }
-    }
-
-    @Composable
-    override fun view(
-        navHostController: NavHostController,
-        modifier: Modifier
-    ) = Column(
-        modifier
-            .padding(AppDefaults.Paddings.BIG)
-            .fillMaxSize(),
-        Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
-    ) {
-        val locale by AppConfig.General.locale.collectAsState()
-        appLogger.i(tag = MainScreen::class.java.simpleName) { "Load main screen" }
-        MainScreenMenuCardRow(
-            modifier = Modifier
-                .weight(AppDefaults.Weights.ONE)
-                .fillMaxWidth(),
-            contentElements = listOf(
-                CardContent(
-                    {
-                        navHostController.navigate(target = StudentsScreen)
-                    },
-                    Icons.Default.Person,
-                    locale.localize(SharedResources.strings.screenStudents)
-                ),
-                CardContent(
-                    {
-                        navHostController.navigate(target = SubjectsScreen)
-                    },
-                    Icons.Default.Bookmarks,
-                    locale.localize(SharedResources.strings.screenSubjects)
-                )
+@Composable
+fun HomeView(
+    viewModel: HomeViewModel,
+    modifier: Modifier
+) = Column(
+    modifier
+        .padding(AppDefaults.Paddings.BIG)
+        .fillMaxSize(),
+    Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
+) {
+    val locale by AppConfig.General.locale.collectAsState()
+    viewModel.logInfo("Load home screen")
+    MainScreenMenuCardRow(
+        modifier = Modifier
+            .weight(AppDefaults.Weights.ONE)
+            .fillMaxWidth(),
+        contentElements = listOf(
+            CardContent(
+                viewModel::onStudentsCardClicked,
+                Icons.Default.Person,
+                locale.localize(SharedResourcesjvmMain.strings.screenStudents)
+            ),
+            CardContent(
+                viewModel::onSubjectsCardClicked,
+                Icons.Default.Bookmarks,
+                locale.localize(SharedResourcesjvmMain.strings.screenSubjects)
             )
         )
-        MainScreenMenuCardRow(
-            modifier = Modifier
-                .weight(AppDefaults.Weights.ONE)
-                .fillMaxWidth(),
-            contentElements = listOf(
-                CardContent(
-                    {
-                        navHostController.navigate(target = LessonsScreen)
-                    },
-                    Icons.Default.PlayLesson,
-                    locale.localize(SharedResources.strings.screenLessons)
-                ),
-                CardContent(
-                    {
-                        navHostController.navigate(target = IncomesScreen)
-                    },
-                    Icons.Default.Money,
-                    locale.localize(SharedResources.strings.screenIncomes)
-                )
+    )
+    MainScreenMenuCardRow(
+        modifier = Modifier
+            .weight(AppDefaults.Weights.ONE)
+            .fillMaxWidth(),
+        contentElements = listOf(
+            CardContent(
+                viewModel::onLessonsCardClicked,
+                Icons.Default.PlayLesson,
+                locale.localize(SharedResourcesjvmMain.strings.screenLessons)
+            ),
+            CardContent(
+                viewModel::onIncomesCardClicked,
+                Icons.Default.Money,
+                locale.localize(SharedResourcesjvmMain.strings.screenIncomes)
             )
         )
-    }
+    )
 }

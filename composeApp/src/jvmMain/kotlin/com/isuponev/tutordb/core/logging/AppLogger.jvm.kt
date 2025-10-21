@@ -5,6 +5,7 @@ import co.touchlab.kermit.CommonWriter
 import co.touchlab.kermit.LoggerConfig
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.loggerConfigInit
+import com.isuponev.tutordb.core.config.AppConfig
 import java.io.File
 
 /**
@@ -60,7 +61,7 @@ actual fun appLoggerConfig(appsDirs: AppDirs): LoggerConfig = loggerConfigInit(
  * @see AppLogWriter.dispose
  * @see appLogger
  */
-actual fun appLoggerClose() = appLogger.config.logWriterList.forEach {
+actual fun appLoggerClose() = AppConfig.logger.config.logWriterList.forEach {
     if (it is AppLogWriter) {
         it.dispose()
     }

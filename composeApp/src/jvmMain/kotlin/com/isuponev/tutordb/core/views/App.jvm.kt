@@ -18,19 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.isuponev.tutordb.desktop.views.screens.IncomesScreen
-import com.isuponev.tutordb.desktop.views.screens.LessonsScreen
-import com.isuponev.tutordb.desktop.views.screens.MainScreen
 import com.isuponev.tutordb.core.views.screens.Screen
-import com.isuponev.tutordb.desktop.views.screens.SettingsScreen
-import com.isuponev.tutordb.desktop.views.screens.StudentsScreen
-import com.isuponev.tutordb.desktop.views.screens.SubjectsScreen
+import com.isuponev.tutordb.desktop.views.screens.HomeView
+import com.isuponev.tutordb.desktop.views.screens.HomeViewModel
 
 @Composable
-internal actual fun AppMainContainerGeneration(
+internal actual fun AppMainContainer(
     navController: NavHostController,
-    screens: List<Screen>,
-    startDestination: Screen,
     modifier: Modifier,
 ) = Row(
     modifier = modifier.fillMaxSize().padding(AppDefaults.Paddings.BIG),
@@ -52,26 +46,12 @@ internal actual fun AppMainContainerGeneration(
     ) {
         NavHost(
             navController = navController,
-            startDestination = startDestination.route,
-
+            startDestination = Screen.HomeScreen,
         ) {
-            screens.forEach { screen ->
-                composable(screen.route) {
-                    tools = screen.toolsMenuElements
-                    screen.view(
-                        navController,
-                    )
-                }
+            composable<Screen.HomeScreen> {
+                val viewModel by remember { mutableStateOf(HomeViewModel(navController)) }
+                HomeView(viewModel, Modifier.fillMaxSize())
             }
         }
     }
 }
-
-internal actual fun appScreens(): List<Screen> = listOf(
-    MainScreen,
-    SettingsScreen,
-    StudentsScreen,
-    SubjectsScreen,
-    LessonsScreen,
-    IncomesScreen
-)

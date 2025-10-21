@@ -43,20 +43,3 @@ expect fun appLoggerConfig(appsDirs: AppDirs): LoggerConfig
  */
 expect fun appLoggerClose()
 
-/**
- * Global application logger instance provider.
- *
- * This property provides centralized access to the application's logger instance
- * configured in [AppConfig]. Using this property ensures consistent logging
- * behavior throughout the application and simplifies logger access.
- *
- * The actual logger configuration is determined by platform-specific implementations
- * of [appLoggerConfig] and is managed by the application's configuration system.
- *
- * @return The globally configured [Logger] instance from [AppConfig].
- *
- * @see AppConfig.logger
- * @see appLoggerConfig
- */
-val appLogger: Logger
-    get() = AppConfig.logger

@@ -6,7 +6,6 @@ import com.isuponev.tutordb.core.config.AppConfig.General.setLocale
 import com.isuponev.tutordb.core.config.AppConfig.state
 import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.config.general.GeneralConfigData
-import com.isuponev.tutordb.core.config.models.studentsProvider
 import com.isuponev.tutordb.core.config.ui.ThemeMode
 import com.isuponev.tutordb.core.config.ui.UIConfigData
 import com.isuponev.tutordb.core.interfaces.Applicable
@@ -177,10 +176,6 @@ object AppConfig : Closeable {
         override fun convert(): GeneralConfigData = GeneralConfigData(locale.value)
     }
 
-    object Database {
-        val students = studentsProvider()
-    }
-
     init {
         load()
     }
@@ -201,16 +196,18 @@ object AppConfig : Closeable {
     fun load() {
         if (_state.value == AppConfigState.Saving) return
         _state.value = AppConfigState.Loading
-        manager.load(
-            onSuccess = { data ->
-                General.apply(data.general)
-                UI.apply(data.ui)
-                _state.value = AppConfigState.Updated
-            },
-            onFailure = { error ->
-                _state.value = AppConfigState.Error(error)
-            }
-        )
+        manager.run {
+            load(
+                onSuccess = { data ->
+                    General.apply(data.general)
+                    UI.apply(data.ui)
+                    _state.value = AppConfigState.Updated
+                },
+                onFailure = { error ->
+                    _state.value = AppConfigState.Error(error)
+                }
+            )
+        }
     }
 
     /**

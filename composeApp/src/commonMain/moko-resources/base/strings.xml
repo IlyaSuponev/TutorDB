@@ -5,25 +5,4 @@
     <string name="appVersion">1.0.0</string>
     <string name="fullAppName">TutorDB 1.0.0</string>
     <string name="appAuthor">isuponev</string>
-
-    <!-- Screens routes -->
-    <string name="routeOfMainScreen">/</string>
-    <string name="routeOfSettingsScreen">/settings</string>
-    <string name="routeOfStudentsScreen">/students</string>
-    <string name="routeOfLessonsScreen">/lessons</string>
-    <string name="routeOfSubjectsScreen">/subjects</string>
-    <string name="routeOfIncomesScreen">/incomes</string>
-
-    <!-- Screen name strings in EN localization as default -->
-    <string name="screenStudents">Students</string>
-    <string name="screenLessons">Lessons</string>
-    <string name="screenSubjects">Subjects</string>
-    <string name="screenIncomes">Incomes</string>
-    <string name="screenSettings">Settings</string>
-
-    <!-- Settings labels name -->
-    <string name="lbl_settings_general">General</string>
-    <string name="lbl_settings_general_locale">Language</string>
-    <string name="lbl_settings_ui">User Interface</string>
-    <string name="lbl_settings_ui_theme">Theme mode</string>
 </resources>
