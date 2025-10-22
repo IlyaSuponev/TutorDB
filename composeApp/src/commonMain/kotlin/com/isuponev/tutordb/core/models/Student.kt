@@ -2,9 +2,8 @@ package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
+import java.util.UUID
 import javax.money.MonetaryAmount
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 /**
  * Represents a student entity in the tutoring system.
@@ -24,9 +23,8 @@ import kotlin.uuid.Uuid
  * @see Contacts
  * @see Subject
  */
-@OptIn(ExperimentalUuidApi::class)
 data class Student(
-    override val id: Uuid,
+    override val id: UUID,
     val name: Name,
     val hourCost: MonetaryAmount,
     val contacts: Contacts? = null,

@@ -2,8 +2,7 @@ package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
+import java.util.UUID
 
 /**
  * Represents a subject or topic that can be taught by tutors.
@@ -18,5 +17,4 @@ import kotlin.uuid.Uuid
  * @see Model
  * @see Name
  */
-@OptIn(ExperimentalUuidApi::class)
-data class Subject(override val id: Uuid, val name: Name, val description: String) : Model
+data class Subject(override val id: UUID, val name: Name, val description: String) : Model

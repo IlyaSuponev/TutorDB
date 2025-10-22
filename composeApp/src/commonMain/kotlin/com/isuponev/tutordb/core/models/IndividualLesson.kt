@@ -2,10 +2,9 @@ package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.interfaces.Model
 import kotlinx.datetime.LocalDateTime
+import java.util.UUID
 import javax.money.MonetaryAmount
 import kotlin.time.Duration
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 /**
  * Represents an individual tutoring session between a tutor and a student.
@@ -26,9 +25,8 @@ import kotlin.uuid.Uuid
  * @see MonetaryAmount
  * @see Student
  */
-@OptIn(ExperimentalUuidApi::class)
 data class IndividualLesson(
-    override val id: Uuid,
+    override val id: UUID,
     val dateTime: LocalDateTime,
     val duration: Duration,
     val hourCost: MonetaryAmount,

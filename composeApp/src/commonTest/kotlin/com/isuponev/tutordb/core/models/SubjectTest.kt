@@ -1,19 +1,19 @@
 package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.models.values.Name
+import java.util.UUID
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalUuidApi::class)
 class SubjectTest {
 
     @Test
     fun `should create subject with valid parameters`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val name = Name.of("Mathematics")
         val description = "Advanced calculus and algebra"
         
@@ -34,7 +34,7 @@ class SubjectTest {
 
     @Test
     fun `subjects with same properties should be equal`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val subject1 = Subject(id, Name.of("Physics"), "Physics description")
         val subject2 = Subject(id, Name.of("Physics"), "Physics description")
 
@@ -44,15 +44,15 @@ class SubjectTest {
 
     @Test
     fun `subjects with different ids should not be equal`() {
-        val subject1 = Subject(Uuid.random(), Name.of("Chemistry"), "Chem desc")
-        val subject2 = Subject(Uuid.random(), Name.of("Chemistry"), "Chem desc")
+        val subject1 = Subject(UUID.randomUUID(), Name.of("Chemistry"), "Chem desc")
+        val subject2 = Subject(UUID.randomUUID(), Name.of("Chemistry"), "Chem desc")
 
         assertNotEquals(subject1, subject2)
     }
 
     @Test
     fun `subjects with different names should not be equal`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val subject1 = Subject(id, Name.of("Biology"), "Description")
         val subject2 = Subject(id, Name.of("Geography"), "Description")
 
@@ -61,7 +61,7 @@ class SubjectTest {
 
     private fun createTestSubject(): Subject {
         return Subject(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             name = Name.of("Mathematics"),
             description = "Advanced mathematics course"
         )

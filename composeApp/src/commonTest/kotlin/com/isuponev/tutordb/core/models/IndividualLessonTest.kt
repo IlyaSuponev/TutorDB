@@ -2,15 +2,15 @@ package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.models.values.Name
 import com.isuponev.tutordb.core.utils.plus
-import kotlinx.datetime.LocalDateTime
-import org.javamoney.moneta.Money
+import java.util.UUID
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
+import kotlinx.datetime.LocalDateTime
+import org.javamoney.moneta.Money
 
 @OptIn(ExperimentalUuidApi::class)
 class IndividualLessonTest {
@@ -30,7 +30,7 @@ class IndividualLessonTest {
         val student = createTestStudent()
         val dateTime = LocalDateTime(2024, 1, 15, 14, 0)
         val lesson1 = IndividualLesson(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             dateTime = dateTime,
             duration = 1.hours,
             hourCost = Money.of(50, "USD"),
@@ -53,7 +53,7 @@ class IndividualLessonTest {
     @Test
     fun `lessons with different date times should not be equal`() {
         val student = createTestStudent()
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val lesson1 = IndividualLesson(
             id = id,
             dateTime = LocalDateTime(2024, 1, 15, 14, 0),
@@ -79,7 +79,7 @@ class IndividualLessonTest {
         val startTime = LocalDateTime(2024, 1, 15, 14, 0)
         val duration = 1.hours + 30.minutes
         val lesson = IndividualLesson(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             dateTime = startTime,
             duration = duration,
             hourCost = Money.of(50, "USD"),
@@ -128,7 +128,7 @@ class IndividualLessonTest {
 
         durations.forEach { duration ->
             val lesson = IndividualLesson(
-                id = Uuid.random(),
+                id = UUID.randomUUID(),
                 dateTime = LocalDateTime(2024, 1, 15, 14, 0),
                 duration = duration,
                 hourCost = Money.of(50, "USD"),
@@ -142,7 +142,7 @@ class IndividualLessonTest {
 
     private fun createTestLesson(): IndividualLesson {
         return IndividualLesson(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             dateTime = LocalDateTime(2024, 1, 15, 14, 0),
             duration = 2.hours,
             hourCost = Money.of(50, "USD"),
@@ -153,7 +153,7 @@ class IndividualLessonTest {
 
     private fun createTestStudent(): Student {
         return Student(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             name = Name.of("John Doe"),
             hourCost = Money.of(50, "USD")
         )

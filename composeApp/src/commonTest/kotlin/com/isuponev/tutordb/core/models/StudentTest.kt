@@ -2,21 +2,21 @@ package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.models.values.Name
 import com.isuponev.tutordb.core.models.values.PhoneNumber
-import org.javamoney.moneta.Money
+import java.util.UUID
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
+import org.javamoney.moneta.Money
 
 @OptIn(ExperimentalUuidApi::class)
 class StudentTest {
 
     @Test
     fun `should create student with required parameters`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val name = Name.of("John Doe")
         val hourCost = Money.of(50, "USD")
         
@@ -40,7 +40,7 @@ class StudentTest {
 
     @Test
     fun `students with same properties should be equal`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val student1 = Student(id, Name.of("Bob"), Money.of(40, "USD"))
         val student2 = Student(id, Name.of("Bob"), Money.of(40, "USD"))
         
@@ -50,7 +50,7 @@ class StudentTest {
 
     @Test
     fun `students with different hour cost should not be equal`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val student1 = Student(id, Name.of("Bob"), Money.of(40, "USD"))
         val student2 = Student(id, Name.of("Bob"), Money.of(50, "USD"))
 
@@ -73,7 +73,7 @@ class StudentTest {
     @Test
     fun `should handle null contacts correctly`() {
         val student = Student(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             name = Name.of("Student without contacts"),
             hourCost = Money.of(30, "USD"),
             contacts = null
@@ -85,7 +85,7 @@ class StudentTest {
     @Test
     fun `should handle empty subjects set`() {
         val student = Student(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             name = Name.of("New student"),
             hourCost = Money.of(25, "USD"),
             subjects = emptySet()
@@ -108,16 +108,16 @@ class StudentTest {
 
     private fun createTestStudent(): Student {
         return Student(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             name = Name.of("Alice Smith"),
             hourCost = Money.of(60, "USD"),
             contacts = Contacts(
-                id = Uuid.random(),
+                id = UUID.randomUUID(),
                 phones = mapOf(Name.of("Mobile") to PhoneNumber.of("+12125551234"))
             ),
             subjects = setOf(
-                Subject(Uuid.random(), Name.of("Math"), "Mathematics"),
-                Subject(Uuid.random(), Name.of("Physics"), "Physics")
+                Subject(UUID.randomUUID(), Name.of("Math"), "Mathematics"),
+                Subject(UUID.randomUUID(), Name.of("Physics"), "Physics")
             )
         )
     }

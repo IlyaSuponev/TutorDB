@@ -3,9 +3,7 @@ package com.isuponev.tutordb.core.models
 import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
 import com.isuponev.tutordb.core.models.values.PhoneNumber
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
-
+import java.util.UUID
 /**
  * Represents contact information for a person or organization.
  *
@@ -19,5 +17,4 @@ import kotlin.uuid.Uuid
  * @see Name
  * @see PhoneNumber
  */
-@OptIn(ExperimentalUuidApi::class)
-data class Contacts(override val id: Uuid, val phones: Map<Name, PhoneNumber>) : Model
+data class Contacts(override val id: UUID, val phones: Map<Name, PhoneNumber>) : Model

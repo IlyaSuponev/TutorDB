@@ -1,7 +1,6 @@
 package com.isuponev.tutordb.core.interfaces
 
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
+import java.util.UUID
 
 /**
  * Base interface for all domain models in the application.
@@ -13,9 +12,7 @@ interface Model {
     /**
      * The unique identifier for the model instance using UUID.
      *
-     * @see kotlin.uuid.Uuid
-     * @see kotlin.uuid.ExperimentalUuidApi
+     * @see java.util.UUID
      */
-    @ExperimentalUuidApi
-    val id: Uuid
+    val id: UUID
 }

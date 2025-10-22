@@ -1,21 +1,20 @@
 package com.isuponev.tutordb.core.models
 
-import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
 import com.isuponev.tutordb.core.models.values.PhoneNumber
+import java.util.UUID
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalUuidApi::class)
 class ContactsTest {
 
     @Test
     fun `should create contacts with phone mapping`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val phones = mapOf(
             Name.of("Mobile") to PhoneNumber.of("+79161234567"),
             Name.of("Home") to PhoneNumber.of("+12125551234")
@@ -30,7 +29,7 @@ class ContactsTest {
 
     @Test
     fun `should create contacts with empty phone map`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val emptyPhones = emptyMap<Name, PhoneNumber>()
 
         val contacts = Contacts(id, emptyPhones)
@@ -39,7 +38,7 @@ class ContactsTest {
 
     @Test
     fun `contacts with same properties should be equal`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val phones = mapOf(Name.of("Work") to PhoneNumber.of("+79161234567"))
         val contacts1 = Contacts(id, phones)
         val contacts2 = Contacts(id, phones)
@@ -50,7 +49,7 @@ class ContactsTest {
 
     @Test
     fun `contacts with different phone maps should not be equal`() {
-        val id = Uuid.random()
+        val id = UUID.randomUUID()
         val phones1 = mapOf(Name.of("Mobile") to PhoneNumber.of("+79161234567"))
         val phones2 = mapOf(Name.of("Mobile") to PhoneNumber.of("+12125551234"))
 
@@ -82,7 +81,7 @@ class ContactsTest {
 
     private fun createTestContacts(): Contacts {
         return Contacts(
-            id = Uuid.random(),
+            id = UUID.randomUUID(),
             phones = mapOf(
                 Name.of("Mobile") to PhoneNumber.of("+12125551234"),
                 Name.of("Home") to PhoneNumber.of("+79161234567")
