@@ -47,6 +47,7 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.jetbrains.exposed.core)
+            implementation(libs.jetbrains.exposed.dao)
             implementation(libs.jetbrains.exposed.jdbc)
             implementation(libs.jetbrains.exposed.kotlin.datetime)
             implementation(libs.jetbrains.exposed.money)
