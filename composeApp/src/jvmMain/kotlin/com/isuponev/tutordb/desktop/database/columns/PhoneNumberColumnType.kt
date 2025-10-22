@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.core.database.columns
+package com.isuponev.tutordb.desktop.database.columns
 
 import com.isuponev.tutordb.core.models.values.PhoneNumber
 import org.jetbrains.exposed.v1.core.ColumnType

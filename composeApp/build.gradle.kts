@@ -31,12 +31,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.jetbrains.androidx.navigation.compose)
             implementation(libs.jetbrains.kotlinx.serialization.json)
-            implementation(libs.jetbrains.exposed.core)
-            implementation(libs.jetbrains.exposed.jdbc)
-            implementation(libs.jetbrains.exposed.kotlin.datetime)
-            implementation(libs.jetbrains.exposed.money)
-            implementation(libs.database.h2)
-            implementation(libs.java.money)
             implementation(libs.google.libs.phonenumber)
             implementation(libs.touchlab.kermit)
             implementation(libs.gosyer.appdirs)
@@ -52,9 +46,12 @@ kotlin {
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
-        }
-        all {
-            languageSettings.enableLanguageFeature("NestedTypeAliases")
+            implementation(libs.jetbrains.exposed.core)
+            implementation(libs.jetbrains.exposed.jdbc)
+            implementation(libs.jetbrains.exposed.kotlin.datetime)
+            implementation(libs.jetbrains.exposed.money)
+            implementation(libs.database.h2)
+            implementation(libs.java.money)
         }
     }
 }

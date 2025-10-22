@@ -1,6 +1,7 @@
-package com.isuponev.tutordb.core.database.columns
+package com.isuponev.tutordb.database.columns
 
 import com.isuponev.tutordb.core.models.values.Name
+import com.isuponev.tutordb.desktop.database.columns.NameColumnType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
