@@ -145,13 +145,12 @@ internal fun ToolMenu(
     }
     IconButton(
         onClick = {
-            // TODO: undo comments
-            // navController.navigate(target = SettingsScreen)
+            navController.navigate(Screen.SettingsScreen)
         }
     ) {
         Icon(
             Icons.Default.Settings,
-            SharedResourcesjvmMain.strings.screenSettings.localized(),
+            SharedResourcesjvmMain.strings.screenSettingsName.localized(),
             modifier = Modifier
                 .size(AppDefaults.Sizes.TOOL_ICON_SIZE)
                 .clip(CircleShape),

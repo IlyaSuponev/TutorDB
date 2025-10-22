@@ -20,7 +20,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.views.screens.HomeView
-import com.isuponev.tutordb.desktop.views.screens.HomeViewModel
+import com.isuponev.tutordb.desktop.viewmodels.HomeViewModel
+import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
+import com.isuponev.tutordb.desktop.viewmodels.IncomesViewModel
+import com.isuponev.tutordb.desktop.views.screens.LessonsScreenView
+import com.isuponev.tutordb.desktop.viewmodels.LessonsViewModel
+import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
+import com.isuponev.tutordb.desktop.viewmodels.SettingsViewModel
+import com.isuponev.tutordb.desktop.views.screens.StudentsScreenView
+import com.isuponev.tutordb.desktop.viewmodels.StudentsViewModel
+import com.isuponev.tutordb.desktop.views.screens.SubjectsScreenView
+import com.isuponev.tutordb.desktop.viewmodels.SubjectsViewModel
 
 @Composable
 internal actual fun AppMainContainer(
@@ -51,6 +61,26 @@ internal actual fun AppMainContainer(
             composable<Screen.HomeScreen> {
                 val viewModel by remember { mutableStateOf(HomeViewModel(navController)) }
                 HomeView(viewModel, Modifier.fillMaxSize())
+            }
+            composable<Screen.SettingsScreen> {
+                val viewModel by remember { mutableStateOf(SettingsViewModel(navController)) }
+                SettingsScreenView(viewModel, Modifier.fillMaxSize())
+            }
+            composable<Screen.StudentsScreen> {
+                val viewModel by remember { mutableStateOf(StudentsViewModel(navController)) }
+                StudentsScreenView(viewModel, Modifier.fillMaxSize())
+            }
+            composable<Screen.SubjectsScreen> {
+                val viewModel by remember { mutableStateOf(SubjectsViewModel(navController)) }
+                SubjectsScreenView(viewModel, Modifier.fillMaxSize())
+            }
+            composable<Screen.LessonsScreen> {
+                val viewModel by remember { mutableStateOf(LessonsViewModel(navController)) }
+                LessonsScreenView(viewModel, Modifier.fillMaxSize())
+            }
+            composable<Screen.IncomesScreen> {
+                val viewModel by remember { mutableStateOf(IncomesViewModel(navController)) }
+                IncomesScreenView(viewModel, Modifier.fillMaxSize())
             }
         }
     }

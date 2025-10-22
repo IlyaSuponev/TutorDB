@@ -7,4 +7,14 @@ import kotlinx.serialization.Serializable
 actual sealed class Screen{
     @Serializable
     object HomeScreen : Screen()
+    @Serializable
+    object SettingsScreen : Screen()
+    @Serializable
+    object StudentsScreen : Screen()
+    @Serializable
+    object LessonsScreen : Screen()
+    @Serializable
+    object SubjectsScreen : Screen()
+    @Serializable
+    object IncomesScreen : Screen()
 }

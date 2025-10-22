@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <!-- Menus name strings -->
-    <string name="screenStudents">Студенты</string>
-    <string name="screenLessons">Занятия</string>
-    <string name="screenSubjects">Предметы</string>
-    <string name="screenIncomes">Доходы</string>
-    <string name="screenSettings">Настройки</string>
+    <string name="screenStudentsName">Студенты</string>
+    <string name="screenLessonsName">Занятия</string>
+    <string name="screenSubjectsName">Предметы</string>
+    <string name="screenIncomesName">Доходы</string>
+    <string name="screenSettingsName">Настройки</string>
 
     <!-- Settings labels name -->
     <string name="lbl_settings_general">Общие</string>

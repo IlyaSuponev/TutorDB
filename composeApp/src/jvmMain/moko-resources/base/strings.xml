@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <!-- Screens routes -->
-    <string name="routeOfMainScreen">/</string>
-    <string name="routeOfSettingsScreen">/settings</string>
-    <string name="routeOfStudentsScreen">/students</string>
-    <string name="routeOfLessonsScreen">/lessons</string>
-    <string name="routeOfSubjectsScreen">/subjects</string>
-    <string name="routeOfIncomesScreen">/incomes</string>
-
     <!-- Screen name strings in EN localization as default -->
-    <string name="screenStudents">Students</string>
-    <string name="screenLessons">Lessons</string>
-    <string name="screenSubjects">Subjects</string>
-    <string name="screenIncomes">Incomes</string>
-    <string name="screenSettings">Settings</string>
+    <string name="screenStudentsName">Students</string>
+    <string name="screenLessonsName">Lessons</string>
+    <string name="screenSubjectsName">Subjects</string>
+    <string name="screenIncomesName">Incomes</string>
+    <string name="screenSettingsName">Settings</string>
 
     <!-- Settings labels name -->
     <string name="lbl_settings_general">General</string>

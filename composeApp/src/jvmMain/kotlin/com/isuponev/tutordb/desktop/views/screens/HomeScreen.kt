@@ -25,34 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
-import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.config.AppConfig
-import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
-import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
-import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.CardWidget
-
-class HomeViewModel(
-    private val navHostController: NavHostController
-) : AppScreenViewModel<Screen.HomeScreen>(Screen.HomeScreen) {
-    fun onStudentsCardClicked() {
-
-    }
-
-    fun onLessonsCardClicked() {
-
-    }
-
-    fun onSubjectsCardClicked() {
-
-    }
-
-    fun onIncomesCardClicked() {
-
-    }
-}
+import com.isuponev.tutordb.desktop.viewmodels.HomeViewModel
 
 private typealias CardContent = Triple<() -> Unit, ImageVector, String>
 
@@ -125,12 +102,12 @@ fun HomeView(
             CardContent(
                 viewModel::onStudentsCardClicked,
                 Icons.Default.Person,
-                locale.localize(SharedResourcesjvmMain.strings.screenStudents)
+                locale.localize(SharedResourcesjvmMain.strings.screenStudentsName)
             ),
             CardContent(
                 viewModel::onSubjectsCardClicked,
                 Icons.Default.Bookmarks,
-                locale.localize(SharedResourcesjvmMain.strings.screenSubjects)
+                locale.localize(SharedResourcesjvmMain.strings.screenSubjectsName)
             )
         )
     )
@@ -142,12 +119,12 @@ fun HomeView(
             CardContent(
                 viewModel::onLessonsCardClicked,
                 Icons.Default.PlayLesson,
-                locale.localize(SharedResourcesjvmMain.strings.screenLessons)
+                locale.localize(SharedResourcesjvmMain.strings.screenLessonsName)
             ),
             CardContent(
                 viewModel::onIncomesCardClicked,
                 Icons.Default.Money,
-                locale.localize(SharedResourcesjvmMain.strings.screenIncomes)
+                locale.localize(SharedResourcesjvmMain.strings.screenIncomesName)
             )
         )
     )
