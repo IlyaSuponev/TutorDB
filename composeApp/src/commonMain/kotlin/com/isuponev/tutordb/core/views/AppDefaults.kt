@@ -135,6 +135,7 @@ object AppDefaults {
     object Widths {
         val TOOLS_MENU = 80.dp
 
+
         /**
          * Constants for border widths used throughout the application.
          *

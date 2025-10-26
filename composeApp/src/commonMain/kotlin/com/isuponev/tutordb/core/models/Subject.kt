@@ -17,4 +17,4 @@ import java.util.UUID
  * @see Model
  * @see Name
  */
-data class Subject(override val id: UUID, val name: Name, val description: String) : Model
+data class Subject(override val id: Long, val name: Name, val description: String) : Model

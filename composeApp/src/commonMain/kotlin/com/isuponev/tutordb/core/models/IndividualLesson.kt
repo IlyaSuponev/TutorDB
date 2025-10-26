@@ -26,7 +26,7 @@ import kotlin.time.Duration
  * @see Student
  */
 data class IndividualLesson(
-    override val id: UUID,
+    override val id: Long,
     val dateTime: LocalDateTime,
     val duration: Duration,
     val hourCost: MonetaryAmount,

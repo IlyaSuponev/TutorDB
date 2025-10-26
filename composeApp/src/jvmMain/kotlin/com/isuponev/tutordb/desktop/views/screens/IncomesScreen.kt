@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
-import com.isuponev.tutordb.desktop.viewmodels.IncomesViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
 
 @Composable
 fun IncomesScreenView(

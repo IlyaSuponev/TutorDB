@@ -60,7 +60,7 @@ import kotlin.time.Duration.Companion.milliseconds
  * @see Closeable
  */
 object AppConfig : Closeable {
-    private val appDirs = AppDirs {
+    val appDirs = AppDirs {
         appName = SharedResources.strings.appName.localized()
         appAuthor = SharedResources.strings.appAuthor.localized()
     }
@@ -175,6 +175,8 @@ object AppConfig : Closeable {
 
         override fun convert(): GeneralConfigData = GeneralConfigData(locale.value)
     }
+
+    object Platform
 
     init {
         load()

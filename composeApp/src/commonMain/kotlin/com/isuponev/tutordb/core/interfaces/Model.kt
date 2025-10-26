@@ -1,7 +1,5 @@
 package com.isuponev.tutordb.core.interfaces
 
-import java.util.UUID
-
 /**
  * Base interface for all domain models in the application.
  *
@@ -10,9 +8,7 @@ import java.util.UUID
  */
 interface Model {
     /**
-     * The unique identifier for the model instance using UUID.
-     *
-     * @see java.util.UUID
+     * The unique identifier for the model instance using Long
      */
-    val id: UUID
+    val id: Long
 }

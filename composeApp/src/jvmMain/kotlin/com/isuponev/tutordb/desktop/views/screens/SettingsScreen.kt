@@ -37,7 +37,8 @@ import com.isuponev.tutordb.core.config.ui.ThemeMode
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
-import com.isuponev.tutordb.desktop.viewmodels.SettingsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
+import com.isuponev.tutordb.desktop.views.Header
 
 @Composable
 fun SettingsScreenView(
@@ -50,9 +51,9 @@ fun SettingsScreenView(
     verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG),
 ) {
     viewModel.logInfo("Load settings screen")
-    ScreenHeader(
+    Header(
         SharedResourcesjvmMain.strings.screenSettingsName,
-        Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     )
     Row(
         modifier = Modifier.weight(AppDefaults.Weights.ONE).fillMaxWidth(),

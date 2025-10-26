@@ -9,6 +9,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.isuponev.tutordb.core.config.AppConfig
+import com.isuponev.tutordb.core.config.currentDatabase
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.views.App
 import com.isuponev.tutordb.core.views.AppDefaults

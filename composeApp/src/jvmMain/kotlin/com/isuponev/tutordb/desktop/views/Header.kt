@@ -1,9 +1,13 @@
-package com.isuponev.tutordb.desktop.views.screens
+package com.isuponev.tutordb.desktop.views
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -13,11 +17,13 @@ import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
+import com.isuponev.tutordb.desktop.viewmodels.Tool
 import dev.icerock.moko.resources.StringResource
 
 @Composable
-internal fun ScreenHeader(
+fun Header(
     titleResource: StringResource,
+    tools: List<Tool> = emptyList(),
     modifier: Modifier = Modifier
 ) = CardWidget<RowScope>(
     modifier = modifier,
@@ -35,4 +41,16 @@ internal fun ScreenHeader(
         style = MaterialTheme.typography.displayMedium,
         color = MaterialTheme.colorScheme.onPrimaryContainer,
     )
+    if (tools.isNotEmpty()) {
+        Spacer(Modifier.weight(AppDefaults.Weights.ONE))
+        Row {
+            tools.forEach { tool ->
+                IconButton(
+                    onClick = tool.onClick
+                ) {
+                    Icon(tool.icon, contentDescription = tool.description)
+                }
+            }
+        }
+    }
 }

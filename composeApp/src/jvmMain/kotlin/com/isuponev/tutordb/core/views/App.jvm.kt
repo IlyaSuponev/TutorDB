@@ -9,28 +9,30 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.isuponev.tutordb.core.config.AppConfig
+import com.isuponev.tutordb.core.config.currentDatabase
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.views.screens.HomeView
-import com.isuponev.tutordb.desktop.viewmodels.HomeViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
 import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
-import com.isuponev.tutordb.desktop.viewmodels.IncomesViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
 import com.isuponev.tutordb.desktop.views.screens.LessonsScreenView
-import com.isuponev.tutordb.desktop.viewmodels.LessonsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.LessonsViewModel
 import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
-import com.isuponev.tutordb.desktop.viewmodels.SettingsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
 import com.isuponev.tutordb.desktop.views.screens.StudentsScreenView
-import com.isuponev.tutordb.desktop.viewmodels.StudentsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.StudentsViewModel
 import com.isuponev.tutordb.desktop.views.screens.SubjectsScreenView
-import com.isuponev.tutordb.desktop.viewmodels.SubjectsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.SubjectsViewModel
 
 @Composable
 internal actual fun AppMainContainer(
@@ -41,11 +43,10 @@ internal actual fun AppMainContainer(
     horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM),
     verticalAlignment = Alignment.CenterVertically,
 ) {
-    var tools by remember { mutableStateOf(emptyList<ToolMenuElement>()) }
+    val db by AppConfig.Platform.currentDatabase.collectAsState()
     ToolMenu(
         Modifier.fillMaxHeight(),
-        navController,
-        tools
+        navController
     )
     Box(
         modifier = Modifier
@@ -71,7 +72,7 @@ internal actual fun AppMainContainer(
                 StudentsScreenView(viewModel, Modifier.fillMaxSize())
             }
             composable<Screen.SubjectsScreen> {
-                val viewModel by remember { mutableStateOf(SubjectsViewModel(navController)) }
+                val viewModel by remember { mutableStateOf(SubjectsViewModel(navController, db)) }
                 SubjectsScreenView(viewModel, Modifier.fillMaxSize())
             }
             composable<Screen.LessonsScreen> {

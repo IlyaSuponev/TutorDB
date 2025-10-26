@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
-import com.isuponev.tutordb.desktop.viewmodels.LessonsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.LessonsViewModel
 
 @Composable
 fun LessonsScreenView(

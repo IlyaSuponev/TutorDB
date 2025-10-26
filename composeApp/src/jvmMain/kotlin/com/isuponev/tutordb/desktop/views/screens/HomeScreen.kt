@@ -29,7 +29,7 @@ import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
-import com.isuponev.tutordb.desktop.viewmodels.HomeViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
 
 private typealias CardContent = Triple<() -> Unit, ImageVector, String>
 

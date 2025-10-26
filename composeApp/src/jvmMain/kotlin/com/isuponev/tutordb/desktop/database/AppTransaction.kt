@@ -1,10 +1,7 @@
 package com.isuponev.tutordb.desktop.database
 
-import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.desktop.database.logging.AppSQLLogger
 import java.util.Collections
-import java.util.concurrent.ConcurrentHashMap
-import kotlin.onSuccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -14,13 +11,9 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
-import kotlinx.coroutines.withTimeoutOrNull
-import org.jetbrains.exposed.v1.core.StdOutSqlLogger
 import org.jetbrains.exposed.v1.core.Table
 import org.jetbrains.exposed.v1.core.Transaction
-import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.SchemaUtils
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
@@ -31,7 +24,7 @@ object AppTransactions {
     private const val JOB_TIMEOUT_MILLIS = 250L
 
     fun <T> new(
-        db: Database? = null,
+        db: Database,
         logTag: String? = null,
         onSuccess: ((T) -> Unit)? = null,
         onError: ((Throwable) -> Unit)? = null,
@@ -40,7 +33,7 @@ object AppTransactions {
     ) {
         val job = scope.launch {
             try {
-                val result: T = transaction(db) {
+                val result: T = transaction(db.jdbc) {
                     addLogger(if (logTag == null) AppSQLLogger() else AppSQLLogger(logTag))
                     dependsOnTables.forEach { table ->
                         SchemaUtils.create(table)

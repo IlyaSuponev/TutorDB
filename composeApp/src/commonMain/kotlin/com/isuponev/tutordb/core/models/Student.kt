@@ -24,7 +24,7 @@ import javax.money.MonetaryAmount
  * @see Subject
  */
 data class Student(
-    override val id: UUID,
+    override val id: Long,
     val name: Name,
     val hourCost: MonetaryAmount,
     val contacts: Contacts? = null,

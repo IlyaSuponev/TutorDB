@@ -17,4 +17,4 @@ import java.util.UUID
  * @see Name
  * @see PhoneNumber
  */
-data class Contacts(override val id: UUID, val phones: Map<Name, PhoneNumber>) : Model
+data class Contacts(override val id: Long, val phones: Map<Name, PhoneNumber>) : Model
