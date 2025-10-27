@@ -6,10 +6,14 @@
     <string name="screenSubjectsName">Subjects</string>
     <string name="screenIncomesName">Incomes</string>
     <string name="screenSettingsName">Settings</string>
+    <string name="screenAddSubjectName">Add new subject</string>
+    <string name="screenEditSubjectName">Edit subject</string>
 
     <!-- Settings labels name -->
     <string name="lbl_settings_general">General</string>
     <string name="lbl_settings_general_locale">Language</string>
     <string name="lbl_settings_ui">User Interface</string>
     <string name="lbl_settings_ui_theme">Theme mode</string>
+    <string name="lbl_subject_name">Name of subject</string>
+    <string name="lbl_subject_description">Description of subject</string>
 </resources>

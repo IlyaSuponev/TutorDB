@@ -5,4 +5,10 @@
     <string name="appVersion">1.0.0</string>
     <string name="fullAppName">TutorDB 1.0.0</string>
     <string name="appAuthor">isuponev</string>
+
+    <!-- Utility labels -->
+    <string name="lbl_cancel">Cancel</string>
+    <string name="lbl_apply">Apply</string>
+    <string name="lbl_save">Save</string>
+    <string name="lbl_ok">Ok</string>
 </resources>

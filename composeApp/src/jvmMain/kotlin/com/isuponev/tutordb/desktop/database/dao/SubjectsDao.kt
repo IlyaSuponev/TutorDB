@@ -14,6 +14,7 @@ import org.jetbrains.exposed.v1.core.ResultRow
 import org.jetbrains.exposed.v1.core.eq
 import org.jetbrains.exposed.v1.jdbc.deleteWhere
 import org.jetbrains.exposed.v1.jdbc.selectAll
+import org.jetbrains.exposed.v1.jdbc.update
 
 class SubjectsDao private constructor(override val database: Database): Dao<Subject> {
     private val _allSubjects = MutableStateFlow<List<Subject>>(emptyList())
@@ -72,6 +73,59 @@ class SubjectsDao private constructor(override val database: Database): Dao<Subj
         }
     }
 
+    fun getById(
+        id: Long,
+        onSuccess: (Subject?) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
+        AppTransactions.new(
+            db = database,
+            logTag = "SubjectsDao.getById",
+            onSuccess = onSuccess,
+            onError = onError,
+            SubjectsTable,
+        ) {
+            val e = SubjectEntity.findById(id)
+            e?.toDomain()
+        }
+    }
+
+    fun update(
+        subject: Subject,
+        onSuccess: () -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
+        AppTransactions.new(
+            db = database,
+            logTag = "SubjectsDao.update",
+            onSuccess = {
+                AppConfig.logger.i(tag = "SubjectsDao") {
+                    "Subject $subject updated"
+                }
+                _allSubjects.update {
+                    it.map { sub ->
+                        if (sub.id == subject.id) {
+                            subject
+                        } else {
+                            sub
+                        }
+                    }
+                }
+                onSuccess()
+            },
+            onError = onError,
+            SubjectsTable
+        ) {
+            SubjectsTable.update(
+                where = {
+                    SubjectsTable.id eq subject.id
+                }
+            ) {
+                it[SubjectsTable.name] = subject.name.value
+                it[SubjectsTable.description] = subject.description
+            }
+        }
+    }
     fun remove(
         subject: Subject,
         onError: (Throwable) -> Unit

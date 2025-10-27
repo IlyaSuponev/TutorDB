@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <!-- Menus name strings -->
-    <string name="screenStudents">Студенты</string>
-    <string name="screenLessons">Занятия</string>
-    <string name="screenSubjects">Предметы</string>
-    <string name="screenIncomes">Доходы</string>
-    <string name="screenSettings">Настройки</string>
-
-    <!-- Settings labels name -->
-    <string name="lbl_settings_general">Общие</string>
-    <string name="lbl_settings_general_locale">Язык</string>
-    <string name="lbl_settings_ui">Интерфейс</string>
-    <string name="lbl_settings_ui_theme">Оформление</string>
+    <!-- Utility labels -->
+    <string name="lbl_cancel">Отмена</string>
+    <string name="lbl_apply">Применить</string>
+    <string name="lbl_save">Сохранить</string>
+    <string name="lbl_ok">Принять</string>
 </resources>

@@ -161,4 +161,13 @@ object AppDefaults {
      * Use these constants when platform-specific behavior or styling is required.
      */
     object Platform
+
+    object Fraction {
+        const val FULL = 1f
+        const val HALF = 0.5f
+        const val QUARTER = 0.25f
+        const val THREE_QUARTERS = 0.75f
+        const val THIRD = 0.33f
+        const val TWO_THIRD = 0.67f
+    }
 }

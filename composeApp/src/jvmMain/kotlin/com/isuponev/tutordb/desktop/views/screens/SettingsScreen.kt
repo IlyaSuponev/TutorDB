@@ -50,7 +50,7 @@ fun SettingsScreenView(
         .fillMaxSize(),
     verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG),
 ) {
-    viewModel.logInfo("Load settings screen")
+    viewModel.i("Load settings screen")
     Header(
         SharedResourcesjvmMain.strings.screenSettingsName,
         modifier = Modifier.fillMaxWidth()

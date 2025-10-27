@@ -15,6 +15,6 @@ fun StudentsScreenView(
     modifier: Modifier
 ) {
     val locale by AppConfig.General.locale.collectAsState()
-    viewModel.logInfo("Load students screen")
+    viewModel.i("Load students screen")
     Text(locale.localize(SharedResourcesjvmMain.strings.screenStudentsName))
 }

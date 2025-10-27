@@ -15,6 +15,6 @@ fun LessonsScreenView(
     modifier: Modifier
 ) {
     val locale by AppConfig.General.locale.collectAsState()
-    viewModel.logInfo("Load lessons screen")
+    viewModel.i("Load lessons screen")
     Text(locale.localize(SharedResourcesjvmMain.strings.screenLessonsName))
 }

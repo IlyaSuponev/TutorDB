@@ -2,7 +2,7 @@ package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
-import java.util.UUID
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a subject or topic that can be taught by tutors.
@@ -17,4 +17,5 @@ import java.util.UUID
  * @see Model
  * @see Name
  */
+@Serializable
 data class Subject(override val id: Long, val name: Name, val description: String) : Model

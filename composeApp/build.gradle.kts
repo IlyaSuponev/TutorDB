@@ -53,6 +53,8 @@ kotlin {
             implementation(libs.jetbrains.exposed.money)
             implementation(libs.database.h2)
             implementation(libs.java.money)
+            // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-swing
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.10.2")
         }
     }
 }

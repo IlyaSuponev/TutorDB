@@ -6,10 +6,14 @@
     <string name="screenSubjectsName">Предметы</string>
     <string name="screenIncomesName">Доходы</string>
     <string name="screenSettingsName">Настройки</string>
+    <string name="screenAddSubjectName">Добавление нового предмета</string>
+    <string name="screenEditSubjectName">Редактор предмета</string>
 
     <!-- Settings labels name -->
     <string name="lbl_settings_general">Общие</string>
     <string name="lbl_settings_general_locale">Язык</string>
     <string name="lbl_settings_ui">Интерфейс</string>
     <string name="lbl_settings_ui_theme">Оформление</string>
+    <string name="lbl_subject_name">Имя предмета</string>
+    <string name="lbl_subject_description">Описание предмета</string>
 </resources>

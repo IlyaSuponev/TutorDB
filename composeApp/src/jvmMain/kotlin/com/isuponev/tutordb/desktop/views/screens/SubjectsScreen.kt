@@ -11,15 +11,10 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.IconButton
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -32,9 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.Subject
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
@@ -93,16 +86,13 @@ private fun SubjectCard(
             }
         }
         Text(
-            text = subject.description.ifBlank {
-                "Blank description"
-            }.ifEmpty {
-                println("Empty description")
+            text = subject.description.ifEmpty {
                 "Empty description"
             },
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.tertiaryContainer,)
                 .padding(AppDefaults.Paddings.SMALL)
-                .defaultMinSize(minHeight = 100.dp)
+                .defaultMinSize(minHeight = SubjectsViewModel.DESCRIPTION_MIN_WIDTH)
                 .fillMaxWidth(),
             color = MaterialTheme.colorScheme.onTertiaryContainer,
             style = MaterialTheme.typography.bodyLarge
@@ -118,24 +108,26 @@ fun SubjectsScreenView(
     modifier = modifier
         .padding(AppDefaults.Paddings.BIG)
         .fillMaxSize(),
-    verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG),
+    verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
 ) {
-    viewModel.logInfo("Load subjects screen")
+    viewModel.i("Load subjects screen")
     Header(
         SharedResourcesjvmMain.strings.screenSubjectsName,
         tools = viewModel.tools,
         modifier = Modifier.fillMaxWidth()
     )
     val subjects by viewModel.subjects.collectAsState()
+    val columnsCount by viewModel.columnsCount.collectAsState()
     LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Fixed(2),
-        modifier = Modifier.weight(1f),
+        columns = StaggeredGridCells.Fixed(columnsCount),
+        modifier = Modifier.weight(AppDefaults.Weights.ONE),
         verticalItemSpacing = AppDefaults.Arrangements.BIG,
         horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
     ) {
         items(subjects) { subject ->
             SubjectCard(
                 subject,
+                onEditClick = viewModel::editSubject,
                 onRemoveClick = viewModel::removeSubject
             )
         }

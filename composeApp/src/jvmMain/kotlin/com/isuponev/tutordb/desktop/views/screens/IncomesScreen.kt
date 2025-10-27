@@ -15,6 +15,6 @@ fun IncomesScreenView(
     modifier: Modifier
 ) {
     val locale by AppConfig.General.locale.collectAsState()
-    viewModel.logInfo("Load incomes screen")
+    viewModel.i("Load incomes screen")
     Text(locale.localize(SharedResourcesjvmMain.strings.screenIncomesName))
 }

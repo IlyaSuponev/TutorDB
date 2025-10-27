@@ -1,5 +1,7 @@
 package com.isuponev.tutordb.core.views.screens
 
+import com.isuponev.tutordb.core.models.Subject
+import com.isuponev.tutordb.core.models.values.Name
 import kotlinx.serialization.Serializable
 
 @Suppress(names = ["EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING"])
@@ -17,4 +19,8 @@ actual sealed class Screen{
     object SubjectsScreen : Screen()
     @Serializable
     object IncomesScreen : Screen()
+    @Serializable
+    object AddSubjectScreen : Screen()
+    @Serializable
+    data class EditSubjectScreen(val subjectId: Long) : Screen()
 }

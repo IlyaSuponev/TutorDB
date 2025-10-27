@@ -23,6 +23,7 @@ import kotlin.jvm.Throws
  * @see isValidNameValue for validation without instance creation
  * @see of for the primary factory method
  */
+@kotlinx.serialization.Serializable
 class Name private constructor(val value: String) : Serializable {
     override fun toString(): String = "Name(value='$value')"
 

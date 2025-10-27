@@ -93,7 +93,7 @@ fun HomeView(
     Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
 ) {
     val locale by AppConfig.General.locale.collectAsState()
-    viewModel.logInfo("Load home screen")
+    viewModel.i("Load home screen")
     MainScreenMenuCardRow(
         modifier = Modifier
             .weight(AppDefaults.Weights.ONE)
