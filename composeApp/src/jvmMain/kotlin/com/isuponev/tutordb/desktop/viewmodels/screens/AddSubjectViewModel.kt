@@ -12,37 +12,77 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jetbrains.exposed.v1.exceptions.ExposedSQLException
 
+/**
+ * A ViewModel for the "Add Subject" screen in the application.
+ *
+ * This class manages the state and behavior of the UI for adding a new subject to the database,
+ * including input validation, navigation, and communication with the DAO layer.
+ *
+ * @param navController The [NavHostController] used for navigating between screens.
+ * @param db The [Database] instance used to access the database.
+ */
 class AddSubjectViewModel(
     private val navController: NavHostController,
     db: Database
 ) : AppScreenViewModel<Screen.AddSubjectScreen>(Screen.AddSubjectScreen) {
     private val subjectsDao = SubjectsDao.new(db)
     private val _name = MutableStateFlow("")
+
+    /**
+     * A [StateFlow] that exposes the current value of the subject name input field.
+     */
     val name: StateFlow<String>
         get() = _name
 
     private val _description = MutableStateFlow("")
+
+    /**
+     * A [StateFlow] that exposes the current value of the subject description input field.
+     */
     val description: StateFlow<String>
         get() = _description
 
     private val _nameError = MutableStateFlow<String?>(null)
+
+    /**
+     * A [StateFlow] that exposes any error message related to the subject name input.
+     */
     val nameError: StateFlow<String?>
         get() = _nameError
 
+    /**
+     * Updates the name input field and clears any existing error message.
+     *
+     * @param newValue The new value entered by the user.
+     */
     fun onNameChanged(newValue: String) {
         _name.value = newValue
         if (_nameError.value != null) _nameError.value = null
     }
 
+    /**
+     * Updates the description input field.
+     *
+     * @param newValue The new value entered by the user.
+     */
     fun onDescriptionChanged(newValue: String) {
         _description.value = newValue
     }
 
+    /**
+     * Navigates back to the previous screen, canceling the creation of a new subject.
+     */
     fun onClickCancel() {
         i("Cancelling creation of new subject")
         navController.navigateUp()
     }
 
+    /**
+     * Saves the new subject to the database.
+     *
+     * Validates the subject name, creates the subject using the DAO, and navigates back
+     * on success. Displays appropriate error messages on failure.
+     */
     fun onClickSave() {
         i("Saving new subject")
         val newName = try {

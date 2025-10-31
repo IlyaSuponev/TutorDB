@@ -9,11 +9,10 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.isuponev.tutordb.core.config.AppConfig
-import com.isuponev.tutordb.core.config.currentDatabase
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.views.App
 import com.isuponev.tutordb.core.views.AppDefaults
-import com.isuponev.tutordb.desktop.database.AppTransactions
+import com.isuponev.tutordb.desktop.utils.AppTransactionManager
 import com.isuponev.tutordb.desktop.views.MAIN_WINDOW_MIN_HEIGHT
 import com.isuponev.tutordb.desktop.views.MAIN_WINDOW_MIN_WIDTH
 import java.awt.Dimension
@@ -27,7 +26,7 @@ fun main() {
         Window(
             onCloseRequest = {
                 AppConfig.logger.i { "App has been closed" }
-                AppTransactions.close()
+                AppTransactionManager.close()
                 AppConfig.close()
                 exitApplication()
             },

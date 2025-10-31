@@ -7,11 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,33 +15,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.config.currentDatabase
-import com.isuponev.tutordb.core.resources.SharedResources
-import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.AppAlert
 import com.isuponev.tutordb.desktop.viewmodels.screens.AddSubjectViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.EditSubjectViewModel
-import com.isuponev.tutordb.desktop.views.screens.HomeView
 import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
-import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
 import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
-import com.isuponev.tutordb.desktop.views.screens.LessonsScreenView
 import com.isuponev.tutordb.desktop.viewmodels.screens.LessonsViewModel
-import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
-import com.isuponev.tutordb.desktop.views.screens.StudentsScreenView
 import com.isuponev.tutordb.desktop.viewmodels.screens.StudentsViewModel
-import com.isuponev.tutordb.desktop.views.screens.SubjectsScreenView
 import com.isuponev.tutordb.desktop.viewmodels.screens.SubjectsViewModel
 import com.isuponev.tutordb.desktop.views.screens.AddSubjectScreenView
 import com.isuponev.tutordb.desktop.views.screens.EditSubjectScreenView
+import com.isuponev.tutordb.desktop.views.screens.HomeView
+import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
+import com.isuponev.tutordb.desktop.views.screens.LessonsScreenView
+import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
+import com.isuponev.tutordb.desktop.views.screens.StudentsScreenView
+import com.isuponev.tutordb.desktop.views.screens.SubjectsScreenView
 
 @Composable
 internal actual fun AppMainContainer(
@@ -102,9 +95,11 @@ internal actual fun AppMainContainer(
             }
             composable<Screen.EditSubjectScreen> { backStackEntry ->
                 val screen = backStackEntry.toRoute<Screen.EditSubjectScreen>()
-                val viewModel by remember { mutableStateOf(
-                    EditSubjectViewModel(screen, navController, db)
-                ) }
+                val viewModel by remember {
+                    mutableStateOf(
+                        EditSubjectViewModel(screen, navController, db)
+                    )
+                }
 
                 EditSubjectScreenView(viewModel, Modifier.fillMaxSize())
             }

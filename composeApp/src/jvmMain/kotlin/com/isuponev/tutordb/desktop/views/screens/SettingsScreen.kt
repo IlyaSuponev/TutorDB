@@ -40,6 +40,16 @@ import com.isuponev.tutordb.core.views.widgets.CardWidget
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
 import com.isuponev.tutordb.desktop.views.Header
 
+/**
+ * A composable UI component for the "Settings" screen in the application.
+ *
+ * This screen displays two primary configuration sections: General Settings and UI Settings,
+ * each rendered as a card with interactive controls. It uses the [SettingsViewModel] to handle
+ * user interactions and updates application-wide preferences.
+ *
+ * @param viewModel The [SettingsViewModel] instance managing the screen's state and logic.
+ * @param modifier Optional [Modifier] to customize the layout behavior of the screen container.
+ */
 @Composable
 fun SettingsScreenView(
     viewModel: SettingsViewModel,
@@ -152,7 +162,7 @@ private fun LazyListScope.locale(
             OutlinedTextField(
                 value = locale.type.displayLanguage,
                 singleLine = true,
-                onValueChange = {  },
+                onValueChange = { },
                 enabled = true,
                 readOnly = true,
                 modifier = Modifier
@@ -178,21 +188,21 @@ private fun LazyListScope.locale(
                     .asSequence()
                     .filter { it != locale }
                     .forEach { entry ->
-                    DropdownMenuItem(
-                        onClick = {
-                            viewModel.onChooseAppLocale(entry)
-                            expanded = false
+                        DropdownMenuItem(
+                            onClick = {
+                                viewModel.onChooseAppLocale(entry)
+                                expanded = false
+                            }
+                        ) {
+                            Text(
+                                entry.type.displayLanguage,
+                                style = MaterialTheme.typography.titleLarge,
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.fillMaxWidth()
+                            )
                         }
-                    ) {
-                        Text(
-                            entry.type.displayLanguage,
-                            style = MaterialTheme.typography.titleLarge,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.onTertiaryContainer,
-                            modifier = Modifier.fillMaxWidth()
-                        )
                     }
-                }
             }
         }
     }
@@ -226,7 +236,7 @@ private fun LazyListScope.theme(
             OutlinedTextField(
                 value = themeMode.name,
                 singleLine = true,
-                onValueChange = {  },
+                onValueChange = { },
                 enabled = true,
                 readOnly = true,
                 modifier = Modifier
@@ -252,21 +262,21 @@ private fun LazyListScope.theme(
                     .asSequence()
                     .filter { it != themeMode }
                     .forEach { entry ->
-                    DropdownMenuItem(
-                        onClick = {
-                            viewModel.onChooseThemeMode(entry)
-                            expanded = false
+                        DropdownMenuItem(
+                            onClick = {
+                                viewModel.onChooseThemeMode(entry)
+                                expanded = false
+                            }
+                        ) {
+                            Text(
+                                entry.name,
+                                style = MaterialTheme.typography.titleLarge,
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.fillMaxWidth()
+                            )
                         }
-                    ) {
-                        Text(
-                            entry.name,
-                            style = MaterialTheme.typography.titleLarge,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.onTertiaryContainer,
-                            modifier = Modifier.fillMaxWidth()
-                        )
                     }
-                }
             }
         }
     }

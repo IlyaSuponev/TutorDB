@@ -4,94 +4,62 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.isuponev.tutordb.core.config.AppConfig
-import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 import com.isuponev.tutordb.desktop.viewmodels.screens.EditSubjectViewModel
 import com.isuponev.tutordb.desktop.views.Header
+import com.isuponev.tutordb.desktop.views.forms.SubjectEditForm
 
 @Composable
 private fun ContentOnLoadedVM(
     viewModel: EditSubjectViewModel
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(AppDefaults.Fraction.TWO_THIRD),
-        verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM)
-    ) {
-        val locale by AppConfig.General.locale.collectAsState()
-        val name by viewModel.name.collectAsState()
-        val nameError by viewModel.nameError.collectAsState()
-        OutlinedTextField(
-            value = name,
-            onValueChange = viewModel::onNameChanged,
-            modifier = Modifier.fillMaxWidth(),
-            label = {
-                Text(
-                    locale.localize(SharedResourcesjvmMain.strings.lbl_subject_name)
-                )
-            },
-            isError = nameError != null
-        )
-        val message = nameError
-        if (message != null) {
-            Text(
-                message,
-                color = MaterialTheme.colorScheme.error
-            )
-        }
-        val description by viewModel.description.collectAsState()
-        OutlinedTextField(
-            value = description,
-            onValueChange = viewModel::onDescriptionChanged,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(AppDefaults.Fraction.TWO_THIRD),
-            label = {
-                Text(
-                    locale.localize(SharedResourcesjvmMain.strings.lbl_subject_description)
-                )
-            }
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(Modifier.weight(AppDefaults.Weights.ONE))
-            Button(
-                onClick = viewModel::onClickCancel
-            ) {
-                Text(
-                    locale.localize(SharedResources.strings.lbl_cancel)
-                )
-            }
-            Button(
-                onClick = viewModel::onClickSave
-            ) {
-                Text(
-                    locale.localize(SharedResources.strings.lbl_save)
-                )
-            }
-        }
-    }
+    val name by viewModel.name.collectAsState()
+    val description by viewModel.description.collectAsState()
+    val nameError by viewModel.nameError.collectAsState()
+    SubjectEditForm(
+        name,
+        description,
+        viewModel::onNameChanged,
+        viewModel::onDescriptionChanged,
+        nameError,
+        viewModel::onClickSave,
+        viewModel::onClickCancel
+    )
 }
 
+@Composable
+private fun ContentOnLoadingVM(viewModel: EditSubjectViewModel) {
+    val progress by viewModel.loadingProgress.collectAsState()
+    CircularProgressIndicator(
+        modifier = Modifier,
+        progress = { progress }
+    )
+}
+
+/**
+ * A composable UI component for the "Edit Subject" screen in the application.
+ *
+ * This screen displays a form for modifying an existing subject's name and description.
+ * It observes the [EditSubjectViewModel] state to show either the form (when data is loaded)
+ * or a placeholder (when data is still loading). Uses Material 3 components for styling
+ * and localization for dynamic text resources.
+ *
+ * @param viewModel The [EditSubjectViewModel] managing the screen's state and interactions.
+ * @param modifier Optional [Modifier] to customize the layout behavior of the screen container.
+ */
 @Composable
 fun EditSubjectScreenView(
     viewModel: EditSubjectViewModel,
@@ -108,7 +76,7 @@ fun EditSubjectScreenView(
         modifier = Modifier.fillMaxWidth()
     )
     CardWidget<BoxScope>(
-        modifier = Modifier.weight(1f).fillMaxWidth(),
+        modifier = Modifier.weight(AppDefaults.Weights.ONE).fillMaxWidth(),
         cardShape = MaterialTheme.shapes.small,
         cardColors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -120,11 +88,7 @@ fun EditSubjectScreenView(
         val state by viewModel.state.collectAsState()
         when (state) {
             EditSubjectViewModel.State.Loaded -> ContentOnLoadedVM(viewModel)
-            EditSubjectViewModel.State.Loading -> {
-                Text(
-                    ""
-                )
-            }
+            EditSubjectViewModel.State.Loading -> ContentOnLoadingVM(viewModel)
         }
     }
 }

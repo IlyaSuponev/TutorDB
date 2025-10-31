@@ -3,7 +3,6 @@ package com.isuponev.tutordb.core.logging
 import ca.gosyer.appdirs.AppDirs
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
-import com.isuponev.tutordb.core.config.AppConfig
 
 /**
  * Platform-specific logger configuration function for Compose Multiplatform applications.

@@ -3,7 +3,7 @@ package com.isuponev.tutordb.core.models
 import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
 import com.isuponev.tutordb.core.models.values.PhoneNumber
-import java.util.UUID
+
 /**
  * Represents contact information for a person or organization.
  *

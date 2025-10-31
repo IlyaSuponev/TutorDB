@@ -3,10 +3,10 @@ package com.isuponev.tutordb.desktop.database.dao
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.Subject
 import com.isuponev.tutordb.core.models.values.Name
-import com.isuponev.tutordb.desktop.database.AppTransactions
 import com.isuponev.tutordb.desktop.database.Database
 import com.isuponev.tutordb.desktop.database.entities.SubjectEntity
 import com.isuponev.tutordb.desktop.database.tables.SubjectsTable
+import com.isuponev.tutordb.desktop.utils.AppTransactionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -16,8 +16,20 @@ import org.jetbrains.exposed.v1.jdbc.deleteWhere
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.update
 
-class SubjectsDao private constructor(override val database: Database): Dao<Subject> {
+/**
+ * A Data Access Object (DAO) implementation for managing [Subject] entities in the database.
+ *
+ * This class provides CRUD operations for subjects and maintains a reactive flow of subject data
+ * through a [StateFlow]. It uses [AppTransactionManager] to ensure all database operations are performed
+ * within managed transactions.
+ */
+class SubjectsDao private constructor(override val database: Database) : Dao<Subject> {
     private val _allSubjects = MutableStateFlow<List<Subject>>(emptyList())
+
+    /**
+     * A [StateFlow] that exposes the current list of subjects. This should be observed to react
+     * to changes in the subject data, such as insertions, updates, or deletions.
+     */
     override val values: StateFlow<List<Subject>>
         get() = _allSubjects
 
@@ -26,7 +38,7 @@ class SubjectsDao private constructor(override val database: Database): Dao<Subj
     }
 
     private fun loadSubjects() {
-        AppTransactions.new(
+        AppTransactionManager.new(
             db = database,
             logTag = "SubjectsDao.loadSubjects",
             onSuccess = { subjects: List<Subject> ->
@@ -49,13 +61,21 @@ class SubjectsDao private constructor(override val database: Database): Dao<Subj
         }
     }
 
+    /**
+     * Creates a new subject in the database.
+     *
+     * @param name The name of the subject.
+     * @param description An optional description for the subject.
+     * @param onSuccess Callback invoked when the subject is successfully created.
+     * @param onError Callback invoked when an error occurs during the operation.
+     */
     fun create(
         name: Name,
         description: String = "",
         onSuccess: (Subject) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        AppTransactions.new(
+        AppTransactionManager.new(
             db = database,
             logTag = "SubjectsDao.create",
             onSuccess = { subject: Subject ->
@@ -73,12 +93,19 @@ class SubjectsDao private constructor(override val database: Database): Dao<Subj
         }
     }
 
+    /**
+     * Retrieves a subject by its ID from the database.
+     *
+     * @param id The unique identifier of the subject.
+     * @param onSuccess Callback invoked with the retrieved subject or null if not found.
+     * @param onError Callback invoked when an error occurs during the operation.
+     */
     fun getById(
         id: Long,
-        onSuccess: (Subject?) -> Unit,
-        onError: (Throwable) -> Unit
+        onSuccess: suspend (Subject?) -> Unit,
+        onError: suspend (Throwable) -> Unit
     ) {
-        AppTransactions.new(
+        AppTransactionManager.new(
             db = database,
             logTag = "SubjectsDao.getById",
             onSuccess = onSuccess,
@@ -90,12 +117,19 @@ class SubjectsDao private constructor(override val database: Database): Dao<Subj
         }
     }
 
+    /**
+     * Updates an existing subject in the database.
+     *
+     * @param subject The updated subject data.
+     * @param onSuccess Callback invoked when the update is successful.
+     * @param onError Callback invoked when an error occurs during the operation.
+     */
     fun update(
         subject: Subject,
         onSuccess: () -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        AppTransactions.new(
+        AppTransactionManager.new(
             db = database,
             logTag = "SubjectsDao.update",
             onSuccess = {
@@ -126,11 +160,18 @@ class SubjectsDao private constructor(override val database: Database): Dao<Subj
             }
         }
     }
+
+    /**
+     * Deletes a subject from the database.
+     *
+     * @param subject The subject to be removed.
+     * @param onError Callback invoked when an error occurs during the operation.
+     */
     fun remove(
         subject: Subject,
         onError: (Throwable) -> Unit
     ) {
-        AppTransactions.new(
+        AppTransactionManager.new(
             db = database,
             logTag = "SubjectsDao.create",
             onSuccess = {
@@ -145,10 +186,18 @@ class SubjectsDao private constructor(override val database: Database): Dao<Subj
         }
     }
 
+    /**
+     * Companion object containing factory methods for creating instances of [SubjectsDao].
+     */
     companion object {
         private var instances: MutableMap<Database, SubjectsDao> = mutableMapOf()
-        fun new(db: Database): SubjectsDao {
-            return instances.getOrPut(db) { SubjectsDao(db) }
-        }
+
+        /**
+         * Factory method to create or retrieve a [SubjectsDao] instance for the given [Database].
+         *
+         * @param db The [Database] instance to use.
+         * @return The [SubjectsDao] instance associated with the provided database.
+         */
+        fun new(db: Database): SubjectsDao = instances.getOrPut(db) { SubjectsDao(db) }
     }
 }

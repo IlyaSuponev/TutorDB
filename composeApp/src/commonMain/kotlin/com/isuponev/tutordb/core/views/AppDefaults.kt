@@ -162,6 +162,19 @@ object AppDefaults {
      */
     object Platform
 
+    /**
+     * Constants for fractional values used in calculations.
+     *
+     * These values are used for fractional calculations and are typically
+     * used in layout calculations to ensure consistent spacing.
+     *
+     * @property FULL Full fraction (1f)
+     * @property HALF Half fraction (0.5f)
+     * @property QUARTER Quarter fraction (0.25f)
+     * @property THREE_QUARTERS Three-quarters fraction (0.75f)
+     * @property THIRD Third fraction (0.33f)
+     * @property TWO_THIRD Two-thirds fraction (0.67f)
+     */
     object Fraction {
         const val FULL = 1f
         const val HALF = 0.5f

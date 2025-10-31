@@ -3,6 +3,14 @@ package com.isuponev.tutordb.core.logging
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
 import com.isuponev.tutordb.core.utils.all
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import kotlin.time.Clock
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.days
+import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,14 +25,6 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.toLocalDateTime
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import kotlin.time.Clock
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.days
-import kotlin.time.ExperimentalTime
 
 /**
  * A file-based log writer implementation for Compose Multiplatform applications with configurable log management.
@@ -59,7 +59,8 @@ class AppLogWriter(val logDir: File, val minSeverity: Severity) : LogWriter() {
     private val nowDateTime: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
     private val logFile = File(
         logDir,
-        "${nowDateTime.date.format(LocalDate.Formats.ISO)}.log")
+        "${nowDateTime.date.format(LocalDate.Formats.ISO)}.log"
+    )
 
     private val logScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val logChannel = Channel<LogEntry>(BUFFERED)

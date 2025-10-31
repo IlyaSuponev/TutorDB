@@ -1,15 +1,6 @@
 package com.isuponev.tutordb.core.logging
 
 import co.touchlab.kermit.Severity
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.format
-import kotlinx.datetime.toKotlinLocalDateTime
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.assertNotNull
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.MethodSource
 import java.io.File
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -20,6 +11,15 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.time.DurationUnit
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format
+import kotlinx.datetime.toKotlinLocalDateTime
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.assertNotNull
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 
 class AppLogWriterTest {
     private val testLogTag = "AppLogWriterTest"

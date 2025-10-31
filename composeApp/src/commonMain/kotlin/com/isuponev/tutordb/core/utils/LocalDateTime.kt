@@ -1,10 +1,10 @@
 package com.isuponev.tutordb.core.utils
 
+import kotlin.time.Duration
+import kotlin.time.toKotlinDuration
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
-import kotlin.time.Duration
-import kotlin.time.toKotlinDuration
 
 /**
  * Adds a specified duration to a LocalDateTime.

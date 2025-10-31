@@ -1,8 +1,9 @@
 package com.isuponev.tutordb.core.models.values
 
 import com.isuponev.tutordb.core.HASH_CODE_NUMBER_GENERATOR
+import com.isuponev.tutordb.core.models.values.Name.Builder.isValidNameValue
+import com.isuponev.tutordb.core.models.values.Name.Builder.of
 import java.io.Serializable
-import kotlin.jvm.Throws
 
 /**
  * A type-safe wrapper for validated name values.

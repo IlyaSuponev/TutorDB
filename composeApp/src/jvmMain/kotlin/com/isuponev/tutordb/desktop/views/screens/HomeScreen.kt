@@ -82,6 +82,16 @@ private fun MainScreenMenuCardRow(
     }
 }
 
+/**
+ * The main home screen UI component for the application.
+ *
+ * Displays a 2x2 grid of navigable cards representing core features:
+ * Students, Subjects, Lessons, and Incomes. Uses localized labels and icons
+ * from Material Design's icon set. Layout is responsive with proportional sizing.
+ *
+ * @param viewModel The [HomeViewModel] providing navigation logic for the cards
+ * @param modifier Optional [Modifier] for customizing the root layout
+ */
 @Composable
 fun HomeView(
     viewModel: HomeViewModel,

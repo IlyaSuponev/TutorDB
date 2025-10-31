@@ -2,11 +2,9 @@ package com.isuponev.tutordb.core.views
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.theme.AppTheme
 
 @Composable

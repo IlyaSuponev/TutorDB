@@ -1,5 +1,8 @@
 package com.isuponev.tutordb.core.config
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.ui.graphics.vector.ImageVector
 import ca.gosyer.appdirs.AppDirs
 import co.touchlab.kermit.Logger
 import com.isuponev.tutordb.core.config.AppConfig.General.setLocale
@@ -14,6 +17,11 @@ import com.isuponev.tutordb.core.interfaces.ConvertableTo
 import com.isuponev.tutordb.core.logging.appLoggerClose
 import com.isuponev.tutordb.core.logging.appLoggerConfig
 import com.isuponev.tutordb.core.resources.SharedResources
+import java.io.Closeable
+import java.io.File
+import java.io.IOException
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -30,11 +38,6 @@ import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import java.io.Closeable
-import java.io.File
-import java.io.IOException
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Central configuration management object for the TutorDB application.
@@ -61,6 +64,9 @@ import kotlin.time.Duration.Companion.milliseconds
  * @see Closeable
  */
 object AppConfig : Closeable {
+    /**
+     * AppDirs instance for managing application directories and files.
+     */
     val appDirs = AppDirs {
         appName = SharedResources.strings.appName.localized()
         appAuthor = SharedResources.strings.appAuthor.localized()
@@ -146,6 +152,7 @@ object AppConfig : Closeable {
      */
     object General : Applicable<GeneralConfigData>, ConvertableTo<GeneralConfigData> {
         private val _locale = MutableStateFlow(AppLocale.getSystem())
+
         /**
          * Public state flow for observing application locale.
          *
@@ -177,21 +184,48 @@ object AppConfig : Closeable {
         override fun convert(): GeneralConfigData = GeneralConfigData(locale.value)
     }
 
+    /**
+     * Platform-specific configuration domain object.
+     */
     object Platform
 
+    /**
+     * Runtime configuration domain object.
+     */
     object Runtime {
         private val _alertData = MutableStateFlow(AlertData(false, "", ""))
+
+        /**
+         * Public state flow for observing alert visibility and message.
+         */
         val alertData: StateFlow<AlertData>
             get() = _alertData
-        fun alert(title: String, message: String) {
+
+        /**
+         * Shows an alert with the given title and message.
+         */
+        fun alert(
+            title: String,
+            message: String,
+            icon: ImageVector = Icons.Default.Warning,
+            onCancel: (() -> Unit)? = null
+        ) {
             _alertData.value = _alertData.value.copy(
                 isVisible = true,
                 title = title,
-                message = message
+                message = message,
+                icon = icon,
+                onCancel = onCancel
             )
         }
+
+        /**
+         * Hides the alert.
+         */
         fun dismissAlert() {
-            _alertData.value = _alertData.value.copy(isVisible = false)
+            _alertData.value = _alertData.value.copy(
+                isVisible = false
+            )
         }
     }
 
@@ -303,7 +337,7 @@ object AppConfig : Closeable {
          * @param T type of error cause
          * @property cause The exception that caused the error.
          */
-        data class Error<T: Throwable>(val cause: T) : AppConfigState()
+        data class Error<T : Throwable>(val cause: T) : AppConfigState()
     }
 
     /**

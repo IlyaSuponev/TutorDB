@@ -1,10 +1,9 @@
 package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.interfaces.Model
-import kotlinx.datetime.LocalDateTime
-import java.util.UUID
 import javax.money.MonetaryAmount
 import kotlin.time.Duration
+import kotlinx.datetime.LocalDateTime
 
 /**
  * Represents an individual tutoring session between a tutor and a student.

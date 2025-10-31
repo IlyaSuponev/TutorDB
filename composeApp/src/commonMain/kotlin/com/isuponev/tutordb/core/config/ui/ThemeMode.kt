@@ -1,5 +1,8 @@
 package com.isuponev.tutordb.core.config.ui
 
+import com.isuponev.tutordb.core.config.ui.ThemeMode.DARK
+import com.isuponev.tutordb.core.config.ui.ThemeMode.LIGHT
+import com.isuponev.tutordb.core.config.ui.ThemeMode.SYSTEM
 import kotlinx.serialization.Serializable
 
 /**

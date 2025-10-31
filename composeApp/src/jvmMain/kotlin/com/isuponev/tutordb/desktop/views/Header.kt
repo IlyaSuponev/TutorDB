@@ -20,6 +20,18 @@ import com.isuponev.tutordb.core.views.widgets.CardWidget
 import com.isuponev.tutordb.desktop.viewmodels.Tool
 import dev.icerock.moko.resources.StringResource
 
+/**
+ * A header component displaying a localized title with optional action tools.
+ *
+ * This composable renders a Material 3-styled card containing a primary title and an optional row of
+ * action buttons (tools). The title is localized using the current application locale, and the tools
+ * are displayed as icons with click handlers.
+ *
+ * @param titleResource The [StringResource] to display as the header title. Will be localized.
+ * @param tools Optional list of [Tool] instances representing actionable icons with descriptions.
+ *              Each tool must provide an icon and an onClick callback.
+ * @param modifier Optional [Modifier] to customize the header's layout behavior.
+ */
 @Composable
 fun Header(
     titleResource: StringResource,

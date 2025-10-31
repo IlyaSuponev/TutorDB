@@ -1,8 +1,10 @@
 package com.isuponev.tutordb.core.config.general
 
+import com.isuponev.tutordb.core.config.general.AppLocale.ENGLISH
+import com.isuponev.tutordb.core.config.general.AppLocale.RUSSIAN
 import dev.icerock.moko.resources.StringResource
-import kotlinx.serialization.Serializable
 import java.util.Locale
+import kotlinx.serialization.Serializable
 
 /**
  * Enumeration representing supported application locales with their corresponding Java [Locale] objects.

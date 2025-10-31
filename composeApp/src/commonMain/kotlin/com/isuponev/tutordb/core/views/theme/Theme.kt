@@ -52,7 +52,7 @@ fun AppTheme(
 ) {
     val mode: ThemeMode by AppConfig.UI.themeMode.collectAsState()
     MaterialTheme(
-        colorScheme = when(mode) {
+        colorScheme = when (mode) {
             ThemeMode.SYSTEM -> if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
             ThemeMode.DARK -> darkColorScheme()
             ThemeMode.LIGHT -> lightColorScheme()

@@ -2,7 +2,6 @@ package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.core.models.values.Name
-import java.util.UUID
 import javax.money.MonetaryAmount
 
 /**

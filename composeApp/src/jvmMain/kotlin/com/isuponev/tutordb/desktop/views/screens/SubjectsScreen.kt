@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CardDefaults
@@ -33,6 +34,7 @@ import com.isuponev.tutordb.core.models.Subject
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
+import com.isuponev.tutordb.desktop.viewmodels.Tool
 import com.isuponev.tutordb.desktop.viewmodels.screens.SubjectsViewModel
 import com.isuponev.tutordb.desktop.views.Header
 
@@ -59,7 +61,8 @@ private fun SubjectCard(
                 text = subject.name.value,
                 textAlign = TextAlign.Start,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                softWrap = true
             )
             Spacer(Modifier.weight(AppDefaults.Weights.ONE))
             IconButton(
@@ -90,7 +93,7 @@ private fun SubjectCard(
                 "Empty description"
             },
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.tertiaryContainer,)
+                .background(MaterialTheme.colorScheme.tertiaryContainer)
                 .padding(AppDefaults.Paddings.SMALL)
                 .defaultMinSize(minHeight = SubjectsViewModel.DESCRIPTION_MIN_WIDTH)
                 .fillMaxWidth(),
@@ -100,6 +103,24 @@ private fun SubjectCard(
     }
 }
 
+private fun tools(viewModel: SubjectsViewModel) = listOf(
+    Tool(
+        "Add subject",
+        Icons.Default.Add,
+        viewModel::onClickAddSubject
+    )
+)
+
+/**
+ * The main composable function for rendering the Subjects screen UI.
+ *
+ * This screen displays a list of subjects in a staggered grid layout, with each subject
+ * rendered as a [SubjectCard]. It includes a header with toolbar actions and observes
+ * the list of subjects from the [SubjectsViewModel] using [collectAsState].
+ *
+ * @param viewModel The [SubjectsViewModel] instance managing the screen's state and logic.
+ * @param modifier Optional [Modifier] to customize the layout behavior of the screen container.
+ */
 @Composable
 fun SubjectsScreenView(
     viewModel: SubjectsViewModel,
@@ -113,13 +134,12 @@ fun SubjectsScreenView(
     viewModel.i("Load subjects screen")
     Header(
         SharedResourcesjvmMain.strings.screenSubjectsName,
-        tools = viewModel.tools,
+        tools = tools(viewModel),
         modifier = Modifier.fillMaxWidth()
     )
     val subjects by viewModel.subjects.collectAsState()
-    val columnsCount by viewModel.columnsCount.collectAsState()
     LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Fixed(columnsCount),
+        columns = StaggeredGridCells.Fixed(SubjectsViewModel.COLUMN_COUNT),
         modifier = Modifier.weight(AppDefaults.Weights.ONE),
         verticalItemSpacing = AppDefaults.Arrangements.BIG,
         horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG)

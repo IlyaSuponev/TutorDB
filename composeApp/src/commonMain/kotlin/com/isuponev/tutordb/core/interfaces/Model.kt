@@ -8,7 +8,7 @@ package com.isuponev.tutordb.core.interfaces
  */
 interface Model {
     /**
-     * The unique identifier for the model instance using Long
+     * The unique identifier for the model instance using Long.
      */
     val id: Long
 }

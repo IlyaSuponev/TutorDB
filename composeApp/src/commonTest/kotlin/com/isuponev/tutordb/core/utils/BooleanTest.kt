@@ -1,10 +1,10 @@
 package com.isuponev.tutordb.core.utils
 
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.assertThrows
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class BooleanTest {
     @Test
