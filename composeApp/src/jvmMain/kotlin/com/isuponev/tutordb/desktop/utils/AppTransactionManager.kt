@@ -48,6 +48,27 @@ object AppTransactionManager {
         onError: (suspend (Throwable) -> Unit)? = null,
         vararg dependsOnTables: Table,
         content: Transaction.() -> T
+    ) = new(db, logTag, onSuccess, onError, dependsOnTables.toList(), content)
+
+    /**
+     * Starts a new database transaction.
+     *
+     * @param T The type of the result returned by the transaction.
+     * @param db The database instance to use for the transaction.
+     * @param logTag Optional tag for logging SQL statements related to this transaction.
+     * @param onSuccess Callback invoked when the transaction completes successfully.
+     * @param onError Callback invoked when an exception occurs during the transaction.
+     * @param dependsOnTables Tables that should be created (if they don't exist)
+     *                          before executing the transaction logic.
+     * @param content The block of code to execute within the transaction.
+     */
+    fun <T> new(
+        db: Database,
+        logTag: String? = null,
+        onSuccess: (suspend (T) -> Unit)? = null,
+        onError: (suspend (Throwable) -> Unit)? = null,
+        dependsOnTables: Iterable<Table>,
+        content: Transaction.() -> T
     ) {
         val job = scope.launch {
             runCatching {

@@ -91,9 +91,8 @@ class AddSubjectViewModel(
             _nameError.value = e.message
             return
         }
-        subjectsDao.create(
-            newName,
-            _description.value,
+        subjectsDao.insert(
+            SubjectsDao.IData(newName, _description.value),
             { subject ->
                 i("Saved new subject: $subject")
                 viewModelScope.launch {

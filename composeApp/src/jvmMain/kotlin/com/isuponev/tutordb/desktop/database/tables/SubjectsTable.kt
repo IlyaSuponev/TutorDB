@@ -1,9 +1,7 @@
 package com.isuponev.tutordb.desktop.database.tables
 
-import com.isuponev.tutordb.core.models.values.Name
+import com.isuponev.tutordb.desktop.database.name
 import org.jetbrains.exposed.v1.core.dao.id.LongIdTable
-import org.jetbrains.exposed.v1.core.regexp
-import org.jetbrains.exposed.v1.core.stringLiteral
 
 /**
  * A database table definition for the `subjects` table.
@@ -19,11 +17,8 @@ object SubjectsTable : LongIdTable(name = "subjects") {
      * - Enforces uniqueness via a unique index.
      * - Validates that the name conforms to a specific regular expression pattern defined in [Name.NAME_REGEX].
      */
-    val name = text("name")
+    val name = name()
         .uniqueIndex()
-        .check { column ->
-            column.regexp(stringLiteral(Name.NAME_REGEX.pattern))
-        }
 
     /**
      * The `description` column in the `subjects` table.

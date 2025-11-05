@@ -32,7 +32,7 @@ class SubjectsViewModel(
      * Updates automatically when the underlying data changes via [SubjectsDao.values].
      */
     val subjects: StateFlow<List<Subject>>
-        get() = subjectsDao.values
+        get() = subjectsDao.all
 
     /**
      * Navigates to the AddSubjectScreen to create a new subject.
