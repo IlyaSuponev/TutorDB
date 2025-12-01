@@ -1,6 +1,5 @@
 package com.isuponev.tutordb.desktop.views.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -12,13 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuBox
-import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -39,6 +33,7 @@ import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
 import com.isuponev.tutordb.desktop.views.Header
+import com.isuponev.tutordb.desktop.views.forms.ChooseBoxForm
 
 /**
  * A composable UI component for the "Settings" screen in the application.
@@ -153,58 +148,17 @@ private fun LazyListScope.locale(
             modifier = Modifier.weight(AppDefaults.Weights.ONE),
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
-        ExposedDropdownMenuBox(
-            expanded = expanded,
+        ChooseBoxForm(
+            expanded,
             onExpandedChange = { expanded = !expanded },
+            onDismissRequest = { expanded = false },
+            currentValue = locale,
+            entries = AppLocale.entries.asIterable(),
+            onChooseElement = viewModel::onChooseAppLocale,
+            converter = { mode -> mode.name },
             modifier = Modifier
                 .weight(AppDefaults.Weights.ONE)
-        ) {
-            OutlinedTextField(
-                value = locale.type.displayLanguage,
-                singleLine = true,
-                onValueChange = { },
-                enabled = true,
-                readOnly = true,
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textStyle = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                },
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    trailingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    focusedIndicatorColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                )
-            )
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.tertiaryContainer)
-            ) {
-                AppLocale.entries
-                    .asSequence()
-                    .filter { it != locale }
-                    .forEach { entry ->
-                        DropdownMenuItem(
-                            onClick = {
-                                viewModel.onChooseAppLocale(entry)
-                                expanded = false
-                            }
-                        ) {
-                            Text(
-                                entry.type.displayLanguage,
-                                style = MaterialTheme.typography.titleLarge,
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colorScheme.onTertiaryContainer,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
-                    }
-            }
-        }
+        )
     }
 }
 
@@ -227,57 +181,16 @@ private fun LazyListScope.theme(
             modifier = Modifier.weight(AppDefaults.Weights.ONE),
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
-        ExposedDropdownMenuBox(
-            expanded = expanded,
+        ChooseBoxForm(
+            expanded,
             onExpandedChange = { expanded = !expanded },
+            onDismissRequest = { expanded = false },
+            currentValue = themeMode,
+            entries = ThemeMode.entries.asIterable(),
+            onChooseElement = viewModel::onChooseThemeMode,
+            converter = { mode -> mode.name },
             modifier = Modifier
                 .weight(AppDefaults.Weights.ONE)
-        ) {
-            OutlinedTextField(
-                value = themeMode.name,
-                singleLine = true,
-                onValueChange = { },
-                enabled = true,
-                readOnly = true,
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textStyle = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                },
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    trailingIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    focusedIndicatorColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                )
-            )
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.tertiaryContainer)
-            ) {
-                ThemeMode.entries
-                    .asSequence()
-                    .filter { it != themeMode }
-                    .forEach { entry ->
-                        DropdownMenuItem(
-                            onClick = {
-                                viewModel.onChooseThemeMode(entry)
-                                expanded = false
-                            }
-                        ) {
-                            Text(
-                                entry.name,
-                                style = MaterialTheme.typography.titleLarge,
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colorScheme.onTertiaryContainer,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
-                    }
-            }
-        }
+        )
     }
 }

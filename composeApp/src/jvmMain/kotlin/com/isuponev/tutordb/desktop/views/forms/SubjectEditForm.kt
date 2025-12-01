@@ -50,52 +50,22 @@ fun SubjectEditForm(
     verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM)
 ) {
     val locale by AppConfig.General.locale.collectAsState()
-    OutlinedTextField(
-        value = name,
-        onValueChange = onNameChanged,
-        modifier = Modifier.fillMaxWidth(),
-        label = {
-            Text(
-                locale.localize(SharedResourcesjvmMain.strings.lbl_subject_name)
-            )
-        },
-        isError = nameEditError != null
+    TextEditForm(
+        name,
+        onNameChanged,
+        nameEditError,
+        SharedResourcesjvmMain.strings.lbl_subject_name
     )
-    if (nameEditError != null) {
-        Text(
-            nameEditError,
-            color = MaterialTheme.colorScheme.error
-        )
-    }
-    OutlinedTextField(
-        value = description,
-        onValueChange = onDescriptionChanged,
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(AppDefaults.Fraction.TWO_THIRD),
-        label = {
-            Text(
-                locale.localize(SharedResourcesjvmMain.strings.lbl_subject_description)
-            )
-        }
+    TextEditForm(
+        description,
+        onDescriptionChanged,
+        null,
+        SharedResourcesjvmMain.strings.lbl_subject_description
     )
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Spacer(Modifier.weight(AppDefaults.Weights.ONE))
-        Button(
-            onClick = onClickCancel
-        ) {
-            Text(
-                locale.localize(SharedResources.strings.lbl_cancel)
-            )
-        }
-        Button(
-            onClick = onClickSave
-        ) {
-            Text(
-                locale.localize(SharedResources.strings.lbl_save)
-            )
-        }
-    }
+    DialogButtons(
+        SharedResources.strings.lbl_save,
+        SharedResources.strings.lbl_cancel,
+        onClickSave,
+        onClickCancel
+    )
 }
