@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.views.screens
+package com.isuponev.tutordb.desktop.views.screens.subject
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +35,7 @@ import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 import com.isuponev.tutordb.desktop.viewmodels.Tool
-import com.isuponev.tutordb.desktop.viewmodels.screens.SubjectsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
 import com.isuponev.tutordb.desktop.views.Header
 
 @Composable

@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.viewmodels.screens
+package com.isuponev.tutordb.desktop.viewmodels.screens.subject
 
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
@@ -9,6 +9,7 @@ import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
 import com.isuponev.tutordb.desktop.database.dao.SubjectsDao
+import com.isuponev.tutordb.desktop.viewmodels.screens.abs.DialogViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,9 +28,9 @@ import org.jetbrains.exposed.v1.exceptions.ExposedSQLException
  */
 class EditSubjectViewModel(
     screen: Screen.EditSubjectScreen,
-    private val navController: NavHostController,
+    navController: NavHostController,
     db: Database
-) : AppScreenViewModel<Screen.EditSubjectScreen>(screen) {
+) : DialogViewModel<Screen.EditSubjectScreen>(screen, navController) {
     private val subjectsDao = SubjectsDao.new(db)
     private val _state = MutableStateFlow<State>(State.Loading)
     private val _loadingProgress = MutableStateFlow(PROGRESS_ON_START)
@@ -125,19 +126,7 @@ class EditSubjectViewModel(
         _description.value = newValue
     }
 
-    /**
-     * Navigates back to the previous screen without saving changes.
-     */
-    fun onClickCancel() {
-        i("Cancelling creation of new subject")
-        navController.navigateUp()
-    }
-
-    /**
-     * Saves the updated subject data to the database.
-     * Validates the name, checks for changes, and handles success/error scenarios.
-     */
-    fun onClickSave() {
+    override fun onAcceptEvent() {
         val oldSubject = _subject ?: return
         assertNewNameAndDescription().onSuccess { (newName, description) ->
             if (newName == oldSubject.name && description == oldSubject.description) {
@@ -164,6 +153,10 @@ class EditSubjectViewModel(
         }.onFailure { throwable ->
             _nameError.value = throwable.message
         }
+    }
+
+    override fun onCancelEvent() {
+        i("Cancelling edit of subject")
     }
 
     private fun assertNewNameAndDescription(): Result<Pair<Name, String>> {

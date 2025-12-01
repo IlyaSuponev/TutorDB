@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.views.screens
+package com.isuponev.tutordb.desktop.views.screens.subject
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
-import com.isuponev.tutordb.desktop.viewmodels.screens.EditSubjectViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.subject.EditSubjectViewModel
 import com.isuponev.tutordb.desktop.views.Header
 import com.isuponev.tutordb.desktop.views.forms.SubjectEditForm
 
@@ -35,7 +35,7 @@ private fun ContentOnLoadedVM(
         viewModel::onNameChanged,
         viewModel::onDescriptionChanged,
         nameError,
-        viewModel::onClickSave,
+        viewModel::onClickAccept,
         viewModel::onClickCancel
     )
 }

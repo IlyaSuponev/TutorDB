@@ -1,12 +1,12 @@
-package com.isuponev.tutordb.desktop.viewmodels.screens
+package com.isuponev.tutordb.desktop.viewmodels.screens.subject
 
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.models.values.Name
-import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
 import com.isuponev.tutordb.desktop.database.dao.SubjectsDao
+import com.isuponev.tutordb.desktop.viewmodels.screens.abs.DialogViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,9 +22,9 @@ import org.jetbrains.exposed.v1.exceptions.ExposedSQLException
  * @param db The [Database] instance used to access the database.
  */
 class AddSubjectViewModel(
-    private val navController: NavHostController,
+    navController: NavHostController,
     db: Database
-) : AppScreenViewModel<Screen.AddSubjectScreen>(Screen.AddSubjectScreen) {
+) : DialogViewModel<Screen.AddSubjectScreen>(Screen.AddSubjectScreen, navController) {
     private val subjectsDao = SubjectsDao.new(db)
     private val _name = MutableStateFlow("")
 
@@ -69,21 +69,7 @@ class AddSubjectViewModel(
         _description.value = newValue
     }
 
-    /**
-     * Navigates back to the previous screen, canceling the creation of a new subject.
-     */
-    fun onClickCancel() {
-        i("Cancelling creation of new subject")
-        navController.navigateUp()
-    }
-
-    /**
-     * Saves the new subject to the database.
-     *
-     * Validates the subject name, creates the subject using the DAO, and navigates back
-     * on success. Displays appropriate error messages on failure.
-     */
-    fun onClickSave() {
+    override fun onAcceptEvent() {
         i("Saving new subject")
         val newName = try {
             Name.of(_name.value.trim())
@@ -108,5 +94,9 @@ class AddSubjectViewModel(
                 }
             }
         )
+    }
+
+    override fun onCancelEvent() {
+        i("Cancelling creation of new subject")
     }
 }

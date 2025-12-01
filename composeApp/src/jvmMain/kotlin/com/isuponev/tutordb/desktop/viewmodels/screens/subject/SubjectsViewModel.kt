@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.viewmodels.screens
+package com.isuponev.tutordb.desktop.viewmodels.screens.subject
 
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController

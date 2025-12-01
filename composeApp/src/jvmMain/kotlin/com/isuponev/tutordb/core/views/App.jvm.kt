@@ -23,22 +23,22 @@ import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.config.currentDatabase
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.AppAlert
-import com.isuponev.tutordb.desktop.viewmodels.screens.AddSubjectViewModel
-import com.isuponev.tutordb.desktop.viewmodels.screens.EditSubjectViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.subject.AddSubjectViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.subject.EditSubjectViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.LessonsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.StudentsViewModel
-import com.isuponev.tutordb.desktop.viewmodels.screens.SubjectsViewModel
-import com.isuponev.tutordb.desktop.views.screens.AddSubjectScreenView
-import com.isuponev.tutordb.desktop.views.screens.EditSubjectScreenView
+import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
+import com.isuponev.tutordb.desktop.views.screens.subject.AddSubjectScreenView
+import com.isuponev.tutordb.desktop.views.screens.subject.EditSubjectScreenView
 import com.isuponev.tutordb.desktop.views.screens.HomeView
 import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
 import com.isuponev.tutordb.desktop.views.screens.LessonsScreenView
 import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
 import com.isuponev.tutordb.desktop.views.screens.StudentsScreenView
-import com.isuponev.tutordb.desktop.views.screens.SubjectsScreenView
+import com.isuponev.tutordb.desktop.views.screens.subject.SubjectsScreenView
 
 @Composable
 internal actual fun AppMainContainer(
