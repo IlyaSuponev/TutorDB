@@ -10,17 +10,28 @@ import com.isuponev.tutordb.desktop.database.tables.SubjectsTable
 import javax.money.MonetaryAmount
 import org.jetbrains.exposed.v1.core.Transaction
 import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.jdbc.insert
 import org.jetbrains.exposed.v1.jdbc.selectAll
 
 class StudentsDao private constructor(
     db: Database
 ) : Dao<Student, StudentsDao.IData>(
     db,
-    listOf(StudentsTable, StudentsSubjectsTable)
+    listOf(SubjectsTable, StudentsSubjectsTable, StudentsTable)
 ) {
 
     override fun Transaction.onInsert(data: IData): Student {
-        TODO("Not yet implemented")
+        val id = StudentsTable.insert {
+            it[name] = data.name.value
+            it[hourCost] = data.hourCost
+        } get StudentsTable.id
+        data.subjects.forEach { subject ->
+            StudentsSubjectsTable.insert {
+                it[studentId] = id
+                it[subjectId] = subject.id
+            }
+        }
+        return Student(id.value, data.name, data.hourCost)
     }
 
     override fun Transaction.onGetById(id: Long): Student? {
@@ -28,6 +39,7 @@ class StudentsDao private constructor(
     }
 
     override fun Transaction.onUpdate(model: Student) {
+        Result
         TODO("Not yet implemented")
     }
 

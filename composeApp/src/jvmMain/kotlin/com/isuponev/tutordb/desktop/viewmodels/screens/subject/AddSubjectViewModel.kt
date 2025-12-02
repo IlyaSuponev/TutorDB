@@ -2,7 +2,11 @@ package com.isuponev.tutordb.desktop.viewmodels.screens.subject
 
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
+import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.values.Name
+import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
+import com.isuponev.tutordb.core.utils.AppError
+import com.isuponev.tutordb.core.utils.Result
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
 import com.isuponev.tutordb.desktop.database.dao.SubjectsDao
@@ -42,13 +46,13 @@ class AddSubjectViewModel(
     val description: StateFlow<String>
         get() = _description
 
-    private val _nameError = MutableStateFlow<String?>(null)
+    private val _nameErrorMessage = MutableStateFlow<String?>(null)
 
     /**
      * A [StateFlow] that exposes any error message related to the subject name input.
      */
     val nameError: StateFlow<String?>
-        get() = _nameError
+        get() = _nameErrorMessage
 
     /**
      * Updates the name input field and clears any existing error message.
@@ -57,7 +61,7 @@ class AddSubjectViewModel(
      */
     fun onNameChanged(newValue: String) {
         _name.value = newValue
-        if (_nameError.value != null) _nameError.value = null
+        if (_nameErrorMessage.value != null) _nameErrorMessage.value = null
     }
 
     /**
@@ -69,14 +73,15 @@ class AddSubjectViewModel(
         _description.value = newValue
     }
 
-    override fun onAcceptEvent() {
+    override fun onAcceptEvent(): Result<Unit> {
         i("Saving new subject")
-        val newName = try {
-            Name.of(_name.value.trim())
-        } catch (e: IllegalArgumentException) {
-            _nameError.value = e.message
-            return
-        }
+        val newName = convertName() ?: return Result.failure(
+            AppError.ValidationError(
+                "Invalid name of student",
+                "name",
+                "Value of name is not matches with its regex"
+            )
+        )
         subjectsDao.insert(
             SubjectsDao.IData(newName, _description.value),
             { subject ->
@@ -89,11 +94,24 @@ class AddSubjectViewModel(
                 e("Failed to save new subject", error)
                 when (error) {
                     is ExposedSQLException -> {
-                        _nameError.value = "Subject with name '${_name.value}' already exists"
+                        _nameErrorMessage.value = "Subject with name '${_name.value}' already exists"
                     }
                 }
             }
         )
+        return Result.success(Unit)
+    }
+
+    private fun convertName(): Name? {
+        try {
+            return Name.of(name.value)
+        } catch (_: IllegalArgumentException) {
+            val locale = AppConfig.General.locale.value
+            _nameErrorMessage.value = locale.localize(
+                SharedResourcesjvmMain.strings.error_invalid_name_of_entity
+            )
+        }
+        return null
     }
 
     override fun onCancelEvent() {

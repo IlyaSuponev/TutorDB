@@ -20,9 +20,10 @@ fun DialogButtons(
     acceptMessage: StringResource,
     cancelMessage: StringResource,
     onClickAccept: () -> Unit,
-    onClickCancel: () -> Unit
+    onClickCancel: () -> Unit,
+    modifier: Modifier = Modifier
 ) = Row(
-    modifier = Modifier.fillMaxWidth(),
+    modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM),
     verticalAlignment = Alignment.CenterVertically
 ) {

@@ -29,7 +29,8 @@ import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.LessonsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
-import com.isuponev.tutordb.desktop.viewmodels.screens.StudentsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.student.AddStudentViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
 import com.isuponev.tutordb.desktop.views.screens.subject.AddSubjectScreenView
 import com.isuponev.tutordb.desktop.views.screens.subject.EditSubjectScreenView
@@ -37,7 +38,8 @@ import com.isuponev.tutordb.desktop.views.screens.HomeView
 import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
 import com.isuponev.tutordb.desktop.views.screens.LessonsScreenView
 import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
-import com.isuponev.tutordb.desktop.views.screens.StudentsScreenView
+import com.isuponev.tutordb.desktop.views.screens.student.AddStudentScreenView
+import com.isuponev.tutordb.desktop.views.screens.student.StudentsScreenView
 import com.isuponev.tutordb.desktop.views.screens.subject.SubjectsScreenView
 
 @Composable
@@ -100,8 +102,11 @@ internal actual fun AppMainContainer(
                         EditSubjectViewModel(screen, navController, db)
                     )
                 }
-
                 EditSubjectScreenView(viewModel, Modifier.fillMaxSize())
+            }
+            composable<Screen.AddStudentScreen> {
+                val viewModel by remember { mutableStateOf(AddStudentViewModel(navController, db)) }
+                AddStudentScreenView(viewModel, Modifier.fillMaxSize())
             }
         }
     }

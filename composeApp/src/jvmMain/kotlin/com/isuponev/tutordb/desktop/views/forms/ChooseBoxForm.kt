@@ -90,3 +90,25 @@ fun <T> ChooseBoxForm(
             }
     }
 }
+
+@Composable
+fun <T> ChooseBoxForm(
+    expanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
+    onDismissRequest: () -> Unit,
+    entries: Iterable<T>,
+    onChooseElement: (T) -> Unit,
+    converter: (T) -> String,
+    modifier: Modifier = Modifier,
+    labelMessage: StringResource? = null
+) = ChooseBoxForm(
+    expanded,
+    onExpandedChange,
+    onDismissRequest,
+    entries.first(),
+    entries,
+    onChooseElement,
+    converter,
+    modifier,
+    labelMessage
+)

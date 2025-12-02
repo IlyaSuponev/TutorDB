@@ -1,5 +1,6 @@
 package com.isuponev.tutordb.desktop.views.forms
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
@@ -11,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
@@ -26,7 +28,8 @@ fun TextEditForm(
     isValid: (String) -> Boolean,
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
-    labelMessage: StringResource
+    labelMessage: StringResource,
+    modifier: Modifier = Modifier
 ) {
     val locale by AppConfig.General.locale.collectAsState()
     OutlinedTextField(
@@ -34,7 +37,7 @@ fun TextEditForm(
         onValueChange = {
             if (isValid(it)) onChangeValue(it)
         },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         label = {
             Text(
                 locale.localize(labelMessage)
@@ -55,13 +58,15 @@ fun TextEditForm(
     value: String,
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
-    labelMessage: StringResource
+    labelMessage: StringResource,
+    modifier: Modifier = Modifier
 ) = TextEditForm(
     value,
     { true },
     onChangeValue,
     errorMessageOfInputValue,
-    labelMessage
+    labelMessage,
+    modifier
 )
 
 @Composable
@@ -69,7 +74,8 @@ fun NumberEditForm(
     value: String,
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
-    labelMessage: StringResource
+    labelMessage: StringResource,
+    modifier: Modifier = Modifier
 ) = TextEditForm(
     value,
     { newValue ->
@@ -82,7 +88,8 @@ fun NumberEditForm(
     },
     onChangeValue,
     errorMessageOfInputValue,
-    labelMessage
+    labelMessage,
+    modifier
 )
 
 @Composable
@@ -92,12 +99,18 @@ fun MonetaryEditForm(
     errorMessageOfAmount: String?,
     currency: CurrencyUnit,
     onChangeCurrency: (CurrencyUnit) -> Unit,
-) = Row {
+    modifier: Modifier = Modifier
+) = Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.SMALL)
+) {
     NumberEditForm(
         amount,
         onChangeAmount,
         errorMessageOfAmount,
-        SharedResourcesjvmMain.strings.lbl_monetary_amount
+        SharedResourcesjvmMain.strings.lbl_monetary_amount,
+        Modifier.weight(AppDefaults.Weights.TWO)
     )
     var expanded by remember { mutableStateOf(false) }
     ChooseBoxForm(

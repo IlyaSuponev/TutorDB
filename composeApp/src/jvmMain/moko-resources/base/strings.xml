@@ -7,13 +7,21 @@
     <string name="screenIncomesName">Incomes</string>
     <string name="screenSettingsName">Settings</string>
     <string name="screenAddSubjectName">Add new subject</string>
+    <string name="screenAddStudent">Add new student</string>
     <string name="screenEditSubjectName">Edit subject</string>
 
-    <!-- Settings labels name -->
+    <!-- Labels name -->
     <string name="lbl_settings_general">General</string>
     <string name="lbl_settings_general_locale">Language</string>
     <string name="lbl_settings_ui">User Interface</string>
     <string name="lbl_settings_ui_theme">Theme mode</string>
     <string name="lbl_subject_name">Name of subject</string>
     <string name="lbl_subject_description">Description of subject</string>
+    <string name="lbl_student_name">Name of student</string>
+    <string name="lbl_monetary_amount">Price of one hour lesson</string>
+    <string name="lbl_monetary_currency">Currency</string>
+    <string name="lbl_student_subjects">Subjects of study</string>
+
+    <!-- Errors messages -->
+    <string name="error_invalid_name_of_entity">The name should be capitalized. Each word can contain letters and numbers.</string>
 </resources>

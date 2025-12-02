@@ -5,7 +5,9 @@ import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.Subject
 import com.isuponev.tutordb.core.models.values.Name
-import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
+import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
+import com.isuponev.tutordb.core.utils.AppError
+import com.isuponev.tutordb.core.utils.Result
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
 import com.isuponev.tutordb.desktop.database.dao.SubjectsDao
@@ -63,13 +65,13 @@ class EditSubjectViewModel(
     val description: StateFlow<String>
         get() = _description
 
-    private val _nameError = MutableStateFlow<String?>(null)
+    private val _nameErrorMessage = MutableStateFlow<String?>(null)
 
     /**
      * A [MutableStateFlow] holding the current description input value for the subject.
      */
     val nameError: StateFlow<String?>
-        get() = _nameError
+        get() = _nameErrorMessage
 
     private var _subject: Subject? = null
 
@@ -114,7 +116,7 @@ class EditSubjectViewModel(
      */
     fun onNameChanged(newValue: String) {
         _name.value = newValue
-        if (_nameError.value != null) _nameError.value = null
+        if (_nameErrorMessage.value != null) _nameErrorMessage.value = null
     }
 
     /**
@@ -126,43 +128,55 @@ class EditSubjectViewModel(
         _description.value = newValue
     }
 
-    override fun onAcceptEvent() {
-        val oldSubject = _subject ?: return
-        assertNewNameAndDescription().onSuccess { (newName, description) ->
-            if (newName == oldSubject.name && description == oldSubject.description) {
-                navController.navigateUp()
-            } else {
-                i("Updating subject")
-                subjectsDao.update(
-                    Subject(oldSubject.id, newName, _description.value),
-                    {
-                        viewModelScope.launch {
-                            navController.navigateUp()
-                        }
-                    },
-                    { error ->
-                        e("Failed to save new subject", error)
-                        when (error) {
-                            is ExposedSQLException -> {
-                                _nameError.value = "Subject with name '${_name.value}' already exists"
-                            }
+    override fun onAcceptEvent(): Result<Unit> {
+        val oldSubject = _subject ?: return Result.failure(
+            AppError.InvalidStateError(
+                field = "subject",
+                reason = "Editable subject can't be null"
+            )
+        )
+        val newName = convertName() ?: return Result.failure(
+            AppError.ValidationError(
+                "Invalid name of student",
+                "name",
+                "Value of name is not matches with its regex"
+            )
+        )
+        if (newName != oldSubject.name || description.value != oldSubject.description) {
+            subjectsDao.update(
+                Subject(oldSubject.id, newName, _description.value),
+                {
+                    viewModelScope.launch {
+                        navController.navigateUp()
+                    }
+                },
+                { error ->
+                    e("Failed to save new subject", error)
+                    when (error) {
+                        is ExposedSQLException -> {
+                            _nameErrorMessage.value = "Subject with name '${_name.value}' already exists"
                         }
                     }
-                )
-            }
-        }.onFailure { throwable ->
-            _nameError.value = throwable.message
+                }
+            )
         }
+        return Result.success(Unit)
+    }
+
+    private fun convertName(): Name? {
+        try {
+            return Name.of(name.value)
+        } catch (_: IllegalArgumentException) {
+            val locale = AppConfig.General.locale.value
+            _nameErrorMessage.value = locale.localize(
+                SharedResourcesjvmMain.strings.error_invalid_name_of_entity
+            )
+        }
+        return null
     }
 
     override fun onCancelEvent() {
         i("Cancelling edit of subject")
-    }
-
-    private fun assertNewNameAndDescription(): Result<Pair<Name, String>> {
-        val name = Name.of(_name.value.trim())
-        val description = _description.value.trim()
-        return Result.success(name to description)
     }
 
     /**

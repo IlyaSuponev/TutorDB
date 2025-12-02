@@ -1,13 +1,14 @@
-package com.isuponev.tutordb.desktop.views.screens
+package com.isuponev.tutordb.desktop.views.screens.student
 
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
-import com.isuponev.tutordb.desktop.viewmodels.screens.StudentsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.Tool
+import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentsViewModel
+import com.isuponev.tutordb.desktop.views.Header
 
 /**
  * A composable UI component for the "Students" screen in the application.
@@ -25,7 +26,18 @@ fun StudentsScreenView(
     viewModel: StudentsViewModel,
     modifier: Modifier
 ) {
-    val locale by AppConfig.General.locale.collectAsState()
     viewModel.i("Load students screen")
-    Text(locale.localize(SharedResourcesjvmMain.strings.screenStudentsName))
+    Header(
+        SharedResourcesjvmMain.strings.screenStudentsName,
+        tools = tools(viewModel),
+        modifier = Modifier.fillMaxWidth()
+    )
 }
+
+private fun tools(viewModel: StudentsViewModel) = listOf(
+    Tool(
+        "Add student",
+        Icons.Default.Add,
+        viewModel::onClickAddStudent
+    )
+)

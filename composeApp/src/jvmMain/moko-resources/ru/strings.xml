@@ -7,13 +7,21 @@
     <string name="screenIncomesName">Доходы</string>
     <string name="screenSettingsName">Настройки</string>
     <string name="screenAddSubjectName">Добавление нового предмета</string>
+    <string name="screenAddStudent">Добавление нового ученика</string>
     <string name="screenEditSubjectName">Редактор предмета</string>
 
-    <!-- Settings labels name -->
+    <!-- Labels name -->
     <string name="lbl_settings_general">Общие</string>
     <string name="lbl_settings_general_locale">Язык</string>
     <string name="lbl_settings_ui">Интерфейс</string>
     <string name="lbl_settings_ui_theme">Оформление</string>
     <string name="lbl_subject_name">Имя предмета</string>
     <string name="lbl_subject_description">Описание предмета</string>
+    <string name="lbl_student_name">Имя студента</string>
+    <string name="lbl_monetary_amount">Стоимость часового занятия</string>
+    <string name="lbl_monetary_currency">Валюта</string>
+    <string name="lbl_student_subjects">Предметы обучения</string>
+
+    <!-- Errors messages -->
+    <string name="error_invalid_name_of_entity">Название должно быть с большой буквы. Каждое слово может содержать буквы и цифры.</string>
 </resources>
