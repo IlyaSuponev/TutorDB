@@ -24,4 +24,7 @@
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">The name should be capitalized. Each word can contain letters and numbers.</string>
+
+    <!-- Formats labels -->
+    <string name="flbl_hour_cost_info">%s per hour</string>
 </resources>

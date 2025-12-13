@@ -54,13 +54,15 @@ fun SubjectEditForm(
         name,
         onNameChanged,
         nameEditError,
-        SharedResourcesjvmMain.strings.lbl_subject_name
+        SharedResourcesjvmMain.strings.lbl_subject_name,
+        Modifier.fillMaxWidth()
     )
     TextEditForm(
         description,
         onDescriptionChanged,
         null,
-        SharedResourcesjvmMain.strings.lbl_subject_description
+        SharedResourcesjvmMain.strings.lbl_subject_description,
+        Modifier.fillMaxWidth().weight(AppDefaults.Weights.ONE)
     )
     DialogButtons(
         SharedResources.strings.lbl_save,

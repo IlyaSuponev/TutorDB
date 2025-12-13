@@ -29,6 +29,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.Subject
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
@@ -37,71 +39,27 @@ import com.isuponev.tutordb.core.views.widgets.CardWidget
 import com.isuponev.tutordb.desktop.viewmodels.Tool
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
 import com.isuponev.tutordb.desktop.views.Header
+import com.isuponev.tutordb.desktop.views.widgets.Detail
+import com.isuponev.tutordb.desktop.views.widgets.EntityCard
 
 @Composable
 private fun SubjectCard(
     subject: Subject,
     onEditClick: (Subject) -> Unit = { AppConfig.logger.i { "Edit subject" } },
     onRemoveClick: (Subject) -> Unit = { AppConfig.logger.i { "Remove subject" } },
-) {
-    CardWidget<ColumnScope>(
-        cardShape = MaterialTheme.shapes.small,
-        cardColors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        ),
-        scaleOnHover = AppDefaults.Scales.SMALL,
-        alignment = Alignment.CenterHorizontally,
-        contentPadding = PaddingValues(AppDefaults.Paddings.SMALL)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = subject.name.value,
-                textAlign = TextAlign.Start,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                style = MaterialTheme.typography.titleLarge,
-                softWrap = true
-            )
-            Spacer(Modifier.weight(AppDefaults.Weights.ONE))
-            IconButton(
-                onClick = {
-                    onEditClick(subject)
-                }
-            ) {
-                Icon(
-                    Icons.Default.Edit,
-                    contentDescription = "Edit",
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            }
-            IconButton(
-                onClick = {
-                    onRemoveClick(subject)
-                }
-            ) {
-                Icon(
-                    Icons.Default.Delete,
-                    contentDescription = "Delete",
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            }
-        }
-        Text(
-            text = subject.description.ifEmpty {
-                "Empty description"
-            },
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.tertiaryContainer)
-                .padding(AppDefaults.Paddings.SMALL)
-                .defaultMinSize(minHeight = SubjectsViewModel.DESCRIPTION_MIN_WIDTH)
-                .fillMaxWidth(),
-            color = MaterialTheme.colorScheme.onTertiaryContainer,
-            style = MaterialTheme.typography.bodyLarge
+) = EntityCard(
+    subject,
+    subject.name.value,
+    listOf(
+        Detail.string(
+            SharedResourcesjvmMain.strings.lbl_subject_description,
+            minSize = DpSize(Dp.Unspecified, SubjectsViewModel.DESCRIPTION_MIN_HEIGHT),
+            value = subject.description,
         )
-    }
-}
+    ),
+    onEditClick,
+    onRemoveClick
+)
 
 private fun tools(viewModel: SubjectsViewModel) = listOf(
     Tool(

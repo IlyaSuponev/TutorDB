@@ -25,6 +25,7 @@ class StudentsDao private constructor(
             it[name] = data.name.value
             it[hourCost] = data.hourCost
         } get StudentsTable.id
+        println(id)
         data.subjects.forEach { subject ->
             StudentsSubjectsTable.insert {
                 it[studentId] = id
@@ -53,7 +54,7 @@ class StudentsDao private constructor(
             val studentId = row[StudentsTable.id].value
             val subjects = StudentsSubjectsTable
                 .selectAll()
-                .where { StudentsSubjectsTable.id eq studentId }.flatMap { linkRow ->
+                .where { StudentsSubjectsTable.studentId eq studentId }.flatMap { linkRow ->
                     val subjectId = linkRow[StudentsSubjectsTable.subjectId].value
                     SubjectsTable
                         .selectAll()

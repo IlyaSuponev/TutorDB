@@ -70,10 +70,10 @@ class SubjectsViewModel(
      */
     companion object {
         /**
-         * Minimum width allocated for subject description columns in the UI layout.
+         * Minimum height allocated for subject description columns in the UI layout.
          * Ensures sufficient space for displaying subject descriptions.
          */
-        val DESCRIPTION_MIN_WIDTH = 100.dp
+        val DESCRIPTION_MIN_HEIGHT = 100.dp
 
         /**
          * Default number of columns to display subjects in a grid layout.

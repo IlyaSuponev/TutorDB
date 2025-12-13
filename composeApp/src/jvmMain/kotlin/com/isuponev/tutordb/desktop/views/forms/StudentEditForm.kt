@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,8 +17,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -170,7 +167,7 @@ private fun SubjectCard(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.tertiaryContainer)
             .padding(AppDefaults.Paddings.SMALL)
-            .defaultMinSize(minHeight = SubjectsViewModel.DESCRIPTION_MIN_WIDTH)
+            .defaultMinSize(minHeight = SubjectsViewModel.DESCRIPTION_MIN_HEIGHT)
             .fillMaxWidth(),
         color = MaterialTheme.colorScheme.onTertiaryContainer,
         style = MaterialTheme.typography.bodyLarge

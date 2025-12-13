@@ -76,7 +76,7 @@ internal actual fun AppMainContainer(
                 SettingsScreenView(viewModel, Modifier.fillMaxSize())
             }
             composable<Screen.StudentsScreen> {
-                val viewModel by remember { mutableStateOf(StudentsViewModel(navController)) }
+                val viewModel by remember { mutableStateOf(StudentsViewModel(navController, db)) }
                 StudentsScreenView(viewModel, Modifier.fillMaxSize())
             }
             composable<Screen.SubjectsScreen> {

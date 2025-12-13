@@ -24,4 +24,7 @@
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">Название должно быть с большой буквы. Каждое слово может содержать буквы и цифры.</string>
+
+    <!-- Formats labels -->
+    <string name="flbl_hour_cost_info">%s за час</string>
 </resources>
