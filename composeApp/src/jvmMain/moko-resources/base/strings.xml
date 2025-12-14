@@ -9,6 +9,7 @@
     <string name="screenAddSubjectName">Add new subject</string>
     <string name="screenAddStudent">Add new student</string>
     <string name="screenEditSubjectName">Edit subject</string>
+    <string name="screenEditStudentName">Edit student</string>
 
     <!-- Labels name -->
     <string name="lbl_settings_general">General</string>

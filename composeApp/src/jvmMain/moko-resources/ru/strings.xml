@@ -9,6 +9,7 @@
     <string name="screenAddSubjectName">Добавление нового предмета</string>
     <string name="screenAddStudent">Добавление нового ученика</string>
     <string name="screenEditSubjectName">Редактор предмета</string>
+    <string name="screenEditStudentName">Редактор ученика</string>
 
     <!-- Labels name -->
     <string name="lbl_settings_general">Общие</string>

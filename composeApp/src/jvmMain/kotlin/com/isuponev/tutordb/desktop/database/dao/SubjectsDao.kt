@@ -3,6 +3,7 @@ package com.isuponev.tutordb.desktop.database.dao
 import com.isuponev.tutordb.core.models.Subject
 import com.isuponev.tutordb.core.models.values.Name
 import com.isuponev.tutordb.desktop.database.Database
+import com.isuponev.tutordb.desktop.database.tables.StudentsSubjectsTable
 import com.isuponev.tutordb.desktop.database.tables.SubjectsTable
 import com.isuponev.tutordb.desktop.utils.AppTransactionManager
 import kotlinx.coroutines.flow.StateFlow
@@ -54,9 +55,9 @@ class SubjectsDao private constructor(
     }
 
     override fun Transaction.onRemove(model: Subject) {
-        SubjectsTable.deleteWhere {
-            SubjectsTable.id eq model.id
-        }
+        SubjectsTable.deleteWhere { SubjectsTable.id eq model.id }
+        StudentsSubjectsTable.deleteWhere { StudentsSubjectsTable.subjectId eq model.id }
+        if (StudentsDao.isInitialized(database)) StudentsDao.reload(database)
     }
 
     override fun Transaction.onLoadAll(): List<Subject> = SubjectsTable.selectAll().map { row: ResultRow ->

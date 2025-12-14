@@ -62,4 +62,7 @@ actual sealed class Screen {
 
     @Serializable
     object AddStudentScreen : Screen()
+
+    @Serializable
+    data class EditStudentScreen(val studentId: Long) : Screen()
 }

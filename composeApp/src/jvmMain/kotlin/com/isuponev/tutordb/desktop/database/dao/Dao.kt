@@ -147,7 +147,7 @@ abstract class Dao<M : Model, I: InsertData<M>>(
 
     protected abstract fun Transaction.onRemove(model: M)
 
-    private fun loadAll() {
+    fun loadAll() {
         AppTransactionManager.new(
             db = database,
             logTag = "${javaClass.name}.loadSubjects",

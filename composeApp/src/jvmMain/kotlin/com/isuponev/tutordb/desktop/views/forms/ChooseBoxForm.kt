@@ -30,7 +30,8 @@ fun <T> ChooseBoxForm(
     onChooseElement: (T) -> Unit,
     converter: (T) -> String,
     modifier: Modifier = Modifier,
-    labelMessage: StringResource? = null
+    labelMessage: StringResource? = null,
+    comparator: ((T, T) -> Int)? = null
 ) = ExposedDropdownMenuBox(
     expanded = expanded,
     onExpandedChange = onExpandedChange,
@@ -72,6 +73,10 @@ fun <T> ChooseBoxForm(
         entries
             .asSequence()
             .filter { it != currentValue }
+            .let {
+                if (comparator != null) it.sortedWith(comparator)
+                else it.sortedWith { e1, e2 -> e1.toString().compareTo(e2.toString()) }
+            }
             .forEach { entry ->
                 DropdownMenuItem(
                     onClick = {

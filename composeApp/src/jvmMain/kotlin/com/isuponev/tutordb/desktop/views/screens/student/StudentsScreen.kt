@@ -72,8 +72,8 @@ fun StudentsScreenView(
         items(students) { student ->
             StudentCard(
                 student,
-                {},
-                {}
+                viewModel::onEditStudent,
+                viewModel::onRemoveStudent
             )
         }
     }

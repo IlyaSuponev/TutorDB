@@ -19,4 +19,10 @@ abstract class DaoBuilder<M: Model, I: InsertData<M>, D: Dao<M, I>> {
      * @return The dao of type [D] for model instance associated with the provided database.
      */
     abstract fun new(db: Database): D
+
+    fun isInitialized(db: Database): Boolean = (instances[db] != null)
+    fun reload(db: Database) {
+        val dao = instances[db] ?: return
+        dao.loadAll()
+    }
 }

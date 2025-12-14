@@ -80,14 +80,15 @@ fun <E: Model> EntityCard(
     headerMessage: String,
     details: Iterable<Detail>,
     onEditClick: ((E) -> Unit)? = null,
-    onRemoveClick: ((E) -> Unit)? = null
+    onRemoveClick: ((E) -> Unit)? = null,
+    onClick: ((E) -> Unit)? = null
 ) = CardWidget<ColumnScope>(
     cardShape = MaterialTheme.shapes.small,
     cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     ),
-    onClick = { println(entity) },
+    onClick = { if (onClick != null) onClick(entity) },
     scaleOnHover = AppDefaults.Scales.SMALL,
     alignment = Alignment.CenterHorizontally,
     contentPadding = PaddingValues(AppDefaults.Paddings.SMALL)
@@ -127,9 +128,7 @@ fun <E: Model> EntityCard(
         }
     }
     details.forEach {
-        DetailView(it, Modifier
-//            .weight(AppDefaults.Weights.ONE)
-        )
+        DetailView(it, Modifier)
     }
 }
 
@@ -138,12 +137,8 @@ private fun DetailView(detail: Detail, modifier: Modifier = Modifier) = Column(
     modifier = modifier
         .fillMaxWidth()
         .background(MaterialTheme.colorScheme.tertiaryContainer)
-        .padding(AppDefaults.Paddings.SMALL),
-//        .let {
-//            if (detail !is Detail.IterableDetail)
-//                it.defaultMinSize(detail.minSize.width, detail.minSize.height)
-//            else it
-//        },
+        .padding(AppDefaults.Paddings.SMALL)
+        .defaultMinSize(detail.minSize.width, detail.minSize.height),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.SMALL)
 ) {
@@ -167,10 +162,8 @@ private fun DetailView(detail: Detail, modifier: Modifier = Modifier) = Column(
 private fun IterableDetailView(detail: Detail.IterableDetail) {
     if (detail.asColumn) {
         detail.value.forEach { item ->
-            println("$detail: $item")
             Text(
                 text = item,
-//                modifier = Modifier.weight(AppDefaults.Weights.ONE),
                 color = MaterialTheme.colorScheme.onTertiaryContainer,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
@@ -179,7 +172,6 @@ private fun IterableDetailView(detail: Detail.IterableDetail) {
     } else {
         Row {
             detail.value.forEach { item ->
-                println(item)
                 Text(
                     text = item,
                     modifier = Modifier.weight(AppDefaults.Weights.ONE),

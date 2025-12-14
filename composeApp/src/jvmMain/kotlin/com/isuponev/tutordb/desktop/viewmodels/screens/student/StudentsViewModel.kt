@@ -34,6 +34,18 @@ class StudentsViewModel(
         navController.navigate(Screen.AddStudentScreen)
     }
 
+    fun onEditStudent(student: Student) {
+        navController.navigate(
+            Screen.EditStudentScreen(student.id)
+        )
+    }
+
+    fun onRemoveStudent(student: Student) {
+        studentsDao.remove(student) { throwable ->
+            e("Can't remove student $student", throwable)
+        }
+    }
+
     companion object {
         val DESCRIPTION_MIN_HEIGHT = 60.dp
         const val COLUMN_COUNT = 3
