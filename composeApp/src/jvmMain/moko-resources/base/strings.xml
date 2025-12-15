@@ -22,6 +22,7 @@
     <string name="lbl_monetary_amount">Price of one hour lesson</string>
     <string name="lbl_monetary_currency">Currency</string>
     <string name="lbl_student_subjects">Subjects of study</string>
+    <string name="lbl_lessons_calendar">Calendar</string>
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">The name should be capitalized. Each word can contain letters and numbers.</string>

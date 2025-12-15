@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.viewmodels.screens
+package com.isuponev.tutordb.desktop.viewmodels.screens.lessons
 
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
@@ -8,7 +8,7 @@ import com.isuponev.tutordb.core.views.screens.Screen
  * A ViewModel for managing the Lessons screen in the application.
  *
  * This class currently serves as a placeholder/stub implementation for the Lessons feature.
- * It inherits from [AppScreenViewModel] but incorrectly associates with [Screen.StudentsScreen]
+ * It inherits from [com.isuponev.tutordb.core.views.screens.AppScreenViewModel] but incorrectly associates with [com.isuponev.tutordb.core.views.screens.Screen.StudentsScreen]
  * instead of an actual Lessons screen. This suggests incomplete implementation where lesson-related
  * data operations and UI state management would eventually be added.
  *

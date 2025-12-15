@@ -20,6 +20,7 @@ import com.isuponev.tutordb.core.resources.SharedResources
 import java.io.Closeable
 import java.io.File
 import java.io.IOException
+import java.util.Locale
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
@@ -174,11 +175,13 @@ object AppConfig : Closeable {
         fun setLocale(locale: AppLocale) {
             logger.d { "Switch app locale from ${_locale.value} to $locale" }
             _locale.value = locale
+            Locale.setDefault(locale.type)
             save()
         }
 
         override fun apply(value: GeneralConfigData) {
             _locale.value = value.locale
+            Locale.setDefault(value.locale.type)
         }
 
         override fun convert(): GeneralConfigData = GeneralConfigData(locale.value)

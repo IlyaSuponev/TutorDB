@@ -27,7 +27,7 @@ import com.isuponev.tutordb.desktop.viewmodels.screens.subject.AddSubjectViewMod
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.EditSubjectViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
-import com.isuponev.tutordb.desktop.viewmodels.screens.LessonsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.LessonsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.AddStudentViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.EditStudentViewModel
