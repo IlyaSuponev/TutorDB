@@ -22,6 +22,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -30,58 +32,53 @@ import com.isuponev.tutordb.core.models.Subject
 import com.isuponev.tutordb.core.resources.SharedResources
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
+import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.CardWidget
+import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentEditDialogViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
-import javax.money.CurrencyUnit
 
 @Composable
-fun StudentEditForm(
-    name: String,
-    onChangeName: (String) -> Unit,
-    errorMessageOfName: String?,
-    amount: String,
-    onChangeAmount: (String) -> Unit,
-    errorMessageOfAmount: String?,
-    currency: CurrencyUnit,
-    onChangeCurrency: (CurrencyUnit) -> Unit,
-    availableSubjects: List<Subject>,
-    subjects: List<Subject>,
-    onAddSubject: (Subject) -> Unit,
-    onRemoveSubject: (Subject) -> Unit,
-    onClickSave: () -> Unit,
-    onClickCancel: () -> Unit
+fun <S: Screen> StudentEditForm(
+    viewModel: StudentEditDialogViewModel<S>
 ) = Column(
     modifier = Modifier.fillMaxHeight(),
     verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM),
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
+    val name by viewModel.name.collectAsState()
+    val errorMessageOfName by viewModel.nameErrorMessage.collectAsState()
+    val amount by viewModel.amount.collectAsState()
+    val errorMessageOfAmount by viewModel.amountErrorMessage.collectAsState()
+    val currency by viewModel.currency.collectAsState()
+    val availableSubjects by viewModel.availableSubjects.collectAsState()
+    val subjects by viewModel.subjects.collectAsState()
     TextEditForm(
         name,
-        onChangeName,
+        viewModel::onChangeName,
         errorMessageOfName,
         SharedResourcesjvmMain.strings.lbl_student_name,
         Modifier.fillMaxWidth().weight(AppDefaults.Weights.ONE)
     )
     MonetaryEditForm(
         amount,
-        onChangeAmount,
+        viewModel::onChangeAmount,
         errorMessageOfAmount,
         currency,
-        onChangeCurrency,
+        viewModel::onChangeCurrency,
         Modifier.fillMaxWidth().weight(AppDefaults.Weights.ONE)
     )
     SubjectsEditForm(
         availableSubjects,
         subjects,
-        onAddSubject,
-        onRemoveSubject,
+        viewModel::onAddSubject,
+        viewModel::onRemoveSubject,
         Modifier.fillMaxWidth().weight(AppDefaults.Weights.THREE)
     )
     DialogButtons(
         SharedResources.strings.lbl_save,
         SharedResources.strings.lbl_cancel,
-        onClickSave,
-        onClickCancel,
+        viewModel::onClickAccept,
+        viewModel::onClickCancel,
         Modifier.fillMaxWidth().weight(AppDefaults.Weights.ONE)
     )
 }

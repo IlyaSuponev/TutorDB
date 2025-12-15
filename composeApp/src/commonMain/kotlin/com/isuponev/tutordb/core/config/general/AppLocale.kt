@@ -20,19 +20,20 @@ import kotlinx.serialization.Serializable
  * - [RUSSIAN] - Russian language (Locale("ru"))
  *
  * @property type The Java [Locale] instance associated with this application locale.
+ * @property currencyCode mapping to valid currency
  *
  * @see Locale
  * @see Serializable
  */
 @Serializable
-enum class AppLocale(val type: Locale) {
+enum class AppLocale(val type: Locale, val currencyCode: String) {
     /**
      * English language locale.
      *
      * Corresponds to [Locale.ENGLISH] (language: "en", country: "").
      * Used for English-speaking users and default application language.
      */
-    ENGLISH(Locale.ENGLISH),
+    ENGLISH(Locale.of("en-US"), "USD"),
 
     /**
      * Russian language locale.
@@ -40,7 +41,7 @@ enum class AppLocale(val type: Locale) {
      * Corresponds to [Locale] with language code "ru".
      * Used for Russian-speaking users.
      */
-    RUSSIAN(Locale.of("ru"));
+    RUSSIAN(Locale.of("ru-Ru"), "RUB");
 
     /**
      * Method for localization Moko [StringResource]s.
@@ -74,7 +75,7 @@ enum class AppLocale(val type: Locale) {
             var locale = ENGLISH
             val default = Locale.getDefault()
             entries.forEach { entry ->
-                if (entry.type.equals(default)) locale = entry
+                if (entry.type == default) locale = entry
             }
             return locale
         }

@@ -30,6 +30,7 @@ jetbrains-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", versio
 jetbrains-exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
 jetbrains-exposed-money = { module = "org.jetbrains.exposed:exposed-money", version.ref = "exposed" }
 java-money = { module = "org.javamoney:moneta", version.ref = "javamoney" }
+java-money-convert = { module = "org.javamoney.moneta:moneta-convert", version.ref = "javamoney" }
 database-h2 = { module = "com.h2database:h2", version.ref = "h2" }
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit"}
 gosyer-appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "appdirs" }

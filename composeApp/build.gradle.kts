@@ -34,6 +34,8 @@ kotlin {
             implementation(libs.google.libs.phonenumber)
             implementation(libs.touchlab.kermit)
             implementation(libs.gosyer.appdirs)
+            implementation(libs.java.money)
+            implementation(libs.java.money.convert)
         }
         commonTest.dependencies {
             implementation(libs.tests.jetbrains.kotlin.test)
@@ -52,7 +54,6 @@ kotlin {
             implementation(libs.jetbrains.exposed.kotlin.datetime)
             implementation(libs.jetbrains.exposed.money)
             implementation(libs.database.h2)
-            implementation(libs.java.money)
             // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-swing
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.10.2")
         }

@@ -26,60 +26,16 @@ import com.isuponev.tutordb.desktop.views.forms.StudentEditForm
 fun EditStudentScreenView(
     viewModel: EditStudentViewModel,
     modifier: Modifier = Modifier
-) = Column(
-    modifier = modifier
-        .padding(AppDefaults.Paddings.BIG)
-        .fillMaxSize(),
-    verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
+) = StudentEditDialogView(
+    viewModel,
+    SharedResourcesjvmMain.strings.screenEditStudentName,
+    modifier
 ) {
-    viewModel.i("Load edit student screen")
-    Header(
-        SharedResourcesjvmMain.strings.screenEditStudentName,
-        modifier = Modifier.fillMaxWidth()
-    )
-    CardWidget<BoxScope>(
-        modifier = Modifier.weight(AppDefaults.Weights.ONE).fillMaxWidth(),
-        cardShape = MaterialTheme.shapes.small,
-        cardColors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        ),
-        alignment = Alignment.Center,
-        contentPadding = PaddingValues(AppDefaults.Paddings.SMALL)
-    ) {
-        val state by viewModel.state.collectAsState()
-        when (state) {
-            EditStudentViewModel.State.Loaded -> EditContent(viewModel)
-            EditStudentViewModel.State.Loading -> ContentOnLoadingVM(viewModel)
-        }
+    val state by viewModel.state.collectAsState()
+    when (state) {
+        EditStudentViewModel.State.Loaded -> StudentEditForm(viewModel)
+        EditStudentViewModel.State.Loading -> ContentOnLoadingVM(viewModel)
     }
-}
-
-@Composable
-fun EditContent(viewModel: EditStudentViewModel) {
-    val name by viewModel.name.collectAsState()
-    val errorMessageOfName by viewModel.nameErrorMessage.collectAsState()
-    val amount by viewModel.amount.collectAsState()
-    val errorMessageOfAmount by viewModel.amountErrorMessage.collectAsState()
-    val currency by viewModel.currency.collectAsState()
-    val subjects by viewModel.subjects.collectAsState()
-    val availableSubjects by viewModel.availableSubjects.collectAsState()
-    StudentEditForm(
-        name,
-        viewModel::onChangeName,
-        errorMessageOfName,
-        amount,
-        viewModel::onChangeAmount,
-        errorMessageOfAmount,
-        currency,
-        viewModel::onChangeCurrency,
-        availableSubjects.filter { subject -> subject !in subjects }.toList(),
-        subjects,
-        viewModel::onAddSubject,
-        viewModel::onRemoveSubject,
-        viewModel::onClickAccept,
-        viewModel::onClickCancel
-    )
 }
 
 @Composable

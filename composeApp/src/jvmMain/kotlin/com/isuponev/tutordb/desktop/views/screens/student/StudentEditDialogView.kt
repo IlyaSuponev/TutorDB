@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.views.screens.subject
+package com.isuponev.tutordb.desktop.views.screens.student
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
@@ -15,13 +15,13 @@ import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.CardWidget
-import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectEditDialogViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentEditDialogViewModel
 import com.isuponev.tutordb.desktop.views.Header
 import dev.icerock.moko.resources.StringResource
 
 @Composable
-fun <S: Screen> SubjectEditDialogView(
-    viewModel: SubjectEditDialogViewModel<S>,
+fun <S: Screen> StudentEditDialogView(
+    viewModel: StudentEditDialogViewModel<S>,
     header: StringResource,
     modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit
@@ -45,7 +45,5 @@ fun <S: Screen> SubjectEditDialogView(
         ),
         alignment = Alignment.Center,
         contentPadding = PaddingValues(AppDefaults.Paddings.SMALL)
-    ) {
-        content()
-    }
+    ) { content() }
 }
