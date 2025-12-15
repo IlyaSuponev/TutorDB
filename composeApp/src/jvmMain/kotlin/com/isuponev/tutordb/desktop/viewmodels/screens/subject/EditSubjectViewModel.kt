@@ -4,14 +4,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.Subject
-import com.isuponev.tutordb.core.models.values.Name
-import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.utils.AppError
 import com.isuponev.tutordb.core.utils.Result
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
-import com.isuponev.tutordb.desktop.database.dao.SubjectsDao
-import com.isuponev.tutordb.desktop.viewmodels.screens.abs.DialogViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -32,8 +28,7 @@ class EditSubjectViewModel(
     screen: Screen.EditSubjectScreen,
     navController: NavHostController,
     db: Database
-) : DialogViewModel<Screen.EditSubjectScreen>(screen, navController) {
-    private val subjectsDao = SubjectsDao.new(db)
+) : SubjectEditDialogViewModel<Screen.EditSubjectScreen>(screen, navController, db) {
     private val _state = MutableStateFlow<State>(State.Loading)
     private val _loadingProgress = MutableStateFlow(PROGRESS_ON_START)
 
@@ -48,30 +43,6 @@ class EditSubjectViewModel(
      */
     val loadingProgress: StateFlow<Float>
         get() = _loadingProgress
-
-    private val _name = MutableStateFlow("")
-
-    /**
-     * A [MutableStateFlow] holding the current name input value for the subject.
-     */
-    val name: StateFlow<String>
-        get() = _name
-
-    private val _description = MutableStateFlow("")
-
-    /**
-     * A [MutableStateFlow] holding the current description input value for the subject.
-     */
-    val description: StateFlow<String>
-        get() = _description
-
-    private val _nameErrorMessage = MutableStateFlow<String?>(null)
-
-    /**
-     * A [MutableStateFlow] holding the current description input value for the subject.
-     */
-    val nameError: StateFlow<String?>
-        get() = _nameErrorMessage
 
     private var _subject: Subject? = null
 
@@ -109,25 +80,6 @@ class EditSubjectViewModel(
         )
     }
 
-    /**
-     * Updates the name input field and clears any existing name error.
-     *
-     * @param newValue The new name value entered by the user.
-     */
-    fun onNameChanged(newValue: String) {
-        _name.value = newValue
-        if (_nameErrorMessage.value != null) _nameErrorMessage.value = null
-    }
-
-    /**
-     * Updates the description input field.
-     *
-     * @param newValue The new description value entered by the user.
-     */
-    fun onDescriptionChanged(newValue: String) {
-        _description.value = newValue
-    }
-
     override fun onAcceptEvent(): Result<Unit> {
         val oldSubject = _subject ?: return Result.failure(
             AppError.InvalidStateError(
@@ -146,9 +98,7 @@ class EditSubjectViewModel(
             subjectsDao.update(
                 Subject(oldSubject.id, newName, _description.value),
                 {
-                    viewModelScope.launch {
-                        navController.navigateUp()
-                    }
+                    i("Update subject $oldSubject to ${Subject(oldSubject.id, newName, _description.value)}")
                 },
                 { error ->
                     e("Failed to save new subject", error)
@@ -161,22 +111,6 @@ class EditSubjectViewModel(
             )
         }
         return Result.success(Unit)
-    }
-
-    private fun convertName(): Name? {
-        try {
-            return Name.of(name.value)
-        } catch (_: IllegalArgumentException) {
-            val locale = AppConfig.General.locale.value
-            _nameErrorMessage.value = locale.localize(
-                SharedResourcesjvmMain.strings.error_invalid_name_of_entity
-            )
-        }
-        return null
-    }
-
-    override fun onCancelEvent() {
-        i("Cancelling edit of subject")
     }
 
     /**

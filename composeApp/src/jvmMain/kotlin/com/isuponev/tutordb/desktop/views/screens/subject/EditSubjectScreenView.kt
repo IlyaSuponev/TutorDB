@@ -23,24 +23,6 @@ import com.isuponev.tutordb.desktop.views.Header
 import com.isuponev.tutordb.desktop.views.forms.SubjectEditForm
 
 @Composable
-private fun ContentOnLoadedVM(
-    viewModel: EditSubjectViewModel
-) {
-    val name by viewModel.name.collectAsState()
-    val description by viewModel.description.collectAsState()
-    val nameError by viewModel.nameError.collectAsState()
-    SubjectEditForm(
-        name,
-        description,
-        viewModel::onNameChanged,
-        viewModel::onDescriptionChanged,
-        nameError,
-        viewModel::onClickAccept,
-        viewModel::onClickCancel
-    )
-}
-
-@Composable
 private fun ContentOnLoadingVM(viewModel: EditSubjectViewModel) {
     val progress by viewModel.loadingProgress.collectAsState()
     CircularProgressIndicator(
@@ -64,31 +46,13 @@ private fun ContentOnLoadingVM(viewModel: EditSubjectViewModel) {
 fun EditSubjectScreenView(
     viewModel: EditSubjectViewModel,
     modifier: Modifier = Modifier
-) = Column(
-    modifier = modifier
-        .padding(AppDefaults.Paddings.BIG)
-        .fillMaxSize(),
-    verticalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.BIG)
+) = SubjectEditDialogView(
+    viewModel,
+    SharedResourcesjvmMain.strings.screenEditSubjectName
 ) {
-    viewModel.i("Load edit subject screen")
-    Header(
-        SharedResourcesjvmMain.strings.screenEditSubjectName,
-        modifier = Modifier.fillMaxWidth()
-    )
-    CardWidget<BoxScope>(
-        modifier = Modifier.weight(AppDefaults.Weights.ONE).fillMaxWidth(),
-        cardShape = MaterialTheme.shapes.small,
-        cardColors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        ),
-        alignment = Alignment.Center,
-        contentPadding = PaddingValues(AppDefaults.Paddings.SMALL)
-    ) {
-        val state by viewModel.state.collectAsState()
-        when (state) {
-            EditSubjectViewModel.State.Loaded -> ContentOnLoadedVM(viewModel)
-            EditSubjectViewModel.State.Loading -> ContentOnLoadingVM(viewModel)
-        }
+    val state by viewModel.state.collectAsState()
+    when (state) {
+        EditSubjectViewModel.State.Loaded -> SubjectEditForm(viewModel)
+        EditSubjectViewModel.State.Loading -> ContentOnLoadingVM(viewModel)
     }
 }

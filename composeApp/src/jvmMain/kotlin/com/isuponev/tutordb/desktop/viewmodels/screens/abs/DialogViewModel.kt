@@ -14,8 +14,7 @@ abstract class DialogViewModel<S: Screen>(
         navController.navigateUp()
     }
     fun onClickAccept() {
-        val result = onAcceptEvent()
-        result
+        onAcceptEvent()
             .onSuccess { navController.navigateUp() }
             .onFailure { appError ->
                 appError.onValidationError { error ->
