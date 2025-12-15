@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.views.screens
+package com.isuponev.tutordb.desktop.views.screens.lessons
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

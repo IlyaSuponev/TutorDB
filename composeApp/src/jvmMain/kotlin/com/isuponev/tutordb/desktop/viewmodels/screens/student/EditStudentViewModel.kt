@@ -15,6 +15,7 @@ import com.isuponev.tutordb.desktop.database.dao.StudentsDao
 import com.isuponev.tutordb.desktop.database.dao.SubjectsDao
 import com.isuponev.tutordb.desktop.utils.getSystemCurrency
 import com.isuponev.tutordb.desktop.viewmodels.screens.abs.DialogViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.abs.Loadable
 import java.math.BigDecimal
 import javax.money.CurrencyUnit
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,23 +28,23 @@ class EditStudentViewModel(
     screen: Screen.EditStudentScreen,
     navController: NavHostController,
     db: Database
-) : StudentEditDialogViewModel<Screen.EditStudentScreen>(screen, navController, db) {
-    private val _state = MutableStateFlow(State.Loading)
+) : StudentEditDialogViewModel<Screen.EditStudentScreen>(screen, navController, db), Loadable {
+    private val _state = MutableStateFlow(Loadable.State.Loading)
 
-    val state: StateFlow<State>
+    override val state: StateFlow<Loadable.State>
         get() = _state
 
-    private val _loadingProgress = MutableStateFlow(PROGRESS_ON_START)
+    private val _loadingProgress = MutableStateFlow(Loadable.Progress.PROGRESS_ON_START)
 
-    val loadingProgress: StateFlow<Float>
+    override val loadingProgress: StateFlow<Loadable.Progress>
         get() = _loadingProgress
 
     init {
-        _loadingProgress.value = PROGRESS_ON_HALF_HALF
+        _loadingProgress.value = Loadable.Progress.PROGRESS_ON_HALF_OF_HALF
         studentsDao.getById(
             screen.studentId,
             { student ->
-                _loadingProgress.value = PROGRESS_ON_HALF
+                _loadingProgress.value = Loadable.Progress.PROGRESS_ON_HALF
                 if (student == null) {
                     w("Subject with id '${screen.studentId}' not found")
                     viewModelScope.launch { navController.navigateUp() }
@@ -52,8 +53,8 @@ class EditStudentViewModel(
                     _amount.value = BigDecimal(student.hourCost.number.toString()).toPlainString()
                     _currency.value = student.hourCost.currency
                     _subjects.value = student.subjects.toList()
-                    _loadingProgress.value = PROGRESS_ON_END
-                    _state.value = State.Loaded
+                    _loadingProgress.value = Loadable.Progress.PROGRESS_ON_END
+                    _state.value = Loadable.State.Loaded
                 }
             },
             { throwable ->
@@ -86,23 +87,5 @@ class EditStudentViewModel(
                 result = Result.failure(fail)
             }
         return result
-    }
-
-    enum class State {
-        /**
-         * Indicates the ViewModel is loading data.
-         */
-        Loading,
-
-        /**
-         * Indicates the ViewModel has successfully loaded data and is ready for interaction.
-         */
-        Loaded,
-    }
-    companion object {
-        const val PROGRESS_ON_START = 0f
-        const val PROGRESS_ON_HALF_HALF = 0.25f
-        const val PROGRESS_ON_HALF = 0.5f
-        const val PROGRESS_ON_END = 1f
     }
 }

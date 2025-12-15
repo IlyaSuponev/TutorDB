@@ -37,7 +37,7 @@ import com.isuponev.tutordb.desktop.views.screens.subject.AddSubjectScreenView
 import com.isuponev.tutordb.desktop.views.screens.subject.EditSubjectScreenView
 import com.isuponev.tutordb.desktop.views.screens.HomeView
 import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
-import com.isuponev.tutordb.desktop.views.screens.LessonsScreenView
+import com.isuponev.tutordb.desktop.views.screens.lessons.LessonsScreenView
 import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.AddStudentScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.EditStudentScreenView

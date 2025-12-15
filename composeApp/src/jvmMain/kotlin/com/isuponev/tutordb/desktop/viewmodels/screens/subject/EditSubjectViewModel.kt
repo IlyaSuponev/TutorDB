@@ -8,6 +8,7 @@ import com.isuponev.tutordb.core.utils.AppError
 import com.isuponev.tutordb.core.utils.Result
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
+import com.isuponev.tutordb.desktop.viewmodels.screens.abs.Loadable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -28,37 +29,36 @@ class EditSubjectViewModel(
     screen: Screen.EditSubjectScreen,
     navController: NavHostController,
     db: Database
-) : SubjectEditDialogViewModel<Screen.EditSubjectScreen>(screen, navController, db) {
-    private val _state = MutableStateFlow<State>(State.Loading)
-    private val _loadingProgress = MutableStateFlow(PROGRESS_ON_START)
+) : SubjectEditDialogViewModel<Screen.EditSubjectScreen>(screen, navController, db), Loadable {
+    private val _state = MutableStateFlow<Loadable.State>(Loadable.State.Loading)
+    private val _loadingProgress = MutableStateFlow(Loadable.Progress.PROGRESS_ON_START)
 
     /**
      * A [StateFlow] exposing the current state to observers.
      */
-    val state: StateFlow<State>
+    override val state: StateFlow<Loadable.State>
         get() = _state
 
     /**
      * A [StateFlow] exposing the current loading progress to observers.
      */
-    val loadingProgress: StateFlow<Float>
+    override val loadingProgress: StateFlow<Loadable.Progress>
         get() = _loadingProgress
 
     private var _subject: Subject? = null
 
     init {
-        _loadingProgress.value = PROGRESS_ON_HALF_HALF
+        _loadingProgress.value = Loadable.Progress.PROGRESS_ON_HALF_OF_HALF
         subjectsDao.getById(
             screen.subjectId,
             { subject ->
-                _loadingProgress.value = PROGRESS_ON_HALF
+                _loadingProgress.value = Loadable.Progress.PROGRESS_ON_HALF
                 if (subject != null) {
-                    _loadingProgress.value = PROGRESS_ON_END - PROGRESS_ON_HALF_HALF
                     _name.value = subject.name.value
                     _description.value = subject.description
                     _subject = subject
-                    _loadingProgress.value = PROGRESS_ON_END
-                    _state.value = State.Loaded
+                    _loadingProgress.value = Loadable.Progress.PROGRESS_ON_END
+                    _state.value = Loadable.State.Loaded
 
                 } else {
                     viewModelScope.launch {
@@ -111,27 +111,5 @@ class EditSubjectViewModel(
             )
         }
         return Result.success(Unit)
-    }
-
-    /**
-     * Enum class representing possible states of the ViewModel.
-     */
-    enum class State {
-        /**
-         * Indicates the ViewModel is loading subject data.
-         */
-        Loading,
-
-        /**
-         * Indicates the ViewModel has successfully loaded subject data and is ready for interaction.
-         */
-        Loaded,
-    }
-
-    private companion object {
-        const val PROGRESS_ON_START = 0f
-        const val PROGRESS_ON_HALF_HALF = 0.25f
-        const val PROGRESS_ON_HALF = 0.5f
-        const val PROGRESS_ON_END = 1f
     }
 }
