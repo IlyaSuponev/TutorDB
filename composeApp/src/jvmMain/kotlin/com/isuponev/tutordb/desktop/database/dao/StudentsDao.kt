@@ -39,21 +39,11 @@ class StudentsDao private constructor(
     }
 
     override fun Transaction.onGetById(id: Long): Student? {
-        val subjects = StudentsSubjectsTable.selectAll().where { StudentsSubjectsTable.studentId eq id }.flatMap { row: ResultRow ->
-            val subjectId = row[StudentsSubjectsTable.subjectId]
-            SubjectsTable
-                .selectAll()
-                .where { SubjectsTable.id eq subjectId }
-                .map { subjectRow ->
-                    Subject(
-                        subjectRow[SubjectsTable.id].value,
-                        Name.of(subjectRow[SubjectsTable.name]),
-                        subjectRow[SubjectsTable.description]
-                    )
-                }
-        }
-        val results = StudentsTable.selectAll().where { StudentsTable.id eq id }.map { row: ResultRow ->
-            Student(id, Name.of(row[StudentsTable.name]), row[StudentsTable.hourCost], subjects.toSet())
+        val results = StudentsTable
+            .selectAll()
+            .where { StudentsTable.id eq id }
+            .map { row ->
+                row.loadStudent(id)
         }
         return if (results.isEmpty()) null else results.first()
     }
@@ -87,33 +77,14 @@ class StudentsDao private constructor(
     override fun Transaction.onRemove(model: Student) {
         StudentsTable.deleteWhere { StudentsTable.id eq model.id }
         StudentsSubjectsTable.deleteWhere { StudentsSubjectsTable.studentId eq model.id }
+        if (LessonsDao.isInitialized(database)) LessonsDao.reload(database)
     }
 
     override fun Transaction.onLoadAll(): List<Student> = StudentsTable
         .selectAll()
         .map { row ->
             val studentId = row[StudentsTable.id].value
-            val subjects = StudentsSubjectsTable
-                .selectAll()
-                .where { StudentsSubjectsTable.studentId eq studentId }.flatMap { linkRow ->
-                    val subjectId = linkRow[StudentsSubjectsTable.subjectId].value
-                    SubjectsTable
-                        .selectAll()
-                        .where { SubjectsTable.id eq subjectId }
-                        .map { subjectRow ->
-                            Subject(
-                                subjectRow[SubjectsTable.id].value,
-                                Name.of(subjectRow[SubjectsTable.name]),
-                                subjectRow[SubjectsTable.description]
-                            )
-                        }
-                }
-            Student(
-                studentId,
-                Name.of(row[StudentsTable.name]),
-                row[StudentsTable.hourCost],
-                subjects.toSet()
-            )
+            row.loadStudent(studentId)
         }
 
     data class IData(val name: Name, val hourCost: MonetaryAmount, val subjects: Set<Subject>) : InsertData<Student>

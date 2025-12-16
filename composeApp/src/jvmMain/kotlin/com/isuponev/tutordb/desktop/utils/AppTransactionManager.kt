@@ -2,6 +2,7 @@ package com.isuponev.tutordb.desktop.utils
 
 import com.isuponev.tutordb.desktop.database.Database
 import com.isuponev.tutordb.desktop.database.logging.AppSQLLogger
+import com.isuponev.tutordb.desktop.database.tables.IndividualLessonsTable
 import java.util.Collections
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -16,6 +16,7 @@ navigation = "2.9.0"
 kermit = "2.0.8"
 appdirs = "2.0.0"
 kotlinx-coroutines = "1.10.2"
+slf4j = "2.0.17"
 
 [libraries]
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
@@ -32,6 +33,7 @@ jetbrains-exposed-money = { module = "org.jetbrains.exposed:exposed-money", vers
 java-money = { module = "org.javamoney:moneta", version.ref = "javamoney" }
 java-money-convert = { module = "org.javamoney.moneta:moneta-convert", version.ref = "javamoney" }
 database-h2 = { module = "com.h2database:h2", version.ref = "h2" }
+logging-slf4j = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit"}
 gosyer-appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "appdirs" }
 google-libs-phonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "phonenumber" }

@@ -3,6 +3,7 @@ package com.isuponev.tutordb.desktop.database.dao
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.interfaces.Model
 import com.isuponev.tutordb.desktop.database.Database
+import com.isuponev.tutordb.desktop.database.tables.IndividualLessonsTable
 import com.isuponev.tutordb.desktop.database.tables.SubjectsTable
 import com.isuponev.tutordb.desktop.utils.AppTransactionManager
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,7 +48,7 @@ abstract class Dao<M : Model, I: InsertData<M>>(
         onError: (Throwable) -> Unit
     ) = AppTransactionManager.new(
         db = database,
-        logTag = "${javaClass.name}.create",
+        logTag = "${javaClass.name}.insert",
         onSuccess = { model: M ->
             _all.update { it + model }
             onSuccess(model)
@@ -134,7 +135,7 @@ abstract class Dao<M : Model, I: InsertData<M>>(
     ) {
         AppTransactionManager.new(
             db = database,
-            logTag = "${javaClass.name}.create",
+            logTag = "${javaClass.name}.remove",
             onSuccess = {
                 _all.update { it - model }
             },
@@ -150,16 +151,16 @@ abstract class Dao<M : Model, I: InsertData<M>>(
     fun loadAll() {
         AppTransactionManager.new(
             db = database,
-            logTag = "${javaClass.name}.loadSubjects",
+            logTag = "${javaClass.name}.loadAll",
             onSuccess = { models: List<M> ->
                 _all.update { models }
             },
             onError = { throwable: Throwable ->
-                AppConfig.logger.e(tag = "SubjectsDao", throwable = throwable) {
-                    "Can't load subjects"
+                AppConfig.logger.e(tag = "${javaClass.name}.loadAll", throwable = throwable) {
+                    "Can't load entities"
                 }
             },
-            SubjectsTable
+            tables
         ) {
             onLoadAll()
         }

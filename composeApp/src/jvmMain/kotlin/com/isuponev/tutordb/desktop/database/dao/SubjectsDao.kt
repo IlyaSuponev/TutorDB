@@ -39,8 +39,11 @@ class SubjectsDao private constructor(
     }
 
     override fun Transaction.onGetById(id: Long): Subject? {
-        val results = SubjectsTable.selectAll().where { SubjectsTable.id eq id }.map { row: ResultRow ->
-            Subject(id, Name.of(row[SubjectsTable.name]), row[SubjectsTable.description])
+        val results = SubjectsTable
+            .selectAll()
+            .where { SubjectsTable.id eq id }
+            .map { row: ResultRow ->
+                row.loadSubject(id)
         }
         return if (results.isEmpty()) null else results.first()
     }
@@ -58,14 +61,14 @@ class SubjectsDao private constructor(
         SubjectsTable.deleteWhere { SubjectsTable.id eq model.id }
         StudentsSubjectsTable.deleteWhere { StudentsSubjectsTable.subjectId eq model.id }
         if (StudentsDao.isInitialized(database)) StudentsDao.reload(database)
+        if (LessonsDao.isInitialized(database)) LessonsDao.reload(database)
     }
 
-    override fun Transaction.onLoadAll(): List<Subject> = SubjectsTable.selectAll().map { row: ResultRow ->
-        Subject(
-            id = row[SubjectsTable.id].value,
-            name = Name.of(row[SubjectsTable.name]),
-            description = row[SubjectsTable.description]
-        )
+    override fun Transaction.onLoadAll(): List<Subject> = SubjectsTable
+        .selectAll()
+        .map { row: ResultRow ->
+            val subjectId = row[SubjectsTable.id]
+            row.loadSubject(subjectId.value)
     }
 
     /**

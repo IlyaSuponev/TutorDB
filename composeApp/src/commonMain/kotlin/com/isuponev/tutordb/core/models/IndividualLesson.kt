@@ -1,6 +1,7 @@
 package com.isuponev.tutordb.core.models
 
 import com.isuponev.tutordb.core.interfaces.Model
+import com.isuponev.tutordb.core.models.values.Name
 import javax.money.MonetaryAmount
 import kotlin.time.Duration
 import kotlinx.datetime.LocalDateTime
@@ -12,7 +13,7 @@ import kotlinx.datetime.LocalDateTime
  * Each lesson is associated with a student and includes descriptive information about the session.
  *
  * @property id The unique identifier for the lesson
- * @property dateTime The scheduled date and time for the lesson
+ * @property dateOfStart The scheduled date and time for the lesson
  * @property duration The length of the lesson session
  * @property hourCost The hourly rate for this lesson as a [MonetaryAmount]
  * @property description Additional details or notes about the lesson content
@@ -26,9 +27,11 @@ import kotlinx.datetime.LocalDateTime
  */
 data class IndividualLesson(
     override val id: Long,
-    val dateTime: LocalDateTime,
+    val name: Name,
+    val dateOfStart: LocalDateTime,
     val duration: Duration,
     val hourCost: MonetaryAmount,
     val description: String,
     val student: Student,
+    val subject: Subject
 ) : Model

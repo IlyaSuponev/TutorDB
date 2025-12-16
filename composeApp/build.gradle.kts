@@ -36,6 +36,7 @@ kotlin {
             implementation(libs.gosyer.appdirs)
             implementation(libs.java.money)
             implementation(libs.java.money.convert)
+            implementation(libs.logging.slf4j)
         }
         commonTest.dependencies {
             implementation(libs.tests.jetbrains.kotlin.test)
