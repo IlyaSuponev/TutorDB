@@ -26,7 +26,7 @@ class HomeViewModel(
      * Navigates to the Lessons screen when the lessons card is clicked.
      */
     fun onLessonsCardClicked() {
-        navHostController.navigate(Screen.LessonsScreen)
+        navHostController.navigate(Screen.LessonsScreen())
     }
 
     /**

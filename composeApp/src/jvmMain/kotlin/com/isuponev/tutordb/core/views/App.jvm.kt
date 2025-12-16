@@ -85,8 +85,11 @@ internal actual fun AppMainContainer(
                 val viewModel by remember { mutableStateOf(SubjectsViewModel(navController, db)) }
                 SubjectsScreenView(viewModel, Modifier.fillMaxSize())
             }
-            composable<Screen.LessonsScreen> {
-                val viewModel by remember { mutableStateOf(LessonsViewModel(navController)) }
+            composable<Screen.LessonsScreen> { backStackEntry ->
+                val screen = backStackEntry.toRoute<Screen.LessonsScreen>()
+                val viewModel by remember {
+                    mutableStateOf(LessonsViewModel(screen, navController, db))
+                }
                 LessonsScreenView(viewModel, Modifier.fillMaxSize())
             }
             composable<Screen.IncomesScreen> {
@@ -100,9 +103,7 @@ internal actual fun AppMainContainer(
             composable<Screen.EditSubjectScreen> { backStackEntry ->
                 val screen = backStackEntry.toRoute<Screen.EditSubjectScreen>()
                 val viewModel by remember {
-                    mutableStateOf(
-                        EditSubjectViewModel(screen, navController, db)
-                    )
+                    mutableStateOf(EditSubjectViewModel(screen, navController, db))
                 }
                 EditSubjectScreenView(viewModel, Modifier.fillMaxSize())
             }

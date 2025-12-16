@@ -10,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
@@ -45,7 +47,6 @@ fun LessonsScreenView(
     viewModel.i("Load subjects screen")
     Header(
         SharedResourcesjvmMain.strings.screenLessonsName,
-//        tools = tools(viewModel),
         modifier = Modifier.fillMaxWidth()
     )
     Row(
@@ -53,7 +54,7 @@ fun LessonsScreenView(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM)
     ) {
-        val state = rememberDatePickerState(initialSelectedDateMillis = Clock.System.now().toEpochMilliseconds())
+        val state by viewModel.calendarState.collectAsState()
         CalendarWidget(state, Modifier.weight(AppDefaults.Weights.ONE))
         Column(
             modifier = Modifier.weight(AppDefaults.Weights.ONE),

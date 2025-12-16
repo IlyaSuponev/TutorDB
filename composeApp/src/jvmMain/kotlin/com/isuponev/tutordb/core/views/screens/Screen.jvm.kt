@@ -32,7 +32,7 @@ actual sealed class Screen {
      * Navigate point to lessons screen.
      */
     @Serializable
-    object LessonsScreen : Screen()
+    data class LessonsScreen(val chosenDateMillis: Long? = null) : Screen()
 
     /**
      * Navigate point to subjects screen.

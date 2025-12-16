@@ -1,10 +1,19 @@
 package com.isuponev.tutordb.core.utils
 
+import java.time.ZoneOffset
+import kotlin.time.Clock
 import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
 import kotlin.time.toKotlinDuration
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atTime
+import kotlinx.datetime.offsetAt
+import kotlinx.datetime.toInstant
 import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toJavaZoneOffset
 import kotlinx.datetime.toKotlinLocalDateTime
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * Adds a specified duration to a LocalDateTime.
@@ -48,3 +57,14 @@ fun Duration.Companion.between(start: LocalDateTime, finish: LocalDateTime): Dur
     start.toJavaLocalDateTime(),
     finish.toJavaLocalDateTime()
 ).toKotlinDuration()
+
+
+@OptIn(ExperimentalTime::class)
+fun getStartOfTodayInUtcMillisWithOffset(): Long {
+    val instant = Clock.System.now()
+    val tz = TimeZone.currentSystemDefault()
+    val offset = ZoneOffset.of(tz.offsetAt(instant).toJavaZoneOffset().id)
+    val today = instant.toLocalDateTime(tz).date
+    val startOfDay = today.atTime((offset.totalSeconds / 3600) % 24, (offset.totalSeconds / 60) % 60, offset.totalSeconds % 60, 0)
+    return startOfDay.toInstant(tz).toEpochMilliseconds()
+}
