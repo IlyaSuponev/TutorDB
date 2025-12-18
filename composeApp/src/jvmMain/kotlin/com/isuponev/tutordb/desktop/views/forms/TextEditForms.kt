@@ -33,7 +33,8 @@ fun TextEditForm(
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
     labelMessage: StringResource,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isSingleLine: Boolean = true
 ) {
     val locale by AppConfig.General.locale.collectAsState()
     OutlinedTextField(
@@ -48,7 +49,7 @@ fun TextEditForm(
             )
         },
         isError = errorMessageOfInputValue != null,
-        singleLine = true,
+        singleLine = isSingleLine,
         textStyle = MaterialTheme.typography.titleLarge
     )
     if (errorMessageOfInputValue != null) {
@@ -65,14 +66,16 @@ fun TextEditForm(
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
     labelMessage: StringResource,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isSingleLine: Boolean = true
 ) = TextEditForm(
     value,
     { true },
     onChangeValue,
     errorMessageOfInputValue,
     labelMessage,
-    modifier
+    modifier,
+    isSingleLine
 )
 
 @Composable

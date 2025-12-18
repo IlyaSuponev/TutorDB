@@ -30,7 +30,7 @@ enum class AppLocale(val type: Locale, val currencyCode: String) {
     /**
      * English language locale.
      *
-     * Corresponds to [Locale.ENGLISH] (language: "en", country: "").
+     * Corresponds to [Locale.ENGLISH] (language: "en-US", country: "US").
      * Used for English-speaking users and default application language.
      */
     ENGLISH(Locale.of("en-US"), "USD"),
@@ -41,7 +41,7 @@ enum class AppLocale(val type: Locale, val currencyCode: String) {
      * Corresponds to [Locale] with language code "ru".
      * Used for Russian-speaking users.
      */
-    RUSSIAN(Locale.of("ru-Ru"), "RUB");
+    RUSSIAN(Locale.of("ru"), "RUB");
 
     /**
      * Method for localization Moko [StringResource]s.

@@ -14,26 +14,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import com.isuponev.tutordb.core.config.AppConfig
-import com.isuponev.tutordb.core.config.general.AppLocale
 import com.isuponev.tutordb.core.models.Student
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
+import com.isuponev.tutordb.core.utils.toMonetaryString
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.desktop.viewmodels.Tool
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentsViewModel
-import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
 import com.isuponev.tutordb.desktop.views.Header
 import com.isuponev.tutordb.desktop.views.widgets.Detail
 import com.isuponev.tutordb.desktop.views.widgets.EntityCard
-import java.text.DecimalFormat
-import javax.money.MonetaryAmount
-import javax.money.format.AmountFormatQuery
-import javax.money.format.MonetaryFormats
-import org.javamoney.moneta.format.CurrencyStyle
-import org.javamoney.moneta.format.MonetaryAmountDecimalFormatBuilder
 
 /**
  * A composable UI component for the "Students" screen in the application.
@@ -101,7 +93,9 @@ private fun StudentCard(
             Detail.string(
                 SharedResourcesjvmMain.strings.lbl_monetary_amount,
                 minSize = DpSize(Dp.Unspecified, StudentsViewModel.DESCRIPTION_MIN_HEIGHT),
-                value = student.hourCost.toMonetaryString(locale),
+                value = locale.localize(
+                    SharedResourcesjvmMain.strings.flbl_hour_cost_info
+                ).format(student.hourCost.toMonetaryString(locale.type)),
             ),
             Detail.iterable(
                 SharedResourcesjvmMain.strings.lbl_student_subjects,
@@ -112,12 +106,4 @@ private fun StudentCard(
         onEditClick,
         onRemoveClick
     )
-}
-
-private fun MonetaryAmount.toMonetaryString(locale: AppLocale): String {
-    if (!MonetaryFormats.isAvailable(locale.type)) return toString()
-    val numberFormatter = DecimalFormat.getInstance(locale.type)
-    return locale.localize(
-        SharedResourcesjvmMain.strings.flbl_hour_cost_info
-    ).format("${numberFormatter.format(number)} ${currency.currencyCode}")
 }

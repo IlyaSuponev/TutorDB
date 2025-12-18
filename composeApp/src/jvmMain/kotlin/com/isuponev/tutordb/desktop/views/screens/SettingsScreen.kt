@@ -149,10 +149,8 @@ private fun LazyListScope.locale(
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
         ChooseBoxForm(
-            expanded,
-            onExpandedChange = { expanded = !expanded },
-            onDismissRequest = { expanded = false },
-            currentValue = locale,
+            false,
+            initEntry = locale,
             entries = AppLocale.entries.asIterable(),
             onChooseElement = viewModel::onChooseAppLocale,
             converter = { mode -> mode.name },
@@ -182,10 +180,8 @@ private fun LazyListScope.theme(
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
         ChooseBoxForm(
-            expanded,
-            onExpandedChange = { expanded = !expanded },
-            onDismissRequest = { expanded = false },
-            currentValue = themeMode,
+            false,
+            initEntry = themeMode,
             entries = ThemeMode.entries.asIterable(),
             onChooseElement = viewModel::onChooseThemeMode,
             converter = { mode -> mode.name },

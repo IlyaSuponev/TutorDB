@@ -37,7 +37,8 @@ fun <S: Screen> SubjectEditForm(
         viewModel::onDescriptionChanged,
         null,
         SharedResourcesjvmMain.strings.lbl_subject_description,
-        Modifier.fillMaxWidth().weight(AppDefaults.Weights.ONE)
+        Modifier.fillMaxWidth().weight(AppDefaults.Weights.ONE),
+        false
     )
     DialogButtons(
         SharedResources.strings.lbl_save,

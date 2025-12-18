@@ -61,9 +61,7 @@ internal fun ToolMenu(
                 CircleShape
             )
             .clickable {
-                navController.navigate(Screen.HomeScreen) {
-                    launchSingleTop = true
-                }
+                navController.popBackStack(Screen.HomeScreen, false)
             }
     )
     Spacer(Modifier.weight(AppDefaults.Weights.ONE))

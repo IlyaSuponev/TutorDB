@@ -65,4 +65,10 @@ actual sealed class Screen {
 
     @Serializable
     data class EditStudentScreen(val studentId: Long) : Screen()
+
+    @Serializable
+    data class AddLessonScreen(val chosenDateMillis: Long) : Screen()
+
+    @Serializable
+    data class EditLessonScreen(val lessonId: Long) : Screen()
 }

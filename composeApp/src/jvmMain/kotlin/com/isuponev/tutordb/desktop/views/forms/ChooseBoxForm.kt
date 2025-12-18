@@ -13,6 +13,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.isuponev.tutordb.core.config.AppConfig
@@ -117,3 +120,27 @@ fun <T> ChooseBoxForm(
     modifier,
     labelMessage
 )
+
+@Composable
+fun <T> ChooseBoxForm(
+    initExpandedState: Boolean,
+    initEntry: T,
+    entries: Iterable<T>,
+    onChooseElement: (T) -> Unit,
+    converter: (T) -> String,
+    modifier: Modifier = Modifier,
+    labelMessage: StringResource? = null
+) {
+    var expanded by remember { mutableStateOf(initExpandedState) }
+    ChooseBoxForm(
+        expanded,
+        { expanded = !expanded },
+        { expanded = false },
+        initEntry,
+        entries,
+        onChooseElement,
+        converter,
+        modifier,
+        labelMessage
+    )
+}
