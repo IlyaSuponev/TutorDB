@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.views.forms
+package com.isuponev.tutordb.desktop.views.forms.models
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,8 @@ import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectEditDialogViewModel
+import com.isuponev.tutordb.desktop.views.forms.DialogButtons
+import com.isuponev.tutordb.desktop.views.forms.TextEditForm
 
 
 @Composable

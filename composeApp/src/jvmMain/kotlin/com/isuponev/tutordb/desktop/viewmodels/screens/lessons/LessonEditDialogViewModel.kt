@@ -2,6 +2,8 @@ package com.isuponev.tutordb.desktop.viewmodels.screens.lessons
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.Student
@@ -23,8 +25,10 @@ import javax.money.CurrencyUnit
 import javax.money.Monetary
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 abstract class LessonEditDialogViewModel<S : Screen>(
     screen: S,
@@ -71,26 +75,29 @@ abstract class LessonEditDialogViewModel<S : Screen>(
 
     init {
         i("Initializing lesson edit dialog")
-        if (availableSubjects.value.isEmpty()) {
-            w("No subjects available")
-            AppConfig.Runtime.alert(
-                "No subjects available",
-                "No subjects available. Please add a subject first.",
-                Icons.Default.Error
-            )
-            navController.popBackStack(Screen.HomeScreen, false)
-        } else if (availableStudents.value.isEmpty()) {
-            w("No students available")
-            AppConfig.Runtime.alert(
-                "No students available",
-                "No students available. Please add a student first.",
-                Icons.Default.Error
-            )
-            navController.popBackStack(Screen.HomeScreen, false)
-        } else {
-            i("Subjects and students are available")
-            _subject.value = availableSubjects.value.first()
-            _student.value = availableStudents.value.first()
+        this.viewModelScope.launch {
+            delay(500)
+            if (availableSubjects.value.isEmpty()) {
+                w("No subjects available")
+                AppConfig.Runtime.alert(
+                    "No subjects available",
+                    "No subjects available. Please add a subject first.",
+                    Icons.Default.Error
+                )
+                navController.popBackStack(Screen.HomeScreen, false)
+            } else if (availableStudents.value.isEmpty()) {
+                w("No students available")
+                AppConfig.Runtime.alert(
+                    "No students available",
+                    "No students available. Please add a student first.",
+                    Icons.Default.Error
+                )
+                navController.popBackStack(Screen.HomeScreen, false)
+            } else {
+                i("Subjects and students are available")
+                _subject.value = availableSubjects.value.first()
+                _student.value = availableStudents.value.first()
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.isuponev.tutordb.desktop.views.forms
+package com.isuponev.tutordb.desktop.views.forms.models
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +36,9 @@ import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.CardWidget
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentEditDialogViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
+import com.isuponev.tutordb.desktop.views.forms.DialogButtons
+import com.isuponev.tutordb.desktop.views.forms.MonetaryEditForm
+import com.isuponev.tutordb.desktop.views.forms.TextEditForm
 
 @Composable
 fun <S: Screen> StudentEditForm(

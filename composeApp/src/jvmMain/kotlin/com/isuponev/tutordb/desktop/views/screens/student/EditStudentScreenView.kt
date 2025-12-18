@@ -8,7 +8,7 @@ import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.desktop.viewmodels.screens.abs.Loadable
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.EditStudentViewModel
 import com.isuponev.tutordb.desktop.views.forms.LoadingForm
-import com.isuponev.tutordb.desktop.views.forms.StudentEditForm
+import com.isuponev.tutordb.desktop.views.forms.models.StudentEditForm
 
 @Composable
 fun EditStudentScreenView(

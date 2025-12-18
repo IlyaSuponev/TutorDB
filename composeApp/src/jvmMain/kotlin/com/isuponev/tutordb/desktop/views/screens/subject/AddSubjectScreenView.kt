@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.AddSubjectViewModel
-import com.isuponev.tutordb.desktop.views.forms.SubjectEditForm
+import com.isuponev.tutordb.desktop.views.forms.models.SubjectEditForm
 
 /**
  * A composable UI component for the "Add Subject" screen in the application.

@@ -8,7 +8,7 @@ import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.desktop.viewmodels.screens.abs.Loadable
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.EditSubjectViewModel
 import com.isuponev.tutordb.desktop.views.forms.LoadingForm
-import com.isuponev.tutordb.desktop.views.forms.SubjectEditForm
+import com.isuponev.tutordb.desktop.views.forms.models.SubjectEditForm
 
 /**
  * A composable UI component for the "Edit Subject" screen in the application.
