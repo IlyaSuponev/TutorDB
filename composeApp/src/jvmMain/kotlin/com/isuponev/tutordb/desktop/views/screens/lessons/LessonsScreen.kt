@@ -6,7 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -16,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
+import com.isuponev.tutordb.desktop.viewmodels.Tool
 import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.LessonsViewModel
 import com.isuponev.tutordb.desktop.views.Header
 import com.isuponev.tutordb.desktop.views.widgets.CalendarWidget
@@ -47,6 +51,7 @@ fun LessonsScreenView(
     viewModel.i("Load subjects screen")
     Header(
         SharedResourcesjvmMain.strings.screenLessonsName,
+        tools = tools(viewModel),
         modifier = Modifier.fillMaxWidth()
     )
     Row(
@@ -65,3 +70,7 @@ fun LessonsScreenView(
         }
     }
 }
+
+private fun tools(viewModel: LessonsViewModel) = listOf<Tool>(
+    Tool("Add lesson", Icons.Default.Add, viewModel::onClickAddLesson)
+)

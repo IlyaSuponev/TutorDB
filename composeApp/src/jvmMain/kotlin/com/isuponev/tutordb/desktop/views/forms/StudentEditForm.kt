@@ -109,7 +109,7 @@ private fun SubjectsEditForm(
     LazyColumn(
         modifier = Modifier.weight(AppDefaults.Weights.ONE)
     ) {
-        items(availableSubjects) {
+        items(availableSubjects.filter { subject -> !subjects.contains(subject) }) {
             SubjectCard(
                 it,
                 onAddSubject,

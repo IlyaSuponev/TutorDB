@@ -29,6 +29,7 @@ import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.LessonsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.AddLessonViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.AddStudentViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.EditStudentViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentsViewModel
@@ -39,6 +40,7 @@ import com.isuponev.tutordb.desktop.views.screens.HomeView
 import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
 import com.isuponev.tutordb.desktop.views.screens.lessons.LessonsScreenView
 import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
+import com.isuponev.tutordb.desktop.views.screens.lessons.AddLessonScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.AddStudentScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.EditStudentScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.StudentsScreenView
@@ -119,6 +121,15 @@ internal actual fun AppMainContainer(
                     )
                 }
                 EditStudentScreenView(viewModel, Modifier.fillMaxSize())
+            }
+            composable<Screen.AddLessonScreen> { backStackEntry ->
+                val screen = backStackEntry.toRoute<Screen.AddLessonScreen>()
+                val viewModel by remember {
+                    mutableStateOf(
+                        AddLessonViewModel(screen, navController, db)
+                    )
+                }
+                AddLessonScreenView(viewModel, Modifier.fillMaxSize())
             }
         }
     }

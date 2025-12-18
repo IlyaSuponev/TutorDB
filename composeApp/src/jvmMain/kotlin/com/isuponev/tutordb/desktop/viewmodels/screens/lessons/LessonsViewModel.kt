@@ -39,4 +39,13 @@ class LessonsViewModel(
     val calendarState: StateFlow<DatePickerState>
         get() = _calendarState
 
+    @OptIn(ExperimentalMaterial3Api::class)
+    fun onClickAddLesson() {
+        navHostController.navigate(
+            Screen.AddLessonScreen(
+                _calendarState.value.selectedDateMillis
+            )
+        )
+    }
+
 }
