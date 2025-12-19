@@ -26,7 +26,9 @@
     <string name="lbl_student_subjects">Предметы обучения</string>
     <string name="lbl_lessons_calendar">Календарь</string>
     <string name="lbl_lesson_name">Название урока или его основная тема</string>
-    <string name="lbl_lessons_description">Oписание</string>
+    <string name="lbl_lesson_description">Oписание</string>
+    <string name="lbl_lesson_student">Ученик для которого проводиться урок</string>
+    <string name="lbl_lesson_subject">Предмет по которому проводиться урок</string>
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">Название должно быть с большой буквы. Каждое слово может содержать буквы и цифры.</string>

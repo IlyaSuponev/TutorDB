@@ -47,8 +47,7 @@ fun <T> ChooseBoxForm(
         onValueChange = { },
         enabled = true,
         readOnly = true,
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         textStyle = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
         trailingIcon = {
             ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)

@@ -127,11 +127,11 @@ abstract class LessonEditDialogViewModel<S : Screen>(
         _description.value = newValue
     }
 
-    fun onSelectStudent(student: Student) {
+    fun onSelectStudent(student: Student?) {
         _student.value = student
     }
 
-    fun onSelectSubject(subject: Subject) {
+    fun onSelectSubject(subject: Subject?) {
         _subject.value = subject
     }
 

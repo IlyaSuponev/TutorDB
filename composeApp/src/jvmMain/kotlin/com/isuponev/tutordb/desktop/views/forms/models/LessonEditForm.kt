@@ -1,6 +1,7 @@
 package com.isuponev.tutordb.desktop.views.forms.models
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +15,7 @@ import com.isuponev.tutordb.core.resources.SharedResourcesjvmMain
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.LessonEditDialogViewModel
+import com.isuponev.tutordb.desktop.views.forms.ChooseBoxForm
 import com.isuponev.tutordb.desktop.views.forms.DialogButtons
 import com.isuponev.tutordb.desktop.views.forms.MonetaryEditForm
 import com.isuponev.tutordb.desktop.views.forms.TextEditForm
@@ -51,14 +53,43 @@ fun <S: Screen> LessonEditForm(
         )
     }
     // TODO: add date and time picker
-    // TODO: add student and subject pickers
+    item {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM)
+        ) {
+            val student by viewModel.student.collectAsState()
+            val allStudents by viewModel.availableStudents.collectAsState()
+            ChooseBoxForm(
+                initExpandedState = false,
+                student,
+                allStudents,
+                viewModel::onSelectStudent,
+                { it?.name?.value ?: "null" },
+                labelMessage = SharedResourcesjvmMain.strings.lbl_lesson_student,
+                modifier = Modifier.weight(AppDefaults.Weights.ONE)
+            )
+            val subject by viewModel.subject.collectAsState()
+            val allSubjects by viewModel.availableSubjects.collectAsState()
+            ChooseBoxForm(
+                initExpandedState = false,
+                subject,
+                allSubjects,
+                viewModel::onSelectSubject,
+                { it?.name?.value ?: "null" },
+                labelMessage = SharedResourcesjvmMain.strings.lbl_lesson_subject,
+                modifier = Modifier.weight(AppDefaults.Weights.ONE)
+            )
+        }
+    }
     item {
         val description by viewModel.description.collectAsState()
         TextEditForm(
             description,
             viewModel::onChangeDescription,
             null,
-            SharedResourcesjvmMain.strings.lbl_lessons_description,
+            SharedResourcesjvmMain.strings.lbl_lesson_description,
             Modifier.fillMaxWidth(),
             false
         )

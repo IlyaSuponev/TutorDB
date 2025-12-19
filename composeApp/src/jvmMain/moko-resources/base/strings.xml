@@ -26,8 +26,9 @@
     <string name="lbl_student_subjects">Subjects of study</string>
     <string name="lbl_lessons_calendar">Calendar</string>
     <string name="lbl_lesson_name">Name of lesson or main theme on it</string>
-    <string name="lbl_lessons_custom_hour_cost">Cost of one hour of lesson</string>
-    <string name="lbl_lessons_description">Description</string>
+    <string name="lbl_lesson_description">Description</string>
+    <string name="lbl_lesson_student">Student for whom the lesson is conducted</string>
+    <string name="lbl_lesson_subject">Subject on which the lesson is conducted</string>
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">The name should be capitalized. Each word can contain letters and numbers.</string>
