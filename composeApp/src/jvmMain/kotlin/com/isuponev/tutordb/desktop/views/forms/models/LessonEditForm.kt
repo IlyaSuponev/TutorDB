@@ -33,7 +33,7 @@ fun <S: Screen> LessonEditForm(
             name,
             viewModel::onChangeName,
             errorMessageOfName,
-            SharedResourcesjvmMain.strings.lbl_student_name,
+            SharedResourcesjvmMain.strings.lbl_lesson_name,
             Modifier.fillMaxWidth()
         )
     }
@@ -58,7 +58,7 @@ fun <S: Screen> LessonEditForm(
             description,
             viewModel::onChangeDescription,
             null,
-            SharedResourcesjvmMain.strings.lbl_student_name,
+            SharedResourcesjvmMain.strings.lbl_lessons_description,
             Modifier.fillMaxWidth(),
             false
         )

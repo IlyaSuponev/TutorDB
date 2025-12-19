@@ -8,8 +8,10 @@
     <string name="screenSettingsName">Настройки</string>
     <string name="screenAddSubjectName">Добавление нового предмета</string>
     <string name="screenAddStudent">Добавление нового ученика</string>
-    <string name="screenEditSubjectName">Редактор предмета</string>
-    <string name="screenEditStudentName">Редактор ученика</string>
+    <string name="screenAddLessonName">Добавление нового урока</string>
+    <string name="screenEditSubjectName">Редакторование предмета</string>
+    <string name="screenEditStudentName">Редакторование ученика</string>
+    <string name="screenEditLessonName">Редакторование урока</string>
 
     <!-- Labels name -->
     <string name="lbl_settings_general">Общие</string>
@@ -23,6 +25,8 @@
     <string name="lbl_monetary_currency">Валюта</string>
     <string name="lbl_student_subjects">Предметы обучения</string>
     <string name="lbl_lessons_calendar">Календарь</string>
+    <string name="lbl_lesson_name">Название урока или его основная тема</string>
+    <string name="lbl_lessons_description">Oписание</string>
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">Название должно быть с большой буквы. Каждое слово может содержать буквы и цифры.</string>

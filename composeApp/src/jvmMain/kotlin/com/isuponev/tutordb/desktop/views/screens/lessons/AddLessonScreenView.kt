@@ -12,6 +12,6 @@ fun AddLessonScreenView(
     modifier: Modifier = Modifier
 ) = LessonEditDialogView(
     viewModel,
-    SharedResourcesjvmMain.strings.screenEditStudentName,
+    SharedResourcesjvmMain.strings.screenAddLessonName,
     modifier
 ) { LessonEditForm(viewModel) }
