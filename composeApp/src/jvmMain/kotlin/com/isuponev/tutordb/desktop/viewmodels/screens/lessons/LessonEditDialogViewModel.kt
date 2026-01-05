@@ -3,7 +3,6 @@ package com.isuponev.tutordb.desktop.viewmodels.screens.lessons
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.models.Student
@@ -20,7 +19,6 @@ import com.isuponev.tutordb.desktop.database.dao.SubjectsDao
 import com.isuponev.tutordb.desktop.utils.getSystemCurrency
 import com.isuponev.tutordb.desktop.viewmodels.screens.abs.DialogViewModel
 import java.math.BigDecimal
-import java.time.LocalDateTime
 import javax.money.CurrencyUnit
 import javax.money.Monetary
 import kotlin.time.Duration
@@ -29,11 +27,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
 
 abstract class LessonEditDialogViewModel<S : Screen>(
     screen: S,
     navController: NavHostController,
-    db: Database
+    db: Database,
+    chosenDate: LocalDate
 ) : DialogViewModel<S>(screen, navController) {
 
     protected val lessonsDao = LessonsDao.new(db)
@@ -46,9 +46,8 @@ abstract class LessonEditDialogViewModel<S : Screen>(
     protected val _nameErrorMessage = MutableStateFlow<String?>(null)
     val nameErrorMessage: StateFlow<String?> get() = _nameErrorMessage
 
-    protected val _dateOfStart = MutableStateFlow(LocalDateTime.now())
-    val dateOfStart: StateFlow<LocalDateTime> get() = _dateOfStart
-
+    protected val _date = MutableStateFlow(chosenDate)
+    val date: StateFlow<LocalDate> get() = _date
     protected val _duration = MutableStateFlow(60.minutes)
     val duration: StateFlow<Duration> get() = _duration
 
@@ -106,8 +105,9 @@ abstract class LessonEditDialogViewModel<S : Screen>(
         if (_nameErrorMessage.value != null) _nameErrorMessage.value = null
     }
 
-    fun onChangeDateOfStart(newValue: LocalDateTime) {
-        _dateOfStart.value = newValue
+    fun onChooseDate(newValue: LocalDate) {
+        i("Choosing date: $newValue")
+        _date.value = newValue
     }
 
     fun onChangeDuration(newValue: Duration) {

@@ -1,15 +1,23 @@
 package com.isuponev.tutordb.core.utils
 
 import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Locale
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.time.toKotlinDuration
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.atTime
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toInstant
+import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toJavaZoneOffset
 import kotlinx.datetime.toKotlinLocalDateTime
@@ -59,12 +67,43 @@ fun Duration.Companion.between(start: LocalDateTime, finish: LocalDateTime): Dur
 ).toKotlinDuration()
 
 
-@OptIn(ExperimentalTime::class)
-fun getStartOfTodayInUtcMillisWithOffset(): Long {
-    val instant = Clock.System.now()
-    val tz = TimeZone.currentSystemDefault()
-    val offset = ZoneOffset.of(tz.offsetAt(instant).toJavaZoneOffset().id)
-    val today = instant.toLocalDateTime(tz).date
-    val startOfDay = today.atTime((offset.totalSeconds / 3600) % 24, (offset.totalSeconds / 60) % 60, offset.totalSeconds % 60, 0)
-    return startOfDay.toInstant(tz).toEpochMilliseconds()
+fun LocalDateTime.Companion.now(): LocalDateTime {
+    return java.time.LocalDateTime.now().toKotlinLocalDateTime()
 }
+
+@OptIn(ExperimentalTime::class)
+fun LocalDateTime.Companion.fromMillis(millis: Long, tz: TimeZone = TimeZone.currentSystemDefault()): LocalDateTime {
+    val instant = Instant.fromEpochMilliseconds(millis)
+    return instant.toLocalDateTime(tz)
+}
+
+@OptIn(ExperimentalTime::class)
+fun LocalDateTime.Companion.fromUTCMillis(millis: Long): LocalDateTime = fromMillis(millis, TimeZone.UTC)
+
+fun LocalDateTime.toMillis(tz: TimeZone = TimeZone.currentSystemDefault()): Long {
+    return date.toMillis(tz) + time.toMillisecondOfDay()
+}
+
+fun LocalDateTime.toUTCMillis(): Long = toMillis(TimeZone.UTC)
+
+fun LocalDate.Companion.now(): LocalDate = LocalDateTime.now().date
+
+@OptIn(ExperimentalTime::class)
+fun LocalDate.toMillis(tz: TimeZone = TimeZone.currentSystemDefault()): Long {
+    return atStartOfDayIn(tz).toEpochMilliseconds()
+}
+
+fun LocalDate.toUTCMillis(): Long = toMillis(TimeZone.UTC)
+
+fun LocalDate.Companion.fromMillis(millis: Long, tz: TimeZone = TimeZone.currentSystemDefault()): LocalDate {
+    return LocalDateTime.fromMillis(millis, tz).date
+}
+
+fun LocalDate.Companion.fromUTCMillis(millis: Long): LocalDate = fromMillis(millis, TimeZone.UTC)
+
+fun LocalTime.Companion.now(): LocalTime = LocalDateTime.now().time
+
+fun LocalDate.localizedFormat(
+    locale: Locale = Locale.getDefault(),
+    style: FormatStyle = FormatStyle.MEDIUM
+): String = toJavaLocalDate().format(DateTimeFormatter.ofLocalizedDate(style).withLocale(locale))

@@ -1,16 +1,12 @@
 package com.isuponev.tutordb.desktop.viewmodels.screens.lessons
 
-import androidx.compose.material3.DatePickerState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.navigation.NavHostController
-import com.isuponev.tutordb.core.utils.getStartOfTodayInUtcMillisWithOffset
 import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
-import java.util.Locale
-import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.datetime.LocalDate
 
 /**
  * A ViewModel for managing the Lessons screen in the application.
@@ -28,24 +24,16 @@ class LessonsViewModel(
     private val navHostController: NavHostController,
     db: Database
 ) : AppScreenViewModel<Screen.StudentsScreen>(Screen.StudentsScreen) {
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
-    private val _calendarState = MutableStateFlow(
-        DatePickerState(
-            Locale.getDefault(),
-            screen.chosenDateMillis  ?: getStartOfTodayInUtcMillisWithOffset()
-        )
-    )
-    @OptIn(ExperimentalMaterial3Api::class)
-    val calendarState: StateFlow<DatePickerState>
-        get() = _calendarState
+    private val _date = MutableStateFlow(screen.chosenDate)
+    val date: StateFlow<LocalDate>
+        get() = _date
 
-    @OptIn(ExperimentalMaterial3Api::class)
     fun onClickAddLesson() {
-        navHostController.navigate(
-            Screen.AddLessonScreen(
-                _calendarState.value.selectedDateMillis
-            )
-        )
+        navHostController.navigate(Screen.AddLessonScreen(date.value))
     }
 
+    fun onChooseDate(date: LocalDate) {
+        i("Choose date: $date")
+        _date.value = date
+    }
 }

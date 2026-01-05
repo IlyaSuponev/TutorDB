@@ -1,5 +1,7 @@
 package com.isuponev.tutordb.core.views.screens
 
+import com.isuponev.tutordb.core.utils.now
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 /**
@@ -32,7 +34,7 @@ actual sealed class Screen {
      * Navigate point to lessons screen.
      */
     @Serializable
-    data class LessonsScreen(val chosenDateMillis: Long? = null) : Screen()
+    data class LessonsScreen(val chosenDate: LocalDate = LocalDate.now()) : Screen()
 
     /**
      * Navigate point to subjects screen.
@@ -67,7 +69,7 @@ actual sealed class Screen {
     data class EditStudentScreen(val studentId: Long) : Screen()
 
     @Serializable
-    data class AddLessonScreen(val chosenDateMillis: Long?) : Screen()
+    data class AddLessonScreen(val chosenDate: LocalDate) : Screen()
 
     @Serializable
     data class EditLessonScreen(val lessonId: Long) : Screen()

@@ -9,7 +9,12 @@ class AddLessonViewModel(
     screen: Screen.AddLessonScreen,
     navController: NavHostController,
     db: Database
-): LessonEditDialogViewModel<Screen.AddLessonScreen>(screen, navController, db) {
+): LessonEditDialogViewModel<Screen.AddLessonScreen>(
+    screen,
+    navController,
+    db,
+    screen.chosenDate
+) {
     override fun onAcceptEvent(): Result<Unit> {
         TODO("Not yet implemented")
     }

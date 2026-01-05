@@ -19,6 +19,7 @@ import com.isuponev.tutordb.desktop.views.forms.ChooseBoxForm
 import com.isuponev.tutordb.desktop.views.forms.DialogButtons
 import com.isuponev.tutordb.desktop.views.forms.MonetaryEditForm
 import com.isuponev.tutordb.desktop.views.forms.TextEditForm
+import com.isuponev.tutordb.desktop.views.widgets.datetime.DatePickerDialogWidget
 
 @Composable
 fun <S: Screen> LessonEditForm(
@@ -52,7 +53,19 @@ fun <S: Screen> LessonEditForm(
             Modifier.fillMaxWidth()
         )
     }
-    // TODO: add date and time picker
+    item {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM)
+        ) {
+            val date by viewModel.date.collectAsState()
+            DatePickerDialogWidget(
+                initialDate = date,
+                onDateSelected = viewModel::onChooseDate,
+            )
+        }
+    }
     item {
         Row(
             modifier = Modifier.fillMaxWidth(),

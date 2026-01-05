@@ -99,7 +99,7 @@ object AppDefaults {
      * @property BIG Big scale increase (1.25f) - Prominent transformation
      */
     object Scales {
-        val ZERO = 0.dp
+        const val ZERO = 0f
         const val INITIAL = 1f
         const val SMALL = 1.05f
         const val MEDIUM = 1.1f

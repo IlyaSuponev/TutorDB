@@ -21,6 +21,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.config.currentDatabase
+import com.isuponev.tutordb.core.utils.LocalDateNavType
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.AppAlert
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.AddSubjectViewModel
@@ -45,6 +46,9 @@ import com.isuponev.tutordb.desktop.views.screens.student.AddStudentScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.EditStudentScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.StudentsScreenView
 import com.isuponev.tutordb.desktop.views.screens.subject.SubjectsScreenView
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
+import kotlinx.datetime.LocalDate
 
 @Composable
 internal actual fun AppMainContainer(
@@ -69,7 +73,7 @@ internal actual fun AppMainContainer(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Screen.HomeScreen,
+            startDestination = Screen.HomeScreen
         ) {
             composable<Screen.HomeScreen> {
                 val viewModel by remember { mutableStateOf(HomeViewModel(navController)) }
@@ -87,7 +91,11 @@ internal actual fun AppMainContainer(
                 val viewModel by remember { mutableStateOf(SubjectsViewModel(navController, db)) }
                 SubjectsScreenView(viewModel, Modifier.fillMaxSize())
             }
-            composable<Screen.LessonsScreen> { backStackEntry ->
+            composable<Screen.LessonsScreen>(
+                mapOf(
+                    typeOf<LocalDate>() to LocalDateNavType
+                )
+            ) { backStackEntry ->
                 val screen = backStackEntry.toRoute<Screen.LessonsScreen>()
                 val viewModel by remember {
                     mutableStateOf(LessonsViewModel(screen, navController, db))
@@ -122,7 +130,11 @@ internal actual fun AppMainContainer(
                 }
                 EditStudentScreenView(viewModel, Modifier.fillMaxSize())
             }
-            composable<Screen.AddLessonScreen> { backStackEntry ->
+            composable<Screen.AddLessonScreen>(
+                mapOf(
+                    typeOf<LocalDate>() to LocalDateNavType
+                )
+            ) { backStackEntry ->
                 val screen = backStackEntry.toRoute<Screen.AddLessonScreen>()
                 val viewModel by remember {
                     mutableStateOf(
