@@ -20,6 +20,7 @@ import com.isuponev.tutordb.desktop.views.forms.DialogButtons
 import com.isuponev.tutordb.desktop.views.forms.MonetaryEditForm
 import com.isuponev.tutordb.desktop.views.forms.TextEditForm
 import com.isuponev.tutordb.desktop.views.widgets.datetime.DatePickerDialogWidget
+import com.isuponev.tutordb.desktop.views.widgets.datetime.TimePicker
 
 @Composable
 fun <S: Screen> LessonEditForm(
@@ -59,10 +60,16 @@ fun <S: Screen> LessonEditForm(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(AppDefaults.Arrangements.MEDIUM)
         ) {
-            val date by viewModel.date.collectAsState()
+            val dateTime by viewModel.dateTime.collectAsState()
             DatePickerDialogWidget(
-                initialDate = date,
+                initialDate = dateTime.date,
                 onDateSelected = viewModel::onChooseDate,
+                modifier = Modifier.weight(1f)
+            )
+            TimePicker(
+                initLocalTime = viewModel.dateTime.value.time,
+                onChangeTime = viewModel::onChooseTime,
+                modifier = Modifier.weight(1f)
             )
         }
     }

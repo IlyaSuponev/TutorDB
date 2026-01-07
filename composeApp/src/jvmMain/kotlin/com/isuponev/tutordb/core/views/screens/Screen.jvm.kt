@@ -2,6 +2,7 @@ package com.isuponev.tutordb.core.views.screens
 
 import com.isuponev.tutordb.core.utils.now
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 
 /**
@@ -69,7 +70,7 @@ actual sealed class Screen {
     data class EditStudentScreen(val studentId: Long) : Screen()
 
     @Serializable
-    data class AddLessonScreen(val chosenDate: LocalDate) : Screen()
+    data class AddLessonScreen(val chosenDate: LocalDateTime) : Screen()
 
     @Serializable
     data class EditLessonScreen(val lessonId: Long) : Screen()

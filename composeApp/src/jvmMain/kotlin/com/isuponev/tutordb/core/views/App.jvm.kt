@@ -22,33 +22,34 @@ import androidx.navigation.toRoute
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.config.currentDatabase
 import com.isuponev.tutordb.core.utils.LocalDateNavType
+import com.isuponev.tutordb.core.utils.LocalDateTimeNavType
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.core.views.widgets.AppAlert
-import com.isuponev.tutordb.desktop.viewmodels.screens.subject.AddSubjectViewModel
-import com.isuponev.tutordb.desktop.viewmodels.screens.subject.EditSubjectViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.HomeViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.IncomesViewModel
-import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.LessonsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.SettingsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.AddLessonViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.lessons.LessonsViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.AddStudentViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.EditStudentViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.student.StudentsViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.subject.AddSubjectViewModel
+import com.isuponev.tutordb.desktop.viewmodels.screens.subject.EditSubjectViewModel
 import com.isuponev.tutordb.desktop.viewmodels.screens.subject.SubjectsViewModel
-import com.isuponev.tutordb.desktop.views.screens.subject.AddSubjectScreenView
-import com.isuponev.tutordb.desktop.views.screens.subject.EditSubjectScreenView
 import com.isuponev.tutordb.desktop.views.screens.HomeView
 import com.isuponev.tutordb.desktop.views.screens.IncomesScreenView
-import com.isuponev.tutordb.desktop.views.screens.lessons.LessonsScreenView
 import com.isuponev.tutordb.desktop.views.screens.SettingsScreenView
 import com.isuponev.tutordb.desktop.views.screens.lessons.AddLessonScreenView
+import com.isuponev.tutordb.desktop.views.screens.lessons.LessonsScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.AddStudentScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.EditStudentScreenView
 import com.isuponev.tutordb.desktop.views.screens.student.StudentsScreenView
+import com.isuponev.tutordb.desktop.views.screens.subject.AddSubjectScreenView
+import com.isuponev.tutordb.desktop.views.screens.subject.EditSubjectScreenView
 import com.isuponev.tutordb.desktop.views.screens.subject.SubjectsScreenView
-import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 
 @Composable
 internal actual fun AppMainContainer(
@@ -132,7 +133,7 @@ internal actual fun AppMainContainer(
             }
             composable<Screen.AddLessonScreen>(
                 mapOf(
-                    typeOf<LocalDate>() to LocalDateNavType
+                    typeOf<LocalDateTime>() to LocalDateTimeNavType
                 )
             ) { backStackEntry ->
                 val screen = backStackEntry.toRoute<Screen.AddLessonScreen>()

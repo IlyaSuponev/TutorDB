@@ -28,14 +28,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 
 abstract class LessonEditDialogViewModel<S : Screen>(
     screen: S,
     navController: NavHostController,
     db: Database,
-    chosenDate: LocalDate
+    chosenDate: LocalDateTime
 ) : DialogViewModel<S>(screen, navController) {
-
     protected val lessonsDao = LessonsDao.new(db)
     protected val studentsDao = StudentsDao.new(db)
     protected val subjectsDao = SubjectsDao.new(db)
@@ -46,8 +47,9 @@ abstract class LessonEditDialogViewModel<S : Screen>(
     protected val _nameErrorMessage = MutableStateFlow<String?>(null)
     val nameErrorMessage: StateFlow<String?> get() = _nameErrorMessage
 
-    protected val _date = MutableStateFlow(chosenDate)
-    val date: StateFlow<LocalDate> get() = _date
+    protected val _dateTime = MutableStateFlow(chosenDate)
+    val dateTime: StateFlow<LocalDateTime> get() = _dateTime
+
     protected val _duration = MutableStateFlow(60.minutes)
     val duration: StateFlow<Duration> get() = _duration
 
@@ -107,7 +109,12 @@ abstract class LessonEditDialogViewModel<S : Screen>(
 
     fun onChooseDate(newValue: LocalDate) {
         i("Choosing date: $newValue")
-        _date.value = newValue
+        _dateTime.value = LocalDateTime(newValue, _dateTime.value.time)
+    }
+
+    fun onChooseTime(newValue: LocalTime) {
+        i("Choosing time: $newValue")
+        _dateTime.value = LocalDateTime(_dateTime.value.date, newValue)
     }
 
     fun onChangeDuration(newValue: Duration) {

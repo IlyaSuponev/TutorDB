@@ -35,6 +35,7 @@ import com.isuponev.tutordb.core.utils.now
 import com.isuponev.tutordb.core.utils.toUTCMillis
 import com.isuponev.tutordb.core.views.AppDefaults
 import com.isuponev.tutordb.core.views.widgets.CardWidget
+import com.isuponev.tutordb.desktop.views.widgets.WheelPickerTypography
 import java.time.format.FormatStyle
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -125,15 +126,19 @@ fun DatePickerDialogWidget(
 ) = Box(modifier) {
     var expanded by remember { mutableStateOf(initExpanded) }
     val locale by AppConfig.General.locale.collectAsState()
-    Button(
-        onClick = { expanded = true }
+    TextButton(
+        onClick = { expanded = true },
+        modifier = Modifier.fillMaxSize()
     ) {
         Text(
             state.selectedDateMillis?.let { selectedDateMillis ->
                 val instant = Instant.fromEpochMilliseconds(selectedDateMillis)
                 val localDate = instant.toLocalDateTime(TimeZone.UTC).date
-                localDate.localizedFormat(locale.type, FormatStyle.LONG)
-            } ?: onUnSelectedDate()
+                localDate.localizedFormat(locale.type, FormatStyle.FULL)
+            } ?: onUnSelectedDate(),
+            textAlign = TextAlign.Center,
+            fontWeight = WheelPickerTypography().selectedItemFontWeight,
+            fontSize = WheelPickerTypography().selectedItemFontSize
         )
     }
     if (expanded) {

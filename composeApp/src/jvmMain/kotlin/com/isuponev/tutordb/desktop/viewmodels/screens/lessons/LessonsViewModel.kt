@@ -1,12 +1,15 @@
 package com.isuponev.tutordb.desktop.viewmodels.screens.lessons
 
 import androidx.navigation.NavHostController
+import com.isuponev.tutordb.core.utils.now
 import com.isuponev.tutordb.core.views.screens.AppScreenViewModel
 import com.isuponev.tutordb.core.views.screens.Screen
 import com.isuponev.tutordb.desktop.database.Database
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 
 /**
  * A ViewModel for managing the Lessons screen in the application.
@@ -29,7 +32,12 @@ class LessonsViewModel(
         get() = _date
 
     fun onClickAddLesson() {
-        navHostController.navigate(Screen.AddLessonScreen(date.value))
+        navHostController.navigate(
+            Screen.AddLessonScreen(LocalDateTime(
+                date.value,
+                LocalTime.now()
+            ))
+        )
     }
 
     fun onChooseDate(date: LocalDate) {
