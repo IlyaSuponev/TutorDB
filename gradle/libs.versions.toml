@@ -1,7 +1,7 @@
 [versions]
 androidx-lifecycle = "2.9.4"
 composeHotReload = "1.0.0-beta07"
-composeMultiplatform = "1.9.0"
+composeMultiplatform = "1.9.3"
 kotlin = "2.2.20"
 lib-kotlinx-serialization = "1.9.0"
 plugin-kotlinx-serialization = "2.2.0"

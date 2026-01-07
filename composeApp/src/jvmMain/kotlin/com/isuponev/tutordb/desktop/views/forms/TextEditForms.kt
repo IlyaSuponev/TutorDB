@@ -32,7 +32,7 @@ fun TextEditForm(
     isValid: (String) -> Boolean,
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
-    labelMessage: StringResource,
+    labelMessage: StringResource?,
     modifier: Modifier = Modifier,
     isSingleLine: Boolean = true
 ) {
@@ -44,9 +44,11 @@ fun TextEditForm(
         },
         modifier = modifier,
         label = {
-            Text(
-                locale.localize(labelMessage)
-            )
+            if (labelMessage != null) {
+                Text(
+                    locale.localize(labelMessage)
+                )
+            }
         },
         isError = errorMessageOfInputValue != null,
         singleLine = isSingleLine,
@@ -65,7 +67,7 @@ fun TextEditForm(
     value: String,
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
-    labelMessage: StringResource,
+    labelMessage: StringResource?,
     modifier: Modifier = Modifier,
     isSingleLine: Boolean = true
 ) = TextEditForm(
@@ -83,14 +85,14 @@ fun NumberEditForm(
     value: String,
     onChangeValue: (String) -> Unit,
     errorMessageOfInputValue: String?,
-    labelMessage: StringResource,
-    modifier: Modifier = Modifier
+    labelMessage: StringResource?,
+    modifier: Modifier = Modifier,
+    isValid: (BigDecimal) -> Boolean = { true }
 ) = TextEditForm(
     value,
     { newValue ->
         try {
-            BigDecimal(newValue)
-            true
+            isValid(BigDecimal(newValue))
         } catch (_: NumberFormatException) {
             false
         }

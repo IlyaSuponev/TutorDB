@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.isuponev.tutordb.core.config.AppConfig
 import com.isuponev.tutordb.core.resources.SharedResources
@@ -52,14 +54,8 @@ private fun DatePicker(
         Text(
             title,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.displaySmall
-        )
-    },
-    headline = {
-        DatePickerDefaults.DatePickerHeadline(
-            selectedDateMillis = state.selectedDateMillis,
-            displayMode = state.displayMode,
-            dateFormatter = remember { DatePickerDefaults.dateFormatter() }
+            style = MaterialTheme.typography.displaySmall,
+            modifier = Modifier.fillMaxWidth()
         )
     },
     showModeToggle = false,
@@ -70,7 +66,7 @@ private fun DatePicker(
         navigationContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         dayContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         weekdayContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-        yearContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        yearContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     )
 )
 
