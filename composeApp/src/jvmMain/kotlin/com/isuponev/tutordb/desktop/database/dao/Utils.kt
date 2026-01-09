@@ -69,7 +69,8 @@ internal fun ResultRow.loadIndividualLesson(id: Long): IndividualLesson? {
                 this[IndividualLessonsTable.hourCost],
                 this[IndividualLessonsTable.description],
                 students.first(),
-                subjects.first()
+                subjects.first(),
+                this[IndividualLessonsTable.isConducted]
             )
         }
     }

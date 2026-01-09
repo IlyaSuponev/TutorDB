@@ -84,43 +84,19 @@ abstract class StudentEditDialogViewModel<S: Screen>(
         i("Cancelling of process")
     }
 
-    private fun convertName(): Name? {
-        try {
-            return Name.of(name.value)
-        } catch (_: IllegalArgumentException) {
-            val locale = AppConfig.General.locale.value
-            _nameErrorMessage.value = locale.localize(
-                SharedResourcesjvmMain.strings.error_invalid_name_of_entity
-            )
-        }
-        return null
-    }
-
-    private fun convertAmount(): BigDecimal? {
-        try {
-            return BigDecimal(amount.value)
-        } catch (ex: IllegalArgumentException) {
-            _amountErrorMessage.value = ex.localizedMessage
-        }
-        return null
-    }
-
     protected fun allChecks(): Result<Pair<Name, BigDecimal>> {
-        val name = convertName() ?: return Result.failure(
-            AppError.ValidationError(
-                "Invalid name of student",
-                "name",
-                "Value of name is not matches with its regex"
-            )
-        )
-        val amount = convertAmount() ?: return Result.failure(
-            AppError.ValidationError(
-                "Invalid monetary amount of student",
-                "amount",
-                "Value of amount of hour cost is not number"
-            )
-        )
-        i("All checked pass")
-        return Result.success(name to amount)
+        return convertToName(name.value).let { nameResult ->
+            var result: Result<Pair<Name, BigDecimal>>? = null
+            nameResult.onSuccess { newName ->
+                convertToAmount(amount.value).onSuccess { newAmount ->
+                    result = Result.success(newName to newAmount)
+                }.onError { throwable ->
+                    result = Result.error(throwable)
+                }
+            }.onError { throwable ->
+                result = Result.error(throwable)
+            }
+            result!!
+        }
     }
 }

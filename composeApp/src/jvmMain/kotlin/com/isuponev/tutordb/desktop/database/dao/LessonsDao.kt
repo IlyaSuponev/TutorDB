@@ -49,6 +49,7 @@ class LessonsDao private constructor(
             data.description,
             data.student,
             data.subject,
+            data.isConducted
         )
     }
 
@@ -84,7 +85,8 @@ class LessonsDao private constructor(
         val hourCost: MonetaryAmount,
         val description: String,
         val student: Student,
-        val subject: Subject
+        val subject: Subject,
+        val isConducted: Boolean
     ) : InsertData<IndividualLesson>
 
     companion object : DaoBuilder<IndividualLesson, IData, LessonsDao>() {

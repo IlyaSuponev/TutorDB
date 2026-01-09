@@ -29,6 +29,7 @@
     <string name="lbl_lesson_description">Description</string>
     <string name="lbl_lesson_student">Student for whom the lesson is conducted</string>
     <string name="lbl_lesson_subject">Subject on which the lesson is conducted</string>
+    <string name="lbl_lesson_is_conducted">Has the lesson already been conducted</string>
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">The name should be capitalized. Each word can contain letters and numbers.</string>

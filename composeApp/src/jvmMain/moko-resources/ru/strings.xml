@@ -29,6 +29,7 @@
     <string name="lbl_lesson_description">Oписание</string>
     <string name="lbl_lesson_student">Ученик для которого проводиться урок</string>
     <string name="lbl_lesson_subject">Предмет по которому проводиться урок</string>
+    <string name="lbl_lesson_is_conducted">Был ли урок уже проведён</string>
 
     <!-- Errors messages -->
     <string name="error_invalid_name_of_entity">Название должно быть с большой буквы. Каждое слово может содержать буквы и цифры.</string>

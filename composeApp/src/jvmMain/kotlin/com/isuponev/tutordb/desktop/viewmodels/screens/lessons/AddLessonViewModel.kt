@@ -16,6 +16,8 @@ class AddLessonViewModel(
     screen.chosenDate
 ) {
     override fun onAcceptEvent(): Result<Unit> {
-        TODO("Not yet implemented")
+        val result = Result.success(Unit)
+
+        return result
     }
 }

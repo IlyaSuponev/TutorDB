@@ -28,4 +28,5 @@ object IndividualLessonsTable : LongIdTable("individual_lessons") {
         SubjectsTable.id,
         onDelete = ReferenceOption.CASCADE
     )
+    val isConducted = bool("isConducted")
 }

@@ -71,6 +71,10 @@ abstract class LessonEditDialogViewModel<S : Screen>(
     protected val _subject = MutableStateFlow<Subject?>(null)
     val subject: StateFlow<Subject?> get() = _subject
 
+    protected val _isConducted = MutableStateFlow(false)
+    val isConducted: StateFlow<Boolean>
+        get() = _isConducted
+
     val availableStudents: StateFlow<List<Student>> get() = studentsDao.all
     val availableSubjects: StateFlow<List<Subject>> get() = subjectsDao.all
 
@@ -121,6 +125,10 @@ abstract class LessonEditDialogViewModel<S : Screen>(
         _duration.value = newValue
     }
 
+    fun onChangeIsConducted(newValue: Boolean) {
+        _isConducted.value = newValue
+    }
+
     fun onChangeHourCostAmount(newValue: String) {
         _hourCostAmount.value = newValue
         if (_hourCostAmountErrorMessage.value != null) _hourCostAmountErrorMessage.value = null
@@ -140,42 +148,6 @@ abstract class LessonEditDialogViewModel<S : Screen>(
 
     fun onSelectSubject(subject: Subject?) {
         _subject.value = subject
-    }
-
-    protected fun convertName(): Result<Name> {
-        return try {
-            Result.success(Name.of(_name.value))
-        } catch (ex: IllegalArgumentException) {
-            val message = AppConfig.General.locale.value.localize(
-                SharedResourcesjvmMain.strings.error_invalid_name_of_entity
-            )
-            _nameErrorMessage.value = message
-            Result.failure(
-                AppError.ValidationError("Invalid lesson name", "name", ex.message ?: "Invalid format")
-            )
-        }
-    }
-
-    protected fun convertHourCost(): Result<javax.money.MonetaryAmount> {
-        return try {
-            val amount = BigDecimal(_hourCostAmount.value)
-            if (amount < BigDecimal.ZERO) {
-                _hourCostAmountErrorMessage.value = "Amount cannot be negative"
-                return Result.failure(
-                    AppError.ValidationError("Invalid hour cost", "hourCost", "Amount is negative")
-                )
-            }
-            val monetaryAmount = Monetary.getDefaultAmountFactory()
-                .setNumber(amount)
-                .setCurrency(_hourCostCurrency.value)
-                .create()
-            Result.success(monetaryAmount)
-        } catch (ex: NumberFormatException) {
-            _hourCostAmountErrorMessage.value = "Invalid number format"
-            Result.failure(
-                AppError.ValidationError("Invalid hour cost", "hourCost", "Not a valid number")
-            )
-        }
     }
 
     override fun onCancelEvent() {

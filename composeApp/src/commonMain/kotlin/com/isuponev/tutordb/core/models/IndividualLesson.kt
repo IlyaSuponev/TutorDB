@@ -33,5 +33,6 @@ data class IndividualLesson(
     val hourCost: MonetaryAmount,
     val description: String,
     val student: Student,
-    val subject: Subject
+    val subject: Subject,
+    val isConducted: Boolean
 ) : Model
