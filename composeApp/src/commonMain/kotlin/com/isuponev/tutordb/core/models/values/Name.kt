@@ -1,8 +1,9 @@
 package com.isuponev.tutordb.core.models.values
 
 import com.isuponev.tutordb.core.HASH_CODE_NUMBER_GENERATOR
+import com.isuponev.tutordb.core.models.values.Name.Builder.isValidNameValue
+import com.isuponev.tutordb.core.models.values.Name.Builder.of
 import java.io.Serializable
-import kotlin.jvm.Throws
 
 /**
  * A type-safe wrapper for validated name values.
@@ -23,6 +24,7 @@ import kotlin.jvm.Throws
  * @see isValidNameValue for validation without instance creation
  * @see of for the primary factory method
  */
+@kotlinx.serialization.Serializable
 class Name private constructor(val value: String) : Serializable {
     override fun toString(): String = "Name(value='$value')"
 

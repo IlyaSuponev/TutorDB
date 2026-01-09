@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- Menus name strings -->
+    <string name="screenStudentsName">Студенты</string>
+    <string name="screenLessonsName">Занятия</string>
+    <string name="screenSubjectsName">Предметы</string>
+    <string name="screenIncomesName">Доходы</string>
+    <string name="screenSettingsName">Настройки</string>
+    <string name="screenAddSubjectName">Добавление нового предмета</string>
+    <string name="screenAddStudent">Добавление нового ученика</string>
+    <string name="screenAddLessonName">Добавление нового урока</string>
+    <string name="screenEditSubjectName">Редакторование предмета</string>
+    <string name="screenEditStudentName">Редакторование ученика</string>
+    <string name="screenEditLessonName">Редакторование урока</string>
+
+    <!-- Labels name -->
+    <string name="lbl_settings_general">Общие</string>
+    <string name="lbl_settings_general_locale">Язык</string>
+    <string name="lbl_settings_ui">Интерфейс</string>
+    <string name="lbl_settings_ui_theme">Оформление</string>
+    <string name="lbl_subject_name">Имя предмета</string>
+    <string name="lbl_subject_description">Описание предмета</string>
+    <string name="lbl_student_name">Имя студента</string>
+    <string name="lbl_monetary_amount">Стоимость часового занятия</string>
+    <string name="lbl_monetary_currency">Валюта</string>
+    <string name="lbl_student_subjects">Предметы обучения</string>
+    <string name="lbl_lessons_calendar">Календарь</string>
+    <string name="lbl_lesson_name">Название урока или его основная тема</string>
+    <string name="lbl_lesson_description">Oписание</string>
+    <string name="lbl_lesson_student">Ученик для которого проводиться урок</string>
+    <string name="lbl_lesson_subject">Предмет по которому проводиться урок</string>
+    <string name="lbl_lesson_is_conducted">Был ли урок уже проведён</string>
+
+    <!-- Errors messages -->
+    <string name="error_invalid_name_of_entity">Название должно быть с большой буквы. Каждое слово может содержать буквы и цифры.</string>
+
+    <!-- Formats labels -->
+    <string name="flbl_hour_cost_info">%s за час</string>
+</resources>

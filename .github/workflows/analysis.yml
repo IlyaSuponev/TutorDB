@@ -34,6 +34,8 @@ jobs:
   jacoco-report:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -52,7 +54,7 @@ jobs:
         if: always()
         uses: madrapps/jacoco-report@v1.7.2
         with:
-          paths: ${{ github.workspace }}/composeApp/build/reports/jacoco/xml/jacocoTestReport.xml
+          paths: composeApp/build/reports/jacoco/xml/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
   linting:
     runs-on: ubuntu-latest

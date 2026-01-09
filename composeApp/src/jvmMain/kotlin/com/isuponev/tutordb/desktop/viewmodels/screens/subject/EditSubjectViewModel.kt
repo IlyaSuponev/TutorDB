@@ -1,0 +1,115 @@
+package com.isuponev.tutordb.desktop.viewmodels.screens.subject
+
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
+import com.isuponev.tutordb.core.config.AppConfig
+import com.isuponev.tutordb.core.models.Subject
+import com.isuponev.tutordb.core.utils.AppError
+import com.isuponev.tutordb.core.utils.Result
+import com.isuponev.tutordb.core.views.screens.Screen
+import com.isuponev.tutordb.desktop.database.Database
+import com.isuponev.tutordb.desktop.viewmodels.screens.abs.Loadable
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import org.jetbrains.exposed.v1.exceptions.ExposedSQLException
+
+/**
+ * A ViewModel for the "Edit Subject" screen in the application.
+ *
+ * This class manages the state and behavior of the UI for editing an existing subject,
+ * including loading subject data from the database, input validation, and updating
+ * the database with changes made by the user.
+ *
+ * @param screen The [Screen.EditSubjectScreen] instance containing the subject ID to edit.
+ * @param navController The [NavHostController] used for navigation between screens.
+ * @param db The [Database] instance for database operations.
+ */
+class EditSubjectViewModel(
+    screen: Screen.EditSubjectScreen,
+    navController: NavHostController,
+    db: Database
+) : SubjectEditDialogViewModel<Screen.EditSubjectScreen>(screen, navController, db), Loadable {
+    private val _state = MutableStateFlow<Loadable.State>(Loadable.State.Loading)
+    private val _loadingProgress = MutableStateFlow(Loadable.Progress.PROGRESS_ON_START)
+
+    /**
+     * A [StateFlow] exposing the current state to observers.
+     */
+    override val state: StateFlow<Loadable.State>
+        get() = _state
+
+    /**
+     * A [StateFlow] exposing the current loading progress to observers.
+     */
+    override val loadingProgress: StateFlow<Loadable.Progress>
+        get() = _loadingProgress
+
+    private var _subject: Subject? = null
+
+    init {
+        _loadingProgress.value = Loadable.Progress.PROGRESS_ON_HALF_OF_HALF
+        subjectsDao.getById(
+            screen.subjectId,
+            { subject ->
+                _loadingProgress.value = Loadable.Progress.PROGRESS_ON_HALF
+                if (subject != null) {
+                    _name.value = subject.name.value
+                    _description.value = subject.description
+                    _subject = subject
+                    _loadingProgress.value = Loadable.Progress.PROGRESS_ON_END
+                    _state.value = Loadable.State.Loaded
+
+                } else {
+                    viewModelScope.launch {
+                        w("Subject with id '${screen.subjectId}' not found")
+                        navController.navigateUp()
+                        AppConfig.Runtime.alert(
+                            "Can't edit subject",
+                            "Subject with id '${screen.subjectId}' not found"
+                        )
+                    }
+                }
+            },
+            { throwable ->
+                e("Can't find subject to edit", throwable)
+                viewModelScope.launch {
+                    navController.navigateUp()
+                }
+            }
+        )
+    }
+
+    override fun onAcceptEvent(): Result<Unit> {
+        val oldSubject = _subject ?: return Result.failure(
+            AppError.InvalidStateError(
+                field = "subject",
+                reason = "Editable subject can't be null"
+            )
+        )
+        val newName = convertName() ?: return Result.failure(
+            AppError.ValidationError(
+                "Invalid name of student",
+                "name",
+                "Value of name is not matches with its regex"
+            )
+        )
+        if (newName != oldSubject.name || description.value != oldSubject.description) {
+            subjectsDao.update(
+                Subject(oldSubject.id, newName, _description.value),
+                {
+                    i("Update subject $oldSubject to ${Subject(oldSubject.id, newName, _description.value)}")
+                },
+                { error ->
+                    e("Failed to save new subject", error)
+                    when (error) {
+                        is ExposedSQLException -> {
+                            _nameErrorMessage.value = "Subject with name '${_name.value}' already exists"
+                        }
+                    }
+                }
+            )
+        }
+        return Result.success(Unit)
+    }
+}

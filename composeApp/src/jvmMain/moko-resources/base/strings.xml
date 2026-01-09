@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- Screen name strings in EN localization as default -->
+    <string name="screenStudentsName">Students</string>
+    <string name="screenLessonsName">Lessons</string>
+    <string name="screenSubjectsName">Subjects</string>
+    <string name="screenIncomesName">Incomes</string>
+    <string name="screenSettingsName">Settings</string>
+    <string name="screenAddSubjectName">Adding new subject</string>
+    <string name="screenAddStudent">Adding new student</string>
+    <string name="screenAddLessonName">Adding new lesson</string>
+    <string name="screenEditSubjectName">Editing subject</string>
+    <string name="screenEditStudentName">Editing student</string>
+    <string name="screenEditLessonName">Editing lesson</string>
+
+    <!-- Labels name -->
+    <string name="lbl_settings_general">General</string>
+    <string name="lbl_settings_general_locale">Language</string>
+    <string name="lbl_settings_ui">User Interface</string>
+    <string name="lbl_settings_ui_theme">Theme mode</string>
+    <string name="lbl_subject_name">Name of subject</string>
+    <string name="lbl_subject_description">Description of subject</string>
+    <string name="lbl_student_name">Name of student</string>
+    <string name="lbl_monetary_amount">Price of one hour lesson</string>
+    <string name="lbl_monetary_currency">Currency</string>
+    <string name="lbl_student_subjects">Subjects of study</string>
+    <string name="lbl_lessons_calendar">Calendar</string>
+    <string name="lbl_lesson_name">Name of lesson or main theme on it</string>
+    <string name="lbl_lesson_description">Description</string>
+    <string name="lbl_lesson_student">Student for whom the lesson is conducted</string>
+    <string name="lbl_lesson_subject">Subject on which the lesson is conducted</string>
+    <string name="lbl_lesson_is_conducted">Has the lesson already been conducted</string>
+
+    <!-- Errors messages -->
+    <string name="error_invalid_name_of_entity">The name should be capitalized. Each word can contain letters and numbers.</string>
+
+    <!-- Formats labels -->
+    <string name="flbl_hour_cost_info">%s per hour</string>
+</resources>
